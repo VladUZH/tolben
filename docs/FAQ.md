@@ -22,10 +22,14 @@ you keep writing, and Replace is an ordinary CodeMirror transaction, so one undo
 
 Setup downloads two things. Nothing else ever goes out.
 
-| | What | Size | From |
-|---|---|---|---|
-| Model | `Qwen3.5-2B-Q6_K.gguf` | 1,556,390,368 bytes | huggingface.co, `lmstudio-community/Qwen3.5-2B-GGUF` |
-| Server | one `llama.cpp` build `b10760` archive for your platform | 11,072,707 – 18,373,088 bytes | github.com, `ggml-org/llama.cpp` releases |
+| Artefact | Size | From |
+|---|---|---|
+| The model, `Qwen3.5-2B-Q6_K.gguf` | 1.5 GB | huggingface.co |
+| A `llama.cpp` build `b10760` server for your platform | 11–19 MB | github.com |
+
+The model comes from `lmstudio-community/Qwen3.5-2B-GGUF`, the server from
+`ggml-org/llama.cpp` releases. The sizes above are rounded for reading; the exact byte
+count of each is recorded in the manifest below and checked against the bytes on disk.
 
 Both are pinned by sha256 in `obsidian-plugin/runtime/manifest.json` — the model at
 `49e219c5…a520f8`, and one hash per platform for the server. The rule the provisioner is

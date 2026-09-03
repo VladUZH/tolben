@@ -1,7 +1,7 @@
-# Tolben — a local blue-underline rewrite engine
+# Tolben
 
-A writing checker that refuses any rewrite it cannot prove keeps your meaning, running
-entirely on your own machine.
+**An Obsidian plugin that proposes clearer sentences using a language model running on
+your own machine, and refuses any rewrite it cannot prove keeps your meaning.**
 
 Finish a sentence with `.`, `!` or `?` and only that sentence is checked. Words that
 would change get a blue underline; hover one for the full proposed sentence with
@@ -33,12 +33,14 @@ nowhere to run one.
 Nothing is downloaded until you press the button in the setup pane, and the pane lists
 every URL, byte count and sha256 first. Two artefacts:
 
-| | What | Size | From |
-|---|---|---|---|
-| Model | `Qwen3.5-2B-Q6_K.gguf` | 1,556,390,368 bytes | Hugging Face, `lmstudio-community/Qwen3.5-2B-GGUF` |
-| Server | one `llama.cpp` **b10760** archive for your platform | 11–19 MB | GitHub, `ggml-org/llama.cpp` releases |
+| Artefact | Size | From |
+|---|---|---|
+| The model, `Qwen3.5-2B-Q6_K.gguf` | 1.5 GB | Hugging Face |
+| A `llama.cpp` **b10760** server build for your platform | 11–19 MB | GitHub |
 
-Both are pinned by sha256 in `obsidian-plugin/runtime/manifest.json`, and **an artefact
+The model comes from `lmstudio-community/Qwen3.5-2B-GGUF` and the server from
+`ggml-org/llama.cpp` releases. Both are pinned by sha256 in
+`obsidian-plugin/runtime/manifest.json`, down to the exact byte count, and **an artefact
 whose hash is not recorded there is not fetched at all** — not fetched and checked, not
 fetched. The hash is taken over the bytes on disk, and a download stays a `.part` file
 until it matches.
