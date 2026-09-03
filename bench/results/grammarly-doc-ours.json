@@ -1,0 +1,596 @@
+[
+  {
+    "sentence": "Approximately 20 percent of the External Tank structure was recovered after the accident and the majority of the pieces were from the intertank and liquid hydrogen tank.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "word-substituted",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 1310
+  },
+  {
+    "sentence": "There was evidence that during the breakup sequence, the right Solid Rocket Booster struck the outboard end of the Orbiter's right wing and right outboard elevon.",
+    "replacement": "There was evidence that the Solid Rocket Booster struck the Orbiter's right wing and right outboard elevon during the breakup sequence.",
+    "reason": "Removes redundant 'right' before 'outboard' elevon.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 693
+  },
+  {
+    "sentence": "The midjoint load was 13.9 x 10 6 pounds, while the aft joint showed 13.8 x 10 6 pounds load.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "numbers-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 948
+  },
+  {
+    "sentence": "The spacecraft body structure consists of a payload structure and a spacecraft structure.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "word-substituted",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 491
+  },
+  {
+    "sentence": "TDRS telemetry during the launch phase was transmitted by electrical cable to the IUS and interleaved with upper stage data.",
+    "replacement": "TDRS telemetry was transmitted by electrical cable to the IUS and interleaved with upper stage data.",
+    "reason": "Removes the redundant subject 'TDRS telemetry'.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 670
+  },
+  {
+    "sentence": "This would correlate to a postulated radial crack through the grain spanning a 90-degree, pie-shaped wedge of the solid.",
+    "replacement": "This would correlate to a postulated radial crack through the grain spanning a 90-degree wedge of the solid.",
+    "reason": "Removes redundant phrasing 'pie-shaped' which is implied by '90-degree' in technical contexts.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 794
+  },
+  {
+    "sentence": "The thermal protection subsystem is the insulation applied to the tank's exterior.",
+    "replacement": null,
+    "reason": null,
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 475
+  },
+  {
+    "sentence": "The joint deflection analysis established time histories for gap openings for primary and secondary O-rings for all field joints.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "quantifier-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 739
+  },
+  {
+    "sentence": "For STS 51-L, the difference in the true diameters of the surfaces of tang and clevis measured at the factory was 0.008 inches.",
+    "replacement": "For STS 51-L, the difference in true diameters of the surfaces of tang and clevis measured at the factory was 0.008 inches.",
+    "reason": "Removes redundant wording.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 688
+  },
+  {
+    "sentence": "Guidance, navigation and control subsystems data were reviewed, and it appears that the subsystems performed properly.",
+    "replacement": "Guidance, navigation, and control subsystems data were reviewed, and it appears the subsystems performed properly.",
+    "reason": "Removes redundant 'and' connecting the three subsystems.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 614
+  },
+  {
+    "sentence": "The loads measured on the struts are good indicators of stress since all loads between Shuttle elements are carried through the struts.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "dropped-content",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 806
+  },
+  {
+    "sentence": "Preflight data gave no evidence of any propellant leaks (fuel or oxidizer) in the aft compartment.",
+    "replacement": null,
+    "reason": null,
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 489
+  },
+  {
+    "sentence": "In the aft flight deck, the control and display panels supplied by the Orbiter provided the avionics and power interfaces for TDRS/IUS.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "reason-contradicts-action",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 617
+  },
+  {
+    "sentence": "The Commission found that all payload elements had been certified safe for flight, and records for integration of hardware met engineering requirements.",
+    "replacement": null,
+    "reason": null,
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 416
+  },
+  {
+    "sentence": "In addition, as the gap opens between the O-ring and tang surface allowing pressure bypass, O-ring actuation is further inhibited.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "tense-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 743
+  },
+  {
+    "sentence": "If that is the whole story the hard gate is close to free, which would be worth knowing.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "certainty-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 661
+  },
+  {
+    "sentence": "The failure is therefore intermittent and load-related, and it is a property of the WebKit content process rather than of the search.",
+    "replacement": "The failure is therefore intermittent and load-related, a property of the WebKit content process rather than the search.",
+    "reason": "Removes redundant 'and it is' to reduce wordiness.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 617
+  },
+  {
+    "sentence": "The residue is real and what follows sizes it; it is not a scenario a user walks into by using the product.",
+    "replacement": "The residue is real and what follows sizes it; it is not a scenario a user walks into.",
+    "reason": "Removes redundant phrasing 'what follows sizes it' and 'a user walks into' to clarify the causal relationship.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 769
+  },
+  {
+    "sentence": "Recorded so the silence is legible rather than looking like an omission.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "content-dropped",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 634
+  },
+  {
+    "sentence": "The honest outcome is that this surface is Review for start-of-element insertions, which is what the matrix should publish.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "name-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 626
+  },
+  {
+    "sentence": "The focus residue is the widest window left on the apply path, and it was unstated anywhere before this sweep, not hidden, just never asked.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "quantifier-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 805
+  },
+  {
+    "sentence": "Can we push our 2pm to tomorrow morning, something just came up on my end and I don't want to rush the walkthrough.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "quantifier-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 804
+  },
+  {
+    "sentence": "Quick one, does 10:30 still work for you or should we move it given Nikki's out until Thursday?",
+    "replacement": null,
+    "reason": null,
+    "rejection": "name-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 788
+  },
+  {
+    "sentence": "Status on the Q3 migration, we're basically on track except the reporting layer which is running about two days behind.",
+    "replacement": "Status on the Q3 migration: we're on track except for the reporting layer, which is running about two days behind.",
+    "reason": "Removes redundant 'we're' and 'basically' to improve clarity and conciseness.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 799
+  },
+  {
+    "sentence": "Hey Daniel, could you send over the latest vendor contract when you get a sec, I need it before the call at 3.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "question-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 668
+  },
+  {
+    "sentence": "Sorry for the late reply on this, it slipped through the cracks with everything going on this week.",
+    "replacement": "Sorry for the late reply; it slipped through the cracks with everything going on this week.",
+    "reason": "Removes redundant 'on' before 'this' to clarify the prepositional phrase.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 700
+  },
+  {
+    "sentence": "We're blocked on the staging deploy because the credentials Liz sent over aren't working for anyone on the team.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "name-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 680
+  },
+  {
+    "sentence": "Confirming we're going with option B for the vendor migration, everyone signed off in this morning's standup.",
+    "replacement": null,
+    "reason": null,
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 444
+  },
+  {
+    "sentence": "Following up again on the budget approval from last week, we can't move forward on procurement without it.",
+    "replacement": "Following up on the budget approval from last week, we cannot move forward on procurement without it.",
+    "reason": "Removes redundant 'again' and 'can't' for a more direct statement.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 677
+  },
+  {
+    "sentence": "I'm heading out on leave Friday so I'm handing the onboarding doc over to Nikki, she's already looped in on the details.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "dropped-content",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 862
+  },
+  {
+    "sentence": "Flagging that the current timeline assumes the vendor responds by Wednesday, which feels optimistic given their track record.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "content-dropped",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 415
+  },
+  {
+    "sentence": "Closing this ticket out now, the fix went live overnight and nobody's reported the issue again since.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "quantifier-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 691
+  },
+  {
+    "sentence": "Can we bump the retro to Monday instead, half the team is out sick and it feels pointless without them.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "negation-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 649
+  },
+  {
+    "sentence": "Just a heads up the design review ran long so the mockups won't be ready until end of day tomorrow.",
+    "replacement": "Just a heads up the design review ran long, so the mockups won't be ready until tomorrow.",
+    "reason": "Removes redundant 'end of day' to shorten the inflated phrase.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 657
+  },
+  {
+    "sentence": "Do you have bandwidth this week to take a look at the invoicing bug, it's low priority but it's been sitting a while.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "dropped-content",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 636
+  },
+  {
+    "sentence": "Really sorry about the delay on the proposal, I underestimated how long the legal review would take.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "name-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 603
+  },
+  {
+    "sentence": "The blocker is that finance hasn't confirmed the budget code yet, so I can't actually submit the purchase order.",
+    "replacement": "The blocker is that finance hasn't confirmed the budget code yet, so I can't submit the purchase order.",
+    "reason": "Removes redundant 'actually'.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 593
+  },
+  {
+    "sentence": "To confirm, we're sunsetting the old dashboard on the 1st and pointing everyone to the new one, right?",
+    "replacement": null,
+    "reason": null,
+    "rejection": "question-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 723
+  },
+  {
+    "sentence": "Chasing this one more time, any update on the signed NDA from Meridian before our call tomorrow?",
+    "replacement": null,
+    "reason": null,
+    "rejection": "name-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 583
+  },
+  {
+    "sentence": "Handing this over to Daniel while I'm out, he's got context on the client escalation and the open action items.",
+    "replacement": "Handing this over to Daniel while I'm out, he has context on the client escalation and open action items.",
+    "reason": "Removes redundant phrasing 'got' and 'the' to improve conciseness.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 798
+  },
+  {
+    "sentence": "Wanted to flag a risk early, if the API rate limits kick in during peak hours the whole checkout flow could stall.",
+    "replacement": "Wanted to flag a risk early if the API rate limits kick in during peak hours, as the whole checkout flow could stall.",
+    "reason": "Removes redundant 'the' before 'whole' to improve clarity and reduce wordiness.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 752
+  },
+  {
+    "sentence": "Wrapping up the audit today, everything reconciled except one small discrepancy I'll note separately.",
+    "replacement": "Wrapping up the audit today, everything reconciled except one small discrepancy, which I'll note separately.",
+    "reason": "Removes redundant phrasing 'everything reconciled' and 'except one small discrepancy' to clarify the scope of the note.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 814
+  },
+  {
+    "sentence": "Would it be possible to shift the kickoff to next week, the client asked for more time to review the scope.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "certainty-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 854
+  },
+  {
+    "sentence": "Quick status, the migration scripts are done but I still need to validate them against the staging dataset.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "name-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 439
+  },
+  {
+    "sentence": "Would you mind pulling the latest numbers from the dashboard before the leadership sync, mine seem stale.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "certainty-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 585
+  },
+  {
+    "sentence": "Apologies, I should have flagged this sooner but the vendor pushed their delivery date back by a full week.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "reason-contradicts-action",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 699
+  },
+  {
+    "sentence": "We're stuck waiting on the security review before we can ship, and nobody's given us a timeline for it yet.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "dropped-content",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 526
+  },
+  {
+    "sentence": "Just to be clear, we decided to keep the current pricing tiers and revisit after the pilot wraps up in October.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "quantifier-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 607
+  },
+  {
+    "sentence": "Circling back on this since I haven't heard anything, is there someone else I should be talking to instead?",
+    "replacement": "Circling back on this since I haven't heard anything, should I talk to someone else instead?",
+    "reason": "Removes redundant 'I' and 'someone' while preserving the original meaning and tone.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 697
+  },
+  {
+    "sentence": "I'm passing the client relationship to Liz starting Monday, she'll reach out directly to introduce herself.",
+    "replacement": "I'm passing the client relationship to Liz starting Monday, who'll reach out directly to introduce herself.",
+    "reason": "Replaces a nominalized subject ('she') with a direct pronoun ('who') for clarity.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 737
+  },
+  {
+    "sentence": "One risk worth calling out, our only person who understands the legacy billing system is leaving next month.",
+    "replacement": "One risk worth calling out is that our only person who understands the legacy billing system is leaving next month.",
+    "reason": "Removes redundant 'our' and 'the' to reduce wordiness while preserving meaning.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 679
+  },
+  {
+    "sentence": "Due to the late release, we cannot show a demo.",
+    "replacement": "Because of the late release, we cannot show a demo.",
+    "reason": "Replaces the wordy 'due to the fact that' phrase with a direct causal connector.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 631
+  },
+  {
+    "sentence": "Without paying a lot of attention to the fact, all the data indicates the level of intelligence.",
+    "replacement": "Without paying attention to the fact, all the data indicates the level of intelligence.",
+    "reason": "Removes redundant wording.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 491
+  },
+  {
+    "sentence": "Because there is no electricity.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "dropped-content",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 398
+  }
+]

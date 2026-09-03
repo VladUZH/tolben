@@ -1,0 +1,456 @@
+{
+  "schemaVersion": 1,
+  "name": "clarity-holdout-3",
+  "rows": [
+    {
+      "id": "h3-r01",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "nominalization",
+      "source": "The panel gave approval to the revised layout.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'approved'."
+    },
+    {
+      "id": "h3-r02",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "nominalization",
+      "source": "Legal performed a check of the indemnity clause.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'checked'."
+    },
+    {
+      "id": "h3-r03",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "inflated-phrase",
+      "source": "The rig is not able to run without coolant.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'cannot'."
+    },
+    {
+      "id": "h3-r04",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "inflated-phrase",
+      "source": "We inspect the anchors on a quarterly basis.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'quarterly'."
+    },
+    {
+      "id": "h3-r05",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "redundancy",
+      "source": "The crew reached a mutual agreement about the rota.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Agreement' is already mutual."
+    },
+    {
+      "id": "h3-r06",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "redundancy",
+      "source": "She summarised the briefest possible summary of the fault.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Redundant wording."
+    },
+    {
+      "id": "h3-r07",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "expletive-construction",
+      "source": "There are three bolts that require replacement.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Prefer 'Three bolts require replacement.'"
+    },
+    {
+      "id": "h3-r08",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "agreement",
+      "source": "The set of gauges were recalibrated in June.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Set' is singular."
+    },
+    {
+      "id": "h3-r09",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "agreement",
+      "source": "Each of the doors need a new hinge.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Each' takes a singular verb."
+    },
+    {
+      "id": "h3-r10",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "article",
+      "source": "She ordered replacement seal from the depot.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "The noun needs an article."
+    },
+    {
+      "id": "h3-r11",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "confused-word",
+      "source": "The delay effected our shipping window.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Affected' is the verb."
+    },
+    {
+      "id": "h3-r12",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "confused-word",
+      "source": "Your right about the tolerance figure.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'You're' is the contraction."
+    },
+    {
+      "id": "h3-r13",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "number-consistency",
+      "source": "Both pump were serviced last month.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Both' requires the plural noun."
+    },
+    {
+      "id": "h3-r14",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "capitalization",
+      "source": "the crew arrives on monday to reset the press.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Capitalize the opener and the weekday."
+    },
+    {
+      "id": "h3-r15",
+      "partition": "holdout-3",
+      "kind": "clarity",
+      "issueClass": "punctuation",
+      "source": "Pack tape,labels, and a marker.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Add the missing space after the comma."
+    },
+    {
+      "id": "h3-k01",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The pump seized after the bearing overheated.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k02",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Ines filed the variance request last Thursday.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k03",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The mixer runs at 240 rpm during the second stage.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k04",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Traffic delayed the delivery until Wednesday morning.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k05",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The audit covers invoices issued after 1 April 2027.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k06",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Do not connect the probe while the rig is energised.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k07",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The parser rejects records without a timestamp.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k08",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Humidity above 70% slows the curing process.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k09",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Ravi documented the failure in the incident log.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k10",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The bolt sheared under the third load cycle.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k11",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Which supplier quoted the shorter lead time?",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k12",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The coating protects the frame from salt spray.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k13",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "We keep the spare rotor in the east store.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k14",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The report cites nine sources and one dataset.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k15",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Freezing rain closed the northern approach road.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k16",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The plant runs two shifts on weekdays.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k17",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Her team wrote the migration in three weeks.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k18",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The gauge reads zero when the line is empty.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k19",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "No one has opened the sealed carton.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k20",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The lab confirmed the sample matched the reference.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k21",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Send the drawings to the fabricator by Monday.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k22",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The alarm sounds if the tank drops below 10%.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k23",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Steel expands more than concrete in summer heat.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k24",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The technician torqued each bolt to 45 Nm.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k25",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Our supplier ships from Rotterdam every other week.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k26",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The switch failed silently, so nobody noticed.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k27",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Maria measured the deflection at three points.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k28",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The manual omits the shutdown sequence entirely.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k29",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The trial ended early because funding stopped.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h3-k30",
+      "partition": "holdout-3",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Cold weather thickens the hydraulic oil.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    }
+  ]
+}

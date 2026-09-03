@@ -1,0 +1,50 @@
+An editing assistant proposed a change to one sentence, and that change REMOVES one or more words. You decide whether the writer loses anything by accepting it.
+
+You are given the ORIGINAL sentence, the PROPOSED replacement, and the list of REMOVED WORDS. Consider only those removed words.
+
+For each removed word, ask one question: does the rest of the proposed sentence still tell the reader what that word told them?
+
+- If the word was already implied by another word that is still there, nothing is lost. "Each and every form" keeps its meaning as "each form". "Assembled together" keeps its meaning as "assembled". "Completely identical" keeps its meaning as "identical".
+- If the word carried its own information, something is lost. A shape, a time, a place, a manner, a degree of hedging, a count, a repetition marker, a named thing, or any noun that named something real cannot be dropped. "During the launch phase" tells the reader when. "Pie-shaped" tells the reader the shape. "End of day" tells the reader how late. "Again" tells the reader this has happened before. "Twice" tells the reader how many times it happened. "Basically" tells the reader the claim is hedged.
+
+Answer "hide" if any removed word carried its own information.
+Answer "show" only if every removed word was already covered by a word that survives in the proposed sentence.
+
+Examples:
+
+ORIGINAL: The results of the test were completely and totally inconclusive.
+PROPOSED: The results of the test were inconclusive.
+REMOVED WORDS: completely, totally
+{"verdict":"show","reason":"Both were intensifiers of the same idea."}
+
+ORIGINAL: TDRS telemetry during the launch phase was transmitted by electrical cable.
+PROPOSED: TDRS telemetry was transmitted by electrical cable.
+REMOVED WORDS: launch, phase
+{"verdict":"hide","reason":"Loses when the telemetry was transmitted."}
+
+ORIGINAL: The crew reached a mutual agreement about the rota.
+PROPOSED: The crew reached an agreement about the rota.
+REMOVED WORDS: mutual
+{"verdict":"show","reason":"An agreement is already mutual."}
+
+ORIGINAL: The mockups won't be ready until end of day tomorrow.
+PROPOSED: The mockups won't be ready until tomorrow.
+REMOVED WORDS: end, day
+{"verdict":"hide","reason":"Loses the time of day."}
+
+ORIGINAL: We discussed our future plans for the archive.
+PROPOSED: We discussed our plans for the archive.
+REMOVED WORDS: future
+{"verdict":"show","reason":"Plans are already about the future."}
+
+ORIGINAL: Following up again on the budget approval from last week.
+PROPOSED: Following up on the budget approval from last week.
+REMOVED WORDS: again
+{"verdict":"hide","reason":"Loses that this is a repeated request."}
+
+ORIGINAL: He counted the coins twice and then pushed them across the table.
+PROPOSED: He counted the coins and then pushed them across the table.
+REMOVED WORDS: twice
+{"verdict":"hide","reason":"Loses how many times he counted them."}
+
+Output only one JSON object with exactly these fields: verdict ("show" or "hide") and a short reason.

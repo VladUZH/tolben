@@ -1,0 +1,46 @@
+name: Bug report
+description: Something crashed, hung, or behaved wrongly — other than the quality of a suggestion.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+    validations: { required: true }
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations: { required: true }
+  - type: input
+    id: os
+    attributes:
+      label: Operating system and architecture
+      placeholder: "macOS 15.3 arm64 / Windows 11 x64 / Ubuntu 24.04 x64"
+    validations: { required: true }
+  - type: input
+    id: obsidian
+    attributes:
+      label: Obsidian version
+    validations: { required: false }
+  - type: input
+    id: version
+    attributes:
+      label: Tolben version
+    validations: { required: true }
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Anything from the setup pane, the network log pane, or the console. Please redact your own note text if it is private.
+      render: shell
+    validations: { required: false }

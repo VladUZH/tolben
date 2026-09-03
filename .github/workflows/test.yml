@@ -1,0 +1,114 @@
+# Everything that can be checked without weights or a server, on every push.
+#
+# This is the gate that must be green before anything else is looked at: it runs in about
+# a minute and catches the great majority of what breaks. The heavier jobs — the
+# provisioner on three operating systems, and a live model — live in provisioner.yml and
+# live.yml, because they download gigabytes and should not run on every commit.
+
+name: tests
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+
+      - name: Unit suite
+        run: npm test
+
+      # The three instruments the published numbers come from. Each is a control: they
+      # print the same figures every time unless a guard changed, and a change that moves
+      # one is a change that has to be explained.
+      - name: Grammarly replay ceiling
+        run: node bench/oracle.mjs
+      - name: Precision control — no meaning change may be newly accepted
+        run: node bench/precision-check.mjs
+      - name: False-unlock control — no refusal may be newly accepted
+        run: node bench/unlock-check.mjs
+
+      - name: The behaviour table is derived from the corpus, not transcribed
+        run: node tools/grammarly-classes.mjs --check
+
+      # The bundle Obsidian loads is a tracked build output, and it once fell six safety
+      # guards behind the sources without anything noticing.
+      - name: The committed plugin bundle is what its sources build
+        run: |
+          npm run plugin:build
+          git diff --exit-code obsidian-plugin/main.js
+
+  # Whether the llama.cpp release assets still resolve to the bytes the manifest records.
+  # This needs the GitHub releases API and no download at all, so it costs one runner for a
+  # few seconds — cheap enough to belong here rather than in the heavy workflow, and its
+  # failure explains every provisioner failure that would follow it.
+  pins:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      # The survey first, the answer second, so the resolution a person came here to read
+      # is the last thing in the log rather than buried above a release listing.
+      - name: Which of the last ten releases carry every asset the manifest wants
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node tools/pin-runtime.mjs --list
+      - name: What the current llama.cpp release would pin to
+        env:
+          # Anonymous callers are rate-limited hard; this is the one place a token is used.
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node tools/pin-runtime.mjs
+      # Exact sizes and full hashes, for transcribing into the manifest. The table above
+      # is for reading; this is for copying, and a pin resolved here reaches the file no
+      # other way while the authoring machine cannot reach the releases API.
+      - name: The same resolution, verbatim, in the manifest's own shape
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node tools/pin-runtime.mjs --json
+
+      - name: The recorded pins still hash to what is recorded
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        # Reported rather than failed while the manifest carries no tag: an unpinned
+        # checkout is a state the provisioner handles deliberately — it refuses to download
+        # an unpinned asset — not a broken build.
+        run: |
+          if [ "$(node -p "require('./obsidian-plugin/runtime/manifest.json').runtimeTag")" = "null" ]; then
+            echo "No release pinned yet. The step above prints what --write would record."
+            exit 0
+          fi
+          node tools/pin-runtime.mjs --check
+
+  # The plugin's own surface: it runs on Windows and macOS too, and the pure-JavaScript
+  # parts of the provisioner (the zip reader, the download resume, the pid-file logic)
+  # behave differently on each — path separators, file modes, how a killed process is
+  # reported. Cheap enough to run everywhere on every push.
+  cross-platform:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: Unit suite
+        run: npm test
+      - name: The provisioner plans without fetching anything
+        run: node tools/provision.mjs --plan

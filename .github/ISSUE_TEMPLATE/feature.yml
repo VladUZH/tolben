@@ -1,0 +1,26 @@
+name: Feature request
+description: Suggest a capability or a change in behaviour.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please read the "The bar" section of CONTRIBUTING.md first. A change that makes the
+        product more capable at the cost of the meaning-preservation guarantee is unlikely
+        to be accepted, however useful it would be.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to do that you cannot do today?
+    validations: { required: true }
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like to happen
+    validations: { required: true }
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+    validations: { required: false }

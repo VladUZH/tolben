@@ -1,0 +1,35 @@
+name: Wrong refusal — a good rewrite was blocked
+description: The tool refused or withheld a rewrite that did preserve the meaning.
+labels: ["wrong refusal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Refusals are deliberate, and some are the correct trade. This template is for the
+        ones that are not — where the meaning was genuinely preserved and the suggestion
+        should have reached you.
+  - type: textarea
+    id: original
+    attributes:
+      label: The original sentence
+      render: text
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes:
+      label: The rewrite you expected
+      description: If you know what it should have suggested, put it here.
+      render: text
+    validations: { required: false }
+  - type: textarea
+    id: shown
+    attributes:
+      label: What happened instead
+      description: No underline at all, or an underline whose card gave a reason? Quote the reason if there was one.
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes:
+      label: Tolben version
+      placeholder: "1.0.0"
+    validations: { required: true }

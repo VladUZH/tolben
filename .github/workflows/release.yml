@@ -1,0 +1,73 @@
+# Build a release from a tag.
+#
+# Obsidian installs a plugin from three files in a GitHub Release: main.js, manifest.json
+# and styles.css, attached as loose assets rather than zipped, because that is what BRAT
+# and the community-plugin installer look for. LICENSE and NOTICE ride along so that what
+# a person downloads carries its own terms.
+#
+# The tag is pushed by a person, deliberately. Everything here is mechanical once it is.
+
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+
+      # A release is not the place to discover a failing suite.
+      - name: The suite must pass before anything is published
+        run: npm test
+
+      - name: The tag must be the version in the manifest
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          manifest=$(node -p "require('./obsidian-plugin/manifest.json').version")
+          if [ "$tag" != "$manifest" ]; then
+            echo "tag $GITHUB_REF_NAME does not match manifest version $manifest"
+            exit 1
+          fi
+          versions=$(node -p "Object.keys(require('./obsidian-plugin/versions.json')).includes('$manifest')")
+          if [ "$versions" != "true" ]; then
+            echo "versions.json has no entry for $manifest, so Obsidian will not offer it"
+            exit 1
+          fi
+
+      - name: Rebuild the bundle and hold it to the committed one
+        run: |
+          npm run plugin:build
+          git diff --exit-code obsidian-plugin/main.js
+
+      - name: Assemble the assets
+        run: |
+          mkdir -p dist
+          cp obsidian-plugin/main.js obsidian-plugin/manifest.json obsidian-plugin/styles.css dist/
+          cp LICENSE NOTICE dist/
+          # A hash for each, so someone can check what they downloaded against what CI
+          # built, which is the same courtesy the plugin extends to its own downloads.
+          (cd dist && sha256sum * > SHA256SUMS)
+          cat dist/SHA256SUMS
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/main.js
+            dist/manifest.json
+            dist/styles.css
+            dist/LICENSE
+            dist/NOTICE
+            dist/SHA256SUMS
+          generate_release_notes: true
+          fail_on_unmatched_files: true

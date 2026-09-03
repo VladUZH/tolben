@@ -1,0 +1,607 @@
+{
+ "schemaVersion": 1,
+ "name": "torture",
+ "description": "Adversarial original/replacement pairs for the meaning-preservation gate, each with the outcome a reader should get. Refusal pairs change meaning in a way some guard must catch; `surfaced` pairs are ordinary clarity edits that must still reach the writer, so the corpus cannot be satisfied by refusing everything. Six of them passed the gate before 2026-09-02 and are the reason the guards in tests/gate-fixes.test.mjs exist.",
+ "policy": "Each pair is put through analyzeSentence with an engine that returns `replacement` verbatim and a verifier that always answers 'still implied' — the most permissive configuration the product ships. A pair recorded as refused is therefore refused deterministically, whatever the verifier would say. `reason` is the label the pipeline gives; a change to it is a relabelling to review, not a regression.",
+ "counts": {
+  "total": 67,
+  "refused": 52,
+  "surfaced": 15
+ },
+ "pairs": [
+  {
+   "id": "t01",
+   "class": "role-swap",
+   "source": "The auditor reviewed the vendor's controls.",
+   "replacement": "The vendor reviewed the auditor's controls.",
+   "expect": "refused",
+   "note": "The pair from the review: the sentence now says the opposite.",
+   "reason": "order-changed"
+  },
+  {
+   "id": "t02",
+   "class": "role-swap",
+   "source": "The supplier invoiced the contractor.",
+   "replacement": "The contractor invoiced the supplier.",
+   "expect": "refused",
+   "note": "Same exchange without a possessive.",
+   "reason": "order-changed"
+  },
+  {
+   "id": "t03",
+   "class": "role-swap",
+   "source": "The landlord sued the tenant.",
+   "replacement": "The tenant sued the landlord.",
+   "expect": "refused",
+   "note": "Who sued whom is the whole content of the sentence.",
+   "reason": "order-changed"
+  },
+  {
+   "id": "t04",
+   "class": "role-swap",
+   "source": "The buyer indemnifies the seller.",
+   "replacement": "The seller indemnifies the buyer.",
+   "expect": "refused",
+   "note": "Reverses the liability.",
+   "reason": "order-changed"
+  },
+  {
+   "id": "t05",
+   "class": "role-swap",
+   "source": "The parent company guarantees the subsidiary's debts.",
+   "replacement": "The subsidiary guarantees the parent company's debts.",
+   "expect": "refused",
+   "note": "Reverses who is on the hook.",
+   "reason": "order-changed"
+  },
+  {
+   "id": "t06",
+   "class": "bound",
+   "source": "More than 40% of the tests failed.",
+   "replacement": "40% of the tests failed.",
+   "expect": "refused",
+   "note": "A floor became a point.",
+   "reason": "quantifier-changed"
+  },
+  {
+   "id": "t07",
+   "class": "bound",
+   "source": "Less than half the team replied.",
+   "replacement": "Half the team replied.",
+   "expect": "refused",
+   "note": "A ceiling became a point.",
+   "reason": "quantifier-changed"
+  },
+  {
+   "id": "t08",
+   "class": "bound",
+   "source": "Fewer than ten tests failed.",
+   "replacement": "Ten tests failed.",
+   "expect": "refused",
+   "note": "A ceiling became a point.",
+   "reason": "quantifier-changed"
+  },
+  {
+   "id": "t09",
+   "class": "bound",
+   "source": "Up to twelve users can join the session.",
+   "replacement": "Twelve users can join the session.",
+   "expect": "refused",
+   "note": "A maximum became a fact.",
+   "reason": "quantifier-changed"
+  },
+  {
+   "id": "t10",
+   "class": "bound",
+   "source": "No more than three retries are allowed.",
+   "replacement": "Three retries are allowed.",
+   "expect": "refused",
+   "note": "A cap became an allowance.",
+   "reason": "quantifier-changed"
+  },
+  {
+   "id": "t11",
+   "class": "bound",
+   "source": "40% of the tests failed.",
+   "replacement": "More than 40% of the tests failed.",
+   "expect": "refused",
+   "note": "A bound invented from nothing.",
+   "reason": "quantifier-changed"
+  },
+  {
+   "id": "t12",
+   "class": "bound",
+   "source": "At least five reviewers must approve the change.",
+   "replacement": "Five reviewers must approve the change.",
+   "expect": "refused",
+   "note": "A minimum became an exact count.",
+   "reason": "quantifier-changed"
+  },
+  {
+   "id": "t13",
+   "class": "bound",
+   "source": "We were more than happy to provide assistance with the request.",
+   "replacement": "We were more than happy to assist with the request.",
+   "expect": "surfaced",
+   "note": "'more than happy' bounds nothing, so the bound guard must stay silent while the nominalization is unpacked."
+  },
+  {
+   "id": "t13b",
+   "class": "bound",
+   "source": "The decision is up to the steering group at this point in time.",
+   "replacement": "The decision is up to the steering group now.",
+   "expect": "surfaced",
+   "note": "'up to the steering group' bounds nothing."
+  },
+  {
+   "id": "t14",
+   "class": "direction",
+   "source": "Run the migration before the deploy starts.",
+   "replacement": "Run the migration when the deploy starts.",
+   "expect": "refused",
+   "note": "Schedules a different thing.",
+   "reason": "direction-changed"
+  },
+  {
+   "id": "t15",
+   "class": "direction",
+   "source": "Check the log when the meeting starts.",
+   "replacement": "Check the log before the meeting starts.",
+   "expect": "refused",
+   "note": "Same exchange the other way.",
+   "reason": "direction-changed"
+  },
+  {
+   "id": "t16",
+   "class": "direction",
+   "source": "Log the result while the job runs.",
+   "replacement": "Log the result once the job runs.",
+   "expect": "refused",
+   "note": "During becomes after.",
+   "reason": "direction-changed"
+  },
+  {
+   "id": "t17",
+   "class": "direction",
+   "source": "Archive the build after the release ships.",
+   "replacement": "Archive the build once the release ships.",
+   "expect": "refused",
+   "note": "After becomes at the moment of.",
+   "reason": "direction-changed"
+  },
+  {
+   "id": "t18",
+   "class": "direction",
+   "source": "The alert fires before the threshold is reached.",
+   "replacement": "The alert fires after the threshold is reached.",
+   "expect": "refused",
+   "note": "The original before/after pair.",
+   "reason": "direction-changed"
+  },
+  {
+   "id": "t19",
+   "class": "direction",
+   "source": "The job runs once a day and the report is generated at the end of the day.",
+   "replacement": "The job runs once a day and the report is generated at day's end.",
+   "expect": "surfaced",
+   "note": "'once a day' is a frequency, not a subordinator."
+  },
+  {
+   "id": "t20",
+   "class": "scope",
+   "source": "Hold the release until Friday.",
+   "replacement": "Hold the release Friday.",
+   "expect": "refused",
+   "note": "A deadline became a date.",
+   "reason": "information-dropped"
+  },
+  {
+   "id": "t21",
+   "class": "scope",
+   "source": "The job runs unless the queue is empty.",
+   "replacement": "The job runs if the queue is empty.",
+   "expect": "refused",
+   "note": "The condition is inverted.",
+   "reason": "information-dropped"
+  },
+  {
+   "id": "t22",
+   "class": "scope",
+   "source": "Everyone except the intern signed off.",
+   "replacement": "Everyone signed off.",
+   "expect": "refused",
+   "note": "Contradicts the source outright.",
+   "reason": "information-dropped"
+  },
+  {
+   "id": "t23",
+   "class": "scope",
+   "source": "She used her own laptop.",
+   "replacement": "She used her laptop.",
+   "expect": "refused",
+   "note": "Gives up whose laptop it is.",
+   "reason": "information-dropped"
+  },
+  {
+   "id": "t24",
+   "class": "scope",
+   "source": "Only the lead may approve it.",
+   "replacement": "The lead may approve it.",
+   "expect": "refused",
+   "note": "An exclusive permission became a permission.",
+   "reason": "quantifier-changed"
+  },
+  {
+   "id": "t25",
+   "class": "scope",
+   "source": "The team owns its own runners.",
+   "replacement": "The team owns its runners.",
+   "expect": "refused",
+   "note": "Same loss inside a possessive.",
+   "reason": "information-dropped"
+  },
+  {
+   "id": "t26",
+   "class": "name",
+   "source": "Approximately three hundred rows were affected by the change.",
+   "replacement": "Three hundred rows were affected.",
+   "expect": "refused",
+   "note": "An approximation became exact.",
+   "reason": "quantifier-changed"
+  },
+  {
+   "id": "t27",
+   "class": "name",
+   "source": "Katarina reviewed the unusually long draft before dinner.",
+   "replacement": "Nadia reviewed the long draft before dinner.",
+   "expect": "refused",
+   "note": "A real name substituted.",
+   "reason": "name-changed"
+  },
+  {
+   "id": "t28",
+   "class": "name",
+   "source": "Priya emailed Maya about the schedule.",
+   "replacement": "Maya emailed Priya about the schedule.",
+   "expect": "refused",
+   "note": "Identities kept, roles reversed.",
+   "reason": "name-changed"
+  },
+  {
+   "id": "t29",
+   "class": "name",
+   "source": "The workshop starts on wednesday.",
+   "replacement": "The workshop starts on Wednesday.",
+   "expect": "surfaced",
+   "note": "A capitalisation repair, not a name change."
+  },
+  {
+   "id": "t30",
+   "class": "content-dropped",
+   "source": "The archive is stored offsite, and the index is stored locally.",
+   "replacement": "The archive is stored offsite.",
+   "expect": "refused",
+   "note": "A clause deleted.",
+   "reason": "content-dropped"
+  },
+  {
+   "id": "t31",
+   "class": "content-dropped",
+   "source": "The review was brief, but thorough.",
+   "replacement": "The review was brief and thorough.",
+   "expect": "refused",
+   "note": "A concession became a conjunction.",
+   "reason": "content-dropped"
+  },
+  {
+   "id": "t32",
+   "class": "content-dropped",
+   "source": "Restart the service if the queue stalls.",
+   "replacement": "Restart the service.",
+   "expect": "refused",
+   "note": "An imperative obeyed instead of rewritten.",
+   "reason": "content-dropped"
+  },
+  {
+   "id": "t33",
+   "class": "content-dropped",
+   "source": "We paused the rollout because the metrics regressed.",
+   "replacement": "We paused the rollout.",
+   "expect": "refused",
+   "note": "The reason deleted.",
+   "reason": "content-dropped"
+  },
+  {
+   "id": "t34",
+   "class": "refusal",
+   "source": "The panel came to the conclusion that the request should be denied.",
+   "replacement": "I will not revise it.",
+   "expect": "refused",
+   "note": "The model refused instead of rewriting.",
+   "reason": "instruction-output"
+  },
+  {
+   "id": "t35",
+   "class": "refusal",
+   "source": "The panel came to the conclusion that the request should be denied.",
+   "replacement": "That violates my guidelines.",
+   "expect": "refused",
+   "note": "Policy prose, not a rewrite.",
+   "reason": "instruction-output"
+  },
+  {
+   "id": "t36",
+   "class": "refusal",
+   "source": "The panel came to the conclusion that the request should be denied.",
+   "replacement": "I'm sorry, but I can't help with that.",
+   "expect": "refused",
+   "note": "Apology prose, not a rewrite.",
+   "reason": "instruction-output"
+  },
+  {
+   "id": "t37",
+   "class": "refusal",
+   "source": "The panel came to the conclusion that the request should be denied.",
+   "replacement": "As an AI, I am unable to comply.",
+   "expect": "refused",
+   "note": "Assistant prose, not a rewrite.",
+   "reason": "instruction-output"
+  },
+  {
+   "id": "t38",
+   "class": "refusal",
+   "source": "I am sorry that I cannot provide an estimate at this point in time.",
+   "replacement": "I am sorry that I cannot provide an estimate now.",
+   "expect": "surfaced",
+   "note": "The writer's own apology, genuinely rewritten."
+  },
+  {
+   "id": "t39",
+   "class": "numbers",
+   "source": "The sample froze at -5 °C overnight.",
+   "replacement": "The sample froze at 5 °C overnight.",
+   "expect": "refused",
+   "note": "The sign is part of the quantity.",
+   "reason": "numbers-changed"
+  },
+  {
+   "id": "t40",
+   "class": "protected",
+   "source": "Use the --force flag to bypass the checks.",
+   "replacement": "Use the force flag to bypass the checks.",
+   "expect": "refused",
+   "note": "A protected token altered.",
+   "protectedTerms": [
+    "--force"
+   ],
+   "reason": "protected-token-changed"
+  },
+  {
+   "id": "t40b",
+   "class": "protected",
+   "source": "Run the .env setup script prior to the deploy.",
+   "replacement": "Run the env setup script before the deploy.",
+   "expect": "refused",
+   "note": "A protected token altered inside an otherwise good edit.",
+   "protectedTerms": [
+    ".env"
+   ],
+   "reason": "protected-token-changed"
+  },
+  {
+   "id": "t41",
+   "class": "negation",
+   "source": "The service must never restart during a deploy.",
+   "replacement": "The service must restart during a deploy.",
+   "expect": "refused",
+   "note": "The negation dropped.",
+   "reason": "quantifier-changed"
+  },
+  {
+   "id": "t42",
+   "class": "certainty",
+   "source": "We are fairly confident that the fix will most likely hold.",
+   "replacement": "We are confident the fix will hold.",
+   "expect": "refused",
+   "note": "Hedges removed, certainty invented.",
+   "reason": "certainty-changed"
+  },
+  {
+   "id": "t43",
+   "class": "quantifier",
+   "source": "Nearly every test passed on the first run.",
+   "replacement": "Every test passed on the first run.",
+   "expect": "refused",
+   "note": "A hedge on a universal.",
+   "reason": "certainty-changed"
+  },
+  {
+   "id": "t44",
+   "class": "quantifier",
+   "source": "The cost is about $10 per seat.",
+   "replacement": "The cost is $10 per seat.",
+   "expect": "refused",
+   "note": "An approximation on a price.",
+   "reason": "quantifier-changed"
+  },
+  {
+   "id": "t45",
+   "class": "tense",
+   "source": "The cluster was decommissioned last quarter.",
+   "replacement": "The cluster is decommissioned last quarter.",
+   "expect": "refused",
+   "note": "The tense moved.",
+   "reason": "tense-changed"
+  },
+  {
+   "id": "t46",
+   "class": "question",
+   "source": "Do you have the bandwidth to review this?",
+   "replacement": "You have the bandwidth to review this.",
+   "expect": "refused",
+   "note": "A question became a statement.",
+   "reason": "question-changed"
+  },
+  {
+   "id": "t47",
+   "class": "pronoun",
+   "source": "She approved the design after the review.",
+   "replacement": "He approved the design after the review.",
+   "expect": "refused",
+   "note": "The referent changed.",
+   "reason": "pronoun-changed"
+  },
+  {
+   "id": "t48",
+   "class": "roles",
+   "source": "The outage was caused by the alert.",
+   "replacement": "The outage caused the alert.",
+   "expect": "refused",
+   "note": "A voice change that reversed causality.",
+   "reason": "order-changed"
+  },
+  {
+   "id": "t49",
+   "class": "count-adverb",
+   "source": "He counted the coins twice before locking the drawer.",
+   "replacement": "He counted the coins before locking the drawer.",
+   "expect": "refused",
+   "note": "How many times is not implied by anything left.",
+   "reason": "information-dropped"
+  },
+  {
+   "id": "t50",
+   "class": "conjunct",
+   "source": "The service is fast and reliable under load.",
+   "replacement": "The service is fast under load.",
+   "expect": "refused",
+   "note": "A conjunct is not implied by what it was coordinated with.",
+   "reason": "information-dropped"
+  },
+  {
+   "id": "t51",
+   "class": "deadline",
+   "source": "Send the report before Thursday.",
+   "replacement": "Send the report by Thursday.",
+   "expect": "refused",
+   "note": "The boundary moved: before excludes Thursday, by includes it.",
+   "reason": "direction-changed"
+  },
+  {
+   "id": "t52",
+   "class": "entity",
+   "source": "The migration finished at 03:15 UTC on 31 December 2026.",
+   "replacement": "The migration finished on 31 December 2026.",
+   "expect": "refused",
+   "note": "A time deleted.",
+   "reason": "numbers-changed"
+  },
+  {
+   "id": "t53",
+   "class": "repeated",
+   "source": "The right Solid Rocket Booster struck the right wing.",
+   "replacement": "The Solid Rocket Booster struck the right wing.",
+   "expect": "refused",
+   "note": "Which booster it was.",
+   "reason": "information-dropped"
+  },
+  {
+   "id": "t54",
+   "class": "instruction",
+   "source": "Delete every temporary file in the cache.",
+   "replacement": "Deleted.",
+   "expect": "refused",
+   "note": "The imperative obeyed.",
+   "reason": "name-changed"
+  },
+  {
+   "id": "t55",
+   "class": "excessive",
+   "source": "Send the file to the vendor by the end of the day.",
+   "replacement": "Send it.",
+   "expect": "refused",
+   "note": "Nothing of the sentence survives.",
+   "reason": "content-dropped"
+  },
+  {
+   "id": "t56",
+   "class": "control",
+   "source": "The department will conduct an investigation into the missing inventory.",
+   "replacement": "The department will investigate the missing inventory.",
+   "expect": "surfaced",
+   "note": "A nominalization unpacked."
+  },
+  {
+   "id": "t57",
+   "class": "control",
+   "source": "In order to ship the release, we ran the full suite.",
+   "replacement": "To ship the release, we ran the full suite.",
+   "expect": "surfaced",
+   "note": "A wordy connective trimmed."
+  },
+  {
+   "id": "t58",
+   "class": "control",
+   "source": "The router is located in close proximity to the desk.",
+   "replacement": "The router is near the desk.",
+   "expect": "surfaced",
+   "note": "A periphrasis replaced."
+  },
+  {
+   "id": "t59",
+   "class": "control",
+   "source": "The tool has the ability to recover 3 files.",
+   "replacement": "The tool can recover 3 files.",
+   "expect": "surfaced",
+   "note": "The number survives the compression."
+  },
+  {
+   "id": "t60",
+   "class": "control",
+   "source": "The archive is copied on a weekly basis.",
+   "replacement": "The archive is copied weekly.",
+   "expect": "surfaced",
+   "note": "A stock phrase reduced to its adverb."
+  },
+  {
+   "id": "t61",
+   "class": "control",
+   "source": "It should be noted that the filter needs replacing monthly.",
+   "replacement": "The filter needs replacing monthly.",
+   "expect": "surfaced",
+   "note": "An attention frame deleted; the proposition is untouched."
+  },
+  {
+   "id": "t62",
+   "class": "control",
+   "source": "There are three bolts that require replacement.",
+   "replacement": "Three bolts require replacement.",
+   "expect": "surfaced",
+   "note": "An expletive unpacked."
+  },
+  {
+   "id": "t63",
+   "class": "control",
+   "source": "We conducted a review of the draft on Tuesday.",
+   "replacement": "We reviewed the draft on Tuesday.",
+   "expect": "surfaced",
+   "note": "A buried verb surfaced."
+  },
+  {
+   "id": "t64",
+   "class": "control",
+   "source": "The purpose of this memo is to explain the new refund rule.",
+   "replacement": "This memo explains the new refund rule.",
+   "expect": "surfaced",
+   "note": "A purpose frame unpacked."
+  },
+  {
+   "id": "t65",
+   "class": "control",
+   "source": "In the majority of cases, the retry logic recovers the request.",
+   "replacement": "In most cases, the retry logic recovers the request.",
+   "expect": "surfaced",
+   "note": "The periphrastic-quantity trade the gate licenses on purpose."
+  }
+ ]
+}

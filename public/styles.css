@@ -1,0 +1,97 @@
+:root {
+  --ink: #1b1d21;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --paper: #ffffff;
+  --bg: #f6f7f9;
+  --blue: #2563eb;
+  --blue-soft: #dbeafe;
+  --red: #dc2626;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+}
+.bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 24px; background: var(--paper); border-bottom: 1px solid var(--line);
+}
+.brand { font-weight: 650; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--blue); }
+.bar-right { display: flex; align-items: center; gap: 18px; }
+.toggle { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.status {
+  font-size: 13px; color: var(--muted); padding: 3px 10px; border-radius: 999px;
+  background: #f1f2f4;
+}
+.status[data-state="checking"] { color: var(--blue); background: var(--blue-soft); }
+.status[data-state="active"] { color: #1d4ed8; background: var(--blue-soft); }
+.status[data-state="error"] { color: var(--red); background: #fee2e2; }
+
+main { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 24px; padding: 24px; max-width: 1180px; margin: 0 auto; }
+.paper { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 8px; }
+.editor-wrap { position: relative; }
+
+/* The overlay mirrors the textarea exactly; every metric below must match. */
+.overlay, #editor {
+  font: 16px/1.75 var(--font-mono);
+  padding: 20px 22px;
+  margin: 0;
+  border: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  letter-spacing: 0;
+  tab-size: 4;
+  /* On classic-scrollbar platforms the textarea's scrollbar narrows its text column.
+     Reserving the same gutter in both keeps the mirror wrapping on the same words.
+     macOS overlay scrollbars take no space, so this changes nothing there. */
+  scrollbar-gutter: stable;
+}
+#editor {
+  position: relative; z-index: 1; width: 100%; min-height: 62vh; resize: vertical;
+  background: transparent; color: var(--ink); outline: none; display: block;
+}
+/* Above the textarea, so an underline can actually be hovered. The layer itself is
+   transparent to the pointer; only the marks accept it, and a mousedown on a mark is
+   forwarded to the textarea so clicking underlined text still places the caret. */
+.overlay {
+  position: absolute; inset: 0; z-index: 3; color: transparent;
+  pointer-events: none; overflow: hidden;
+}
+.overlay mark {
+  background: transparent; color: transparent;
+  border-bottom: 2px solid var(--blue);
+  pointer-events: auto; cursor: pointer;
+}
+/* The overlay sits above the text, so a background here would hide it: emphasise the
+   underline instead. */
+.overlay mark:hover { border-bottom-width: 3px; }
+
+.side h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 6px 0 8px; }
+.side p { font-size: 13px; color: var(--muted); margin: 0 0 16px; }
+.stats { margin: 0; display: grid; gap: 10px; }
+.stats > div { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.stats dt { font-size: 12px; color: var(--muted); }
+.stats dd { margin: 0; font-size: 12px; font-family: var(--font-mono); }
+
+.card {
+  position: absolute; z-index: 20; width: min(460px, calc(100vw - 32px));
+  background: var(--paper); border-radius: 12px; padding: 16px 18px 14px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.06);
+}
+.card-title { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.card-diff { margin: 0 0 10px; font-size: 16px; line-height: 1.7; }
+.card-diff .del { color: var(--red); text-decoration: line-through; }
+.card-diff .ins { color: var(--blue); font-weight: 650; }
+.card-reason { margin: 0 0 14px; font-size: 13px; color: var(--muted); }
+.card-actions { display: flex; gap: 8px; }
+.card button {
+  font: inherit; font-size: 13px; padding: 6px 14px; border-radius: 7px;
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer;
+}
+.card button.primary { background: var(--blue); border-color: var(--blue); color: #fff; font-weight: 600; }
+.card button:hover { filter: brightness(0.97); }

@@ -1,0 +1,610 @@
+{
+  "schemaVersion": 1,
+  "name": "registers",
+  "rows": [
+    {
+      "id": "r-fiction1",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "The old lighthouse keeper made a decision to abandon his post before dawn.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Nominalization in narrative voice: 'decided to abandon'."
+    },
+    {
+      "id": "r-fiction2",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "There was a silence in the room that made her uneasy.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Empty opening: 'A silence in the room made her uneasy.'"
+    },
+    {
+      "id": "r-fiction3",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "The set of letters he had hidden under the floorboards were water-stained.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Agreement: 'The set ... was water-stained.'"
+    },
+    {
+      "id": "r-fiction4",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "She felt an unexpected surprise when the door swung open on its own.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Redundancy: a surprise is already unexpected."
+    },
+    {
+      "id": "r-fiction5",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "Rain had been falling on the slate roofs since the middle of the afternoon.",
+      "expectedAction": "keep",
+      "preserve": ["slate", "afternoon"],
+      "notes": "Clean narrative prose; the time phrase carries meaning."
+    },
+    {
+      "id": "r-fiction6",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "He counted the coins twice and then pushed them across the table.",
+      "expectedAction": "keep",
+      "preserve": ["twice"],
+      "notes": "Clean; 'twice' is information, not repetition."
+    },
+    {
+      "id": "r-fiction7",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "The dog followed her as far as the gate and stopped.",
+      "expectedAction": "keep",
+      "preserve": ["gate"],
+      "notes": "Clean and already direct."
+    },
+    {
+      "id": "r-fiction8",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "Somewhere below the cliff a bell rang once, and then nothing.",
+      "expectedAction": "keep",
+      "preserve": ["cliff", "once"],
+      "notes": "Deliberate fragment after the comma; a literary construction, not a fault."
+    },
+    {
+      "id": "r-fiction9",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "Her grandmother had kept the letters in a biscuit tin for forty years.",
+      "expectedAction": "keep",
+      "preserve": ["biscuit", "forty"],
+      "notes": "Clean; every phrase carries a fact."
+    },
+    {
+      "id": "r-fiction10",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "The train pulled out before he reached the platform.",
+      "expectedAction": "keep",
+      "preserve": ["platform"],
+      "notes": "Clean; the temporal clause is the point of the sentence."
+    },
+    {
+      "id": "r-fiction11",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "Frost had sealed the window shut, so she used the side door.",
+      "expectedAction": "keep",
+      "preserve": ["Frost", "side"],
+      "notes": "Clean; the causal link is doing work."
+    },
+    {
+      "id": "r-fiction12",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "He said nothing about the fire, and she did not ask.",
+      "expectedAction": "keep",
+      "preserve": ["fire"],
+      "notes": "Clean; the negations are the meaning."
+    },
+
+    {
+      "id": "r-academic1",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "This study carried out an analysis of soil samples from twelve upland sites.",
+      "expectedAction": "rewrite",
+      "preserve": ["twelve"],
+      "notes": "Nominalization: 'analysed soil samples'."
+    },
+    {
+      "id": "r-academic2",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "Due to the fact that the sample size was small, the effect did not reach significance.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Inflated phrase: 'Because the sample size was small'."
+    },
+    {
+      "id": "r-academic3",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "A collection of demographic variables were entered into the regression model.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Agreement: 'A collection ... was entered'."
+    },
+    {
+      "id": "r-academic4",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "The end result of the intervention was a modest reduction in reported symptoms.",
+      "expectedAction": "rewrite",
+      "preserve": ["modest"],
+      "notes": "Redundancy: 'end result' is a result."
+    },
+    {
+      "id": "r-academic5",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "We recruited 214 participants from three primary care clinics between March and September.",
+      "expectedAction": "keep",
+      "preserve": ["214", "three", "March", "September"],
+      "notes": "Clean methods sentence; every number and date is load-bearing."
+    },
+    {
+      "id": "r-academic6",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "Participants completed the questionnaire before and after the eight-week program.",
+      "expectedAction": "keep",
+      "preserve": ["eight-week"],
+      "notes": "Clean; 'before and after' is not redundancy."
+    },
+    {
+      "id": "r-academic7",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "The model explained 34 percent of the variance in reported outcomes.",
+      "expectedAction": "keep",
+      "preserve": ["34"],
+      "notes": "Clean result sentence."
+    },
+    {
+      "id": "r-academic8",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "Two coders classified each transcript independently, and disagreements were resolved by discussion.",
+      "expectedAction": "keep",
+      "preserve": ["Two", "independently"],
+      "notes": "Clean; 'each' and 'independently' both carry meaning."
+    },
+    {
+      "id": "r-academic9",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "Data were collected under a protocol approved by the institutional review board.",
+      "expectedAction": "keep",
+      "preserve": ["institutional", "board"],
+      "notes": "Passive is the register's convention here; changing voice is style, not clarity."
+    },
+    {
+      "id": "r-academic10",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "The findings extend earlier work on adherence in rural populations.",
+      "expectedAction": "keep",
+      "preserve": ["adherence", "rural"],
+      "notes": "Clean discussion sentence."
+    },
+    {
+      "id": "r-academic11",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "We excluded seventeen records because the baseline measurement was missing.",
+      "expectedAction": "keep",
+      "preserve": ["seventeen", "baseline"],
+      "notes": "Clean; the causal clause is required."
+    },
+    {
+      "id": "r-academic12",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "Further trials are needed before these results can guide clinical practice.",
+      "expectedAction": "keep",
+      "preserve": ["clinical"],
+      "notes": "Clean hedged limitation; the hedge must survive."
+    },
+
+    {
+      "id": "r-casual1",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Just wanted to give you a quick update on where things stand with the venue.",
+      "expectedAction": "rewrite",
+      "preserve": ["venue"],
+      "notes": "Hidden verb: 'quickly update you on'."
+    },
+    {
+      "id": "r-casual2",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "I am not able to make the 3pm slot, but I can do anything after 4.",
+      "expectedAction": "rewrite",
+      "preserve": ["3pm", "4"],
+      "notes": "Inflated phrase: 'I cannot make the 3pm slot'."
+    },
+    {
+      "id": "r-casual3",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Your going to need the badge to get past the front desk.",
+      "expectedAction": "rewrite",
+      "preserve": ["badge"],
+      "notes": "Confused word: your/you're."
+    },
+    {
+      "id": "r-casual4",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Lets pick this up again at a later point in time.",
+      "expectedAction": "rewrite",
+      "preserve": ["again"],
+      "notes": "Inflated phrase 'at a later point in time' plus the missing apostrophe in 'Let's'."
+    },
+    {
+      "id": "r-casual5",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Can you send me the deck before you leave today?",
+      "expectedAction": "keep",
+      "preserve": ["deck", "today"],
+      "notes": "Clean direct question; must stay a question."
+    },
+    {
+      "id": "r-casual6",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "I moved our coffee to Thursday because the room was double-booked.",
+      "expectedAction": "keep",
+      "preserve": ["Thursday", "double-booked"],
+      "notes": "Clean; the reason clause is the content."
+    },
+    {
+      "id": "r-casual7",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Thanks for covering the standup while I was out.",
+      "expectedAction": "keep",
+      "preserve": ["standup"],
+      "notes": "Clean and idiomatic; nothing to compress."
+    },
+    {
+      "id": "r-casual8",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "No rush on this, but let me know by Friday if you can.",
+      "expectedAction": "keep",
+      "preserve": ["Friday"],
+      "notes": "Clean; the hedge and the deadline both carry meaning."
+    },
+    {
+      "id": "r-casual9",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "I put the invoice in the shared folder under Q3.",
+      "expectedAction": "keep",
+      "preserve": ["Q3", "invoice"],
+      "notes": "Clean; the identifier must survive untouched."
+    },
+    {
+      "id": "r-casual10",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Sorry, I read that as next week rather than this week.",
+      "expectedAction": "keep",
+      "preserve": ["next", "this"],
+      "notes": "Clean; the contrast is the whole point and the repetition is deliberate."
+    },
+    {
+      "id": "r-casual11",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Happy to jump on a call if that is easier than typing it out.",
+      "expectedAction": "keep",
+      "preserve": ["call"],
+      "notes": "Clean conversational offer; idiom is not a clarity fault."
+    },
+    {
+      "id": "r-casual12",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "The parking garage closes at seven, so park on the street.",
+      "expectedAction": "keep",
+      "preserve": ["seven"],
+      "notes": "Clean; the repeated 'park' stem is required by the meaning."
+    },
+
+    {
+      "id": "r-marketing1",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Our platform is able to sync your calendar across every device you own.",
+      "expectedAction": "rewrite",
+      "preserve": ["calendar"],
+      "notes": "Inflated phrase: 'can sync'."
+    },
+    {
+      "id": "r-marketing2",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Our design team performed a redesign of the entire onboarding flow.",
+      "expectedAction": "rewrite",
+      "preserve": ["onboarding"],
+      "notes": "Nominalization: 'redesigned the entire onboarding flow'."
+    },
+    {
+      "id": "r-marketing3",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "There are several reasons why our customers stay with us for years.",
+      "expectedAction": "rewrite",
+      "preserve": ["several", "years"],
+      "notes": "Empty opening: 'Our customers stay with us for years for several reasons.'"
+    },
+    {
+      "id": "r-marketing4",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Each and every plan includes unlimited storage at no extra cost.",
+      "expectedAction": "rewrite",
+      "preserve": ["unlimited"],
+      "notes": "Redundancy: 'each plan'."
+    },
+    {
+      "id": "r-marketing5",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Set up your first workspace in under two minutes.",
+      "expectedAction": "keep",
+      "preserve": ["two"],
+      "notes": "Clean imperative headline; already as short as it goes."
+    },
+    {
+      "id": "r-marketing6",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Cancel anytime, and we refund the unused part of the month.",
+      "expectedAction": "keep",
+      "preserve": ["unused"],
+      "notes": "Clean; the promise must not be softened or dropped."
+    },
+    {
+      "id": "r-marketing7",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Over 40,000 teams ship faster with our review tools.",
+      "expectedAction": "keep",
+      "preserve": ["40,000", "Over"],
+      "notes": "Clean; the number and its hedge must both survive."
+    },
+    {
+      "id": "r-marketing8",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Your data stays in the region you choose.",
+      "expectedAction": "keep",
+      "preserve": ["region"],
+      "notes": "Clean short claim."
+    },
+    {
+      "id": "r-marketing9",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Start free, then upgrade when your team outgrows the limits.",
+      "expectedAction": "keep",
+      "preserve": ["free", "limits"],
+      "notes": "Clean; the two-step offer is the message."
+    },
+    {
+      "id": "r-marketing10",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "We answer support tickets in under four hours on weekdays.",
+      "expectedAction": "keep",
+      "preserve": ["four", "weekdays"],
+      "notes": "Clean; the qualifier bounds the commitment."
+    },
+    {
+      "id": "r-marketing11",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Import your existing boards with a single click.",
+      "expectedAction": "keep",
+      "preserve": ["single"],
+      "notes": "Clean imperative; 'single' is a claim, not padding."
+    },
+    {
+      "id": "r-marketing12",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Every plan includes the same security controls.",
+      "expectedAction": "keep",
+      "preserve": ["same"],
+      "notes": "Clean; 'the same' is the claim and cannot be dropped."
+    },
+
+    {
+      "id": "r-esl1",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "Please give me a information about the new schedule.",
+      "expectedAction": "rewrite",
+      "preserve": ["schedule"],
+      "notes": "L2 article error on a mass noun: 'give me information'."
+    },
+    {
+      "id": "r-esl2",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "The manager discussed about the budget with the whole team.",
+      "expectedAction": "rewrite",
+      "preserve": ["budget"],
+      "notes": "L2 preposition error: 'discussed the budget'."
+    },
+    {
+      "id": "r-esl3",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "Yesterday I go to the warehouse to check the delivery.",
+      "expectedAction": "rewrite",
+      "preserve": ["Yesterday", "warehouse"],
+      "notes": "L2 tense error: 'Yesterday I went'."
+    },
+    {
+      "id": "r-esl4",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "We are looking forward to receive your confirmation.",
+      "expectedAction": "rewrite",
+      "preserve": ["confirmation"],
+      "notes": "L2 gerund error: 'looking forward to receiving'."
+    },
+    {
+      "id": "r-esl5",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "I will send the report on Friday morning.",
+      "expectedAction": "keep",
+      "preserve": ["Friday"],
+      "notes": "Correct and simple; simplicity is not a clarity fault."
+    },
+    {
+      "id": "r-esl6",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "The meeting is in room 4 at ten o'clock.",
+      "expectedAction": "keep",
+      "preserve": ["4", "ten"],
+      "notes": "Correct; plain phrasing with two load-bearing facts."
+    },
+    {
+      "id": "r-esl7",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "Please tell me if you need more time.",
+      "expectedAction": "keep",
+      "preserve": ["time"],
+      "notes": "Correct and direct; nothing to repair."
+    },
+    {
+      "id": "r-esl8",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "Our team finished the training last week.",
+      "expectedAction": "keep",
+      "preserve": ["training", "last"],
+      "notes": "Correct; the time phrase carries meaning."
+    },
+    {
+      "id": "r-esl9",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "I speak with the supplier every Monday.",
+      "expectedAction": "keep",
+      "preserve": ["Monday"],
+      "notes": "Correct habitual present; not an inflated frequency phrase."
+    },
+    {
+      "id": "r-esl10",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "The new badge works on all the doors.",
+      "expectedAction": "keep",
+      "preserve": ["doors"],
+      "notes": "Correct; 'all' is a quantifier that must survive."
+    },
+    {
+      "id": "r-esl11",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "Thank you for your help with the invoice.",
+      "expectedAction": "keep",
+      "preserve": ["invoice"],
+      "notes": "Correct courtesy sentence; plain is not wordy."
+    },
+    {
+      "id": "r-esl12",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "She joined our office in January.",
+      "expectedAction": "keep",
+      "preserve": ["January"],
+      "notes": "Correct and minimal; nothing to compress."
+    }
+  ]
+}

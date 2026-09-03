@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tolben — local blue underline</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="bar">
+  <div class="brand"><span class="dot"></span> Tolben</div>
+  <div class="bar-right">
+    <label class="toggle"><input type="checkbox" id="mechanics" checked> Mechanical fixes</label>
+    <span class="status" id="status" data-state="idle">Connecting…</span>
+  </div>
+</header>
+
+<main>
+  <section class="paper">
+    <div class="editor-wrap">
+      <div class="overlay" id="overlay" aria-hidden="true"></div>
+      <textarea id="editor" spellcheck="false" autocomplete="off"
+        placeholder="Write a few sentences. When you finish one with . ! or ?, the local model reviews that sentence only."></textarea>
+    </div>
+  </section>
+  <aside class="side">
+    <h2>What this is</h2>
+    <p>A completed sentence is sent to a local Qwen3.5-2B over loopback. Nothing leaves this machine. Changed words get a blue underline; hover one to see the full proposed sentence.</p>
+    <dl class="stats">
+      <div><dt>Model</dt><dd id="model-name">—</dd></div>
+      <div><dt>Last check</dt><dd id="last-latency">—</dd></div>
+      <div><dt>Suggestions</dt><dd id="count">0</dd></div>
+      <div><dt>Refused by safety</dt><dd id="rejected">0</dd></div>
+    </dl>
+  </aside>
+</main>
+
+<div class="card" id="card" hidden>
+  <div class="card-title">Improve your text</div>
+  <p class="card-diff" id="card-diff"></p>
+  <p class="card-reason" id="card-reason"></p>
+  <div class="card-actions">
+    <button type="button" class="primary" id="replace">Replace</button>
+    <button type="button" id="dismiss">Dismiss</button>
+  </div>
+</div>
+<script type="module" src="/app.js"></script>
+</body>
+</html>

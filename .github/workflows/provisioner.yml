@@ -1,0 +1,113 @@
+# The provisioner, for real, on the three operating systems a stranger will run it on.
+#
+# This is the job that decides whether the plugin is installable. Everything else in CI
+# tests code; this tests the claim — that someone who enables Tolben on a machine with
+# nothing on it ends up with a model server answering, and that the bytes they got are the
+# bytes that were pinned.
+#
+# It is not on every push because it downloads about 1.6 GB per operating system. It runs
+# on demand, on a schedule, and before a release tag.
+
+name: provisioner
+
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Which jobs to run"
+        type: choice
+        default: nothing
+        options:
+          - nothing       # a no-op; the cheap pin check lives in test.yml and runs on every push
+          - everything    # about 1.6 GB per platform across four runners
+  schedule:
+    # Weekly, so a re-cut llama.cpp release or a moved Hugging Face file is found by CI
+    # rather than by the first person who installs the plugin that week.
+    - cron: "17 5 * * 1"
+  push:
+    tags: ["v*"]
+
+jobs:
+  # The model, on one machine. Its bytes are the same everywhere, so downloading it three
+  # times proves nothing the hash does not already prove; what this checks is that the
+  # pinned URL still serves the pinned bytes.
+  model:
+    if: github.event_name != 'workflow_dispatch' || inputs.only == 'everything'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: Fetch and verify the pinned model
+        run: node tools/fetch-models.mjs
+      - name: Verify again, to prove the on-disk check is real
+        run: node tools/fetch-models.mjs --verify
+
+  # The whole thing, per platform. Downloads the runtime and the model, spawns the server,
+  # warms it up, then stops it — and, because the exit criterion is about a person rather
+  # than a process, times how long it took.
+  provision:
+    if: github.event_name != 'workflow_dispatch' || inputs.only == 'everything'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14        # arm64
+          - os: macos-13        # x64
+          - os: windows-latest
+          - os: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+
+      - name: Plan, and fetch nothing
+        run: node tools/provision.mjs --plan --state "${{ runner.temp }}/tolben"
+
+      - name: Provision, spawn, warm up, stop
+        id: provision
+        shell: bash
+        run: |
+          start=$(date +%s)
+          node tools/provision.mjs --confirm --state "${{ runner.temp }}/tolben"
+          echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
+
+      # The exit criterion is "a fresh install reaches the first underline in under ten
+      # minutes on 50 Mbps". A runner is faster than that, so this is a ceiling rather
+      # than the measurement; the real one needs a person and a domestic connection.
+      - name: Report how long it took
+        shell: bash
+        run: |
+          echo "provisioned in ${{ steps.provision.outputs.seconds }}s on ${{ matrix.os }}" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Nothing is left running
+        shell: bash
+        run: |
+          if [ -f "${{ runner.temp }}/tolben/llama-server.pid.json" ]; then
+            echo "a pid file survived the run:"
+            cat "${{ runner.temp }}/tolben/llama-server.pid.json"
+            exit 1
+          fi
+
+      - name: Resuming an interrupted download costs nothing
+        shell: bash
+        run: |
+          # Everything is already on disk and verified, so this must reuse it rather than
+          # fetch 1.5 GB again. A second full download here would mean the hash check on
+          # an existing file is not working.
+          start=$(date +%s)
+          node tools/provision.mjs --confirm --state "${{ runner.temp }}/tolben"
+          elapsed=$(( $(date +%s) - start ))
+          echo "second run took ${elapsed}s"
+          if [ "$elapsed" -gt 180 ]; then
+            echo "a second run should reuse the verified files, not re-download them"
+            exit 1
+          fi

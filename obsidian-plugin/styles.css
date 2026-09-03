@@ -1,0 +1,306 @@
+/* The mark itself. A real text-decoration rather than a border, so it follows the
+   glyphs through a line wrap and around descenders the way the demo's overlay could not. */
+.tolben-underline {
+  text-decoration: underline;
+  text-decoration-color: var(--color-blue, #2563eb);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-skip-ink: none;
+  cursor: pointer;
+}
+
+.tolben-underline:hover {
+  text-decoration-thickness: 3px;
+}
+
+/* The card owns its surface completely.
+   CodeMirror paints .cm-tooltip with a light background of its own, and it does NOT put
+   that class on the view we return: a hover tooltip is wrapped, roughly
+     div.cm-tooltip.cm-tooltip-hover > div.cm-tooltip-section > our card
+   so the painted element is the wrapper. Styling the card as though it were the tooltip
+   left CM's grey square container standing around it, at CM's width rather than ours.
+   The wrapper is reset to nothing and the card paints itself; both the wrapped and the
+   card-is-the-tooltip shapes are covered, since which one you get depends on the version. */
+.cm-tooltip:has(> .tolben-card),
+.cm-tooltip:has(> .cm-tooltip-section > .tolben-card) {
+  max-width: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.cm-tooltip-section:has(> .tolben-card) {
+  border: 0;
+}
+
+/* The palette is the demo's, fixed rather than themed, so the card reads identically in
+   the browser and in the vault whatever theme is set. The second selector carries enough
+   specificity to beat CM's base rule for the shape where the card IS the tooltip. */
+.tolben-card,
+div.cm-tooltip.tolben-card {
+  box-sizing: border-box;
+  width: max-content;
+  max-width: min(460px, calc(100vw - 32px));
+  padding: 16px 18px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.06);
+  color: #1b1d21;
+  font-family: var(--font-interface, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tolben-card-title {
+  margin-bottom: 10px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+/* The proposed sentence, with the edit shown in place. Slightly larger than the chrome
+   around it: it is the thing being read. */
+.tolben-card-diff {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #1b1d21;
+}
+
+.tolben-card-diff .tolben-del {
+  color: #dc2626;
+  text-decoration: line-through;
+}
+
+.tolben-card-diff .tolben-ins {
+  color: #2563eb;
+  font-weight: 650;
+}
+
+.tolben-card-reason {
+  margin-bottom: 14px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.tolben-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Obsidian styles bare buttons app-wide, so every property the card cares about is
+   stated here rather than inherited. */
+.tolben-card-actions button {
+  height: auto;
+  padding: 6px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 7px;
+  background: #ffffff;
+  box-shadow: none;
+  color: #1b1d21;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.tolben-card-actions button.tolben-primary {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.tolben-card-actions button:hover {
+  filter: brightness(0.97);
+}
+
+.tolben-card-actions button.tolben-primary:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  filter: none;
+}
+
+/* ------------------------------------------------------------------ the three panes */
+
+/* Obsidian's own variables throughout, so the panes follow the reader's theme rather
+   than fighting it. Where a colour has to mean something — good, warning — the theme's
+   semantic variables are used rather than a hex, for the same reason. */
+
+.tolben-pane {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.tolben-pane-title {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.tolben-pane-lede {
+  margin: 0 0 14px;
+  color: var(--text-muted);
+}
+
+.tolben-note {
+  margin: 10px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.tolben-good,
+.tolben-warn {
+  margin: 10px 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border-left: 3px solid;
+}
+
+.tolben-good {
+  border-color: var(--color-green, #16a34a);
+  background: var(--background-secondary);
+}
+
+.tolben-warn {
+  border-color: var(--color-orange, #d97706);
+  background: var(--background-secondary);
+}
+
+.tolben-empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.tolben-pane-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* -------------------------------------------------------------------------- setup */
+
+/* The hashes are the point of this screen, so they are given room to be read rather
+   than truncated with an ellipsis: a truncated hash cannot be compared to anything. */
+.tolben-setup-items {
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tolben-setup-item {
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+}
+
+.tolben-item-name {
+  font-weight: 600;
+}
+
+.tolben-item-url,
+.tolben-item-hash {
+  margin-top: 3px;
+  font-family: var(--font-monospace);
+  font-size: 11px;
+  color: var(--text-muted);
+  word-break: break-all;
+}
+
+.tolben-progress {
+  height: 8px;
+  margin: 8px 0 4px;
+  border-radius: 4px;
+  background: var(--background-modifier-border);
+  overflow: hidden;
+}
+
+.tolben-progress-fill {
+  height: 100%;
+  background: var(--interactive-accent);
+  transition: width 120ms linear;
+}
+
+.tolben-progress-label {
+  font-weight: 600;
+}
+
+.tolben-progress-bytes {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.tolben-advice {
+  padding: 10px;
+  border-radius: 6px;
+  background: var(--background-secondary);
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+/* ------------------------------------------------------------------------- ledger */
+
+.tolben-ledger-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tolben-ledger-row {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+}
+
+.tolben-ledger-reason {
+  font-family: var(--font-monospace);
+  font-size: 11px;
+  color: var(--text-accent);
+}
+
+.tolben-ledger-source {
+  margin-top: 4px;
+}
+
+/* The refused proposal is struck through: it is what the writer did NOT get, and it
+   should not be readable as advice. */
+.tolben-ledger-proposed {
+  margin-top: 2px;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+/* ------------------------------------------------------------------------ network */
+
+.tolben-network-hosts {
+  margin: 10px 0;
+  padding-left: 18px;
+  font-family: var(--font-monospace);
+  font-size: 12px;
+}
+
+.tolben-host-remote {
+  color: var(--text-error);
+  font-weight: 600;
+}
+
+.tolben-network-facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 14px;
+  margin: 14px 0 0;
+  font-size: 13px;
+}
+
+.tolben-network-facts dt {
+  color: var(--text-muted);
+}
+
+.tolben-network-facts dd {
+  margin: 0;
+  word-break: break-word;
+}

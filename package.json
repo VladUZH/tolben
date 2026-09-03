@@ -1,0 +1,26 @@
+{
+  "name": "tolben",
+  "version": "1.0.0",
+  "description": "A local writing checker that refuses any rewrite it cannot prove keeps the meaning",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "model": "llama-server -m models/Qwen3.5-2B-Q6_K.gguf --host 127.0.0.1 --port 8080 -ngl 99 -c 4096 -np 1 --jinja --reasoning off",
+    "test": "node --test tests/*.test.mjs",
+    "bench": "node bench/run.mjs",
+    "score": "node bench/score.mjs",
+    "plugin:build": "node obsidian-plugin/build.mjs",
+    "plugin:watch": "node obsidian-plugin/build.mjs --watch",
+    "plugin:harness": "node obsidian-plugin/harness/build.mjs",
+    "models:fetch": "node tools/fetch-models.mjs",
+    "models:verify": "node tools/fetch-models.mjs --verify"
+  },
+  "devDependencies": {
+    "@codemirror/language": "^6.12.4",
+    "@codemirror/state": "^6.7.1",
+    "@codemirror/view": "^6.43.9",
+    "esbuild": "^0.28.2",
+    "jsdom": "^26.0.0"
+  }
+}

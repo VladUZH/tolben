@@ -1,0 +1,1417 @@
+{
+ "description": "Original -> Grammarly-accepted rewrite pairs, collected live from app.grammarly.com on 2026-08-29 by typing each sentence into their editor and accepting every suggestion Grammarly offered. \"changed: false\" means Grammarly offered nothing (or nothing that altered the sentence) - these are true negatives and are as valuable as the rewrites.",
+ "method": "Sentences typed in batches of 10; every suggestion card accepted via real clicks; final document text read back and split with our own segmenter; pairs aligned by index. Tone-suggestion cards (a separate Grammarly feature, not clarity) were dismissed, not accepted.",
+ "caveats": [
+  "Document language was British English, so a few edits are en-GB spelling normalisations (analyse, socialise, operationalise, summarises) rather than clarity edits.",
+  "Where Grammarly offered several mutually exclusive fixes for one span, accepting sequentially applies the first offered; alternatives are not captured here.",
+  "One observed Grammarly error is preserved verbatim in the data: \"a brand new innovation\" -> \"a brand innovation\"."
+ ],
+ "counts": {
+  "total": 200,
+  "changed": 118,
+  "unchanged": 82
+ },
+ "pairs": [
+  {
+   "batch": 1,
+   "theme": "wordy connectives and prepositional phrases",
+   "original": "For the purpose of testing, we created a separate staging environment.",
+   "grammarly": "For testing, we created a separate staging environment.",
+   "changed": true
+  },
+  {
+   "batch": 1,
+   "theme": "wordy connectives and prepositional phrases",
+   "original": "In the majority of cases, the retry logic recovers the request.",
+   "grammarly": "In most cases, the retry logic recovers the request.",
+   "changed": true
+  },
+  {
+   "batch": 1,
+   "theme": "wordy connectives and prepositional phrases",
+   "original": "We postponed the release on account of the fact that the tests were failing.",
+   "grammarly": "We postponed the release because the tests were failing.",
+   "changed": true
+  },
+  {
+   "batch": 1,
+   "theme": "wordy connectives and prepositional phrases",
+   "original": "With the exception of the billing module, every service passed the audit.",
+   "grammarly": "Except for the billing module, every service passed the audit.",
+   "changed": true
+  },
+  {
+   "batch": 1,
+   "theme": "wordy connectives and prepositional phrases",
+   "original": "In light of the fact that traffic doubled, we added two more nodes.",
+   "grammarly": "Because traffic doubled, we added two more nodes.",
+   "changed": true
+  },
+  {
+   "batch": 1,
+   "theme": "wordy connectives and prepositional phrases",
+   "original": "The migration was delayed for a period of three weeks.",
+   "grammarly": "The migration was delayed by three weeks.",
+   "changed": true
+  },
+  {
+   "batch": 1,
+   "theme": "wordy connectives and prepositional phrases",
+   "original": "We will proceed in accordance with the plan agreed last month.",
+   "grammarly": "We will proceed according to the plan agreed last month.",
+   "changed": true
+  },
+  {
+   "batch": 1,
+   "theme": "wordy connectives and prepositional phrases",
+   "original": "In the near future we intend to replace the queue with a stream.",
+   "grammarly": "In the near future, we intend to replace the queue with a stream.",
+   "changed": true
+  },
+  {
+   "batch": 1,
+   "theme": "wordy connectives and prepositional phrases",
+   "original": "During the course of the review, we found two blocking defects.",
+   "grammarly": "During the review, we found two blocking defects.",
+   "changed": true
+  },
+  {
+   "batch": 1,
+   "theme": "wordy connectives and prepositional phrases",
+   "original": "The outage occurred in the vicinity of the maintenance window.",
+   "grammarly": "The outage occurred near the maintenance window.",
+   "changed": true
+  },
+  {
+   "batch": 2,
+   "theme": "nominalizations and buried verbs",
+   "original": "The auditors made a recommendation that we rotate the keys quarterly.",
+   "grammarly": "The auditors recommended that we rotate the keys quarterly.",
+   "changed": true
+  },
+  {
+   "batch": 2,
+   "theme": "nominalizations and buried verbs",
+   "original": "We need to perform an analysis of the failure rates before Friday.",
+   "grammarly": "We need to analyse the failure rates before Friday.",
+   "changed": true
+  },
+  {
+   "batch": 2,
+   "theme": "nominalizations and buried verbs",
+   "original": "The vendor provided a demonstration of the new reporting module.",
+   "grammarly": "The vendor demonstrated the new reporting module.",
+   "changed": true
+  },
+  {
+   "batch": 2,
+   "theme": "nominalizations and buried verbs",
+   "original": "Management reached an agreement with the union on Tuesday.",
+   "grammarly": "Management reached an agreement with the union on Tuesday.",
+   "changed": false
+  },
+  {
+   "batch": 2,
+   "theme": "nominalizations and buried verbs",
+   "original": "The engineer carried out a review of the deployment scripts.",
+   "grammarly": "The engineer reviewed the deployment scripts.",
+   "changed": true
+  },
+  {
+   "batch": 2,
+   "theme": "nominalizations and buried verbs",
+   "original": "We will undertake a comparison of the two storage backends.",
+   "grammarly": "We will compare the two storage backends.",
+   "changed": true
+  },
+  {
+   "batch": 2,
+   "theme": "nominalizations and buried verbs",
+   "original": "The committee gave approval to the revised security policy.",
+   "grammarly": "The committee approved the revised security policy.",
+   "changed": true
+  },
+  {
+   "batch": 2,
+   "theme": "nominalizations and buried verbs",
+   "original": "Our team is in the process of migrating the legacy accounts.",
+   "grammarly": "Our team is migrating the legacy accounts.",
+   "changed": true
+  },
+  {
+   "batch": 2,
+   "theme": "nominalizations and buried verbs",
+   "original": "The report makes mention of three unresolved dependencies.",
+   "grammarly": "The report mentions three unresolved dependencies.",
+   "changed": true
+  },
+  {
+   "batch": 2,
+   "theme": "nominalizations and buried verbs",
+   "original": "They put forward a proposal for restructuring the data model.",
+   "grammarly": "They proposed restructuring the data model.",
+   "changed": true
+  },
+  {
+   "batch": 3,
+   "theme": "passive voice variants",
+   "original": "The alert was triggered by a spike in memory usage.",
+   "grammarly": "A spike in memory usage triggered the alert.",
+   "changed": true
+  },
+  {
+   "batch": 3,
+   "theme": "passive voice variants",
+   "original": "The configuration file is read by the loader at startup.",
+   "grammarly": "The loader reads the configuration file at startup.",
+   "changed": true
+  },
+  {
+   "batch": 3,
+   "theme": "passive voice variants",
+   "original": "A new index was created by the database administrator last night.",
+   "grammarly": "The database administrator created a new index last night.",
+   "changed": true
+  },
+  {
+   "batch": 3,
+   "theme": "passive voice variants",
+   "original": "The findings were presented by the analyst to the steering group.",
+   "grammarly": "The analyst presented the findings to the steering group.",
+   "changed": true
+  },
+  {
+   "batch": 3,
+   "theme": "passive voice variants",
+   "original": "The tickets are reviewed by the on-call engineer every morning.",
+   "grammarly": "The on-call engineer reviews the tickets every morning.",
+   "changed": true
+  },
+  {
+   "batch": 3,
+   "theme": "passive voice variants",
+   "original": "The old cluster was decommissioned last quarter.",
+   "grammarly": "The team decommissioned the old cluster last quarter.",
+   "changed": true
+  },
+  {
+   "batch": 3,
+   "theme": "passive voice variants",
+   "original": "The invoice has been approved and will be paid on Friday.",
+   "grammarly": "The invoice has been approved and will be paid on Friday.",
+   "changed": false
+  },
+  {
+   "batch": 3,
+   "theme": "passive voice variants",
+   "original": "The schema changes were reverted by the release manager.",
+   "grammarly": "The release manager reverted the schema changes.",
+   "changed": true
+  },
+  {
+   "batch": 3,
+   "theme": "passive voice variants",
+   "original": "The customer records are encrypted at rest and in transit.",
+   "grammarly": "The customer records are encrypted at rest and in transit.",
+   "changed": false
+  },
+  {
+   "batch": 3,
+   "theme": "passive voice variants",
+   "original": "The incident was escalated by the support team to engineering.",
+   "grammarly": "The support team escalated the incident to engineering.",
+   "changed": true
+  },
+  {
+   "batch": 4,
+   "theme": "hedging and qualifiers",
+   "original": "It seems to me that we may want to consider revisiting the estimate.",
+   "grammarly": "It seems we may want to revisit the estimate.",
+   "changed": true
+  },
+  {
+   "batch": 4,
+   "theme": "hedging and qualifiers",
+   "original": "There is a chance that the job could possibly time out under load.",
+   "grammarly": "The job could time out under load.",
+   "changed": true
+  },
+  {
+   "batch": 4,
+   "theme": "hedging and qualifiers",
+   "original": "We would probably be more or less ready by the end of the month.",
+   "grammarly": "We would probably be more or less ready by the end of the month.",
+   "changed": false
+  },
+  {
+   "batch": 4,
+   "theme": "hedging and qualifiers",
+   "original": "I would just like to suggest that we perhaps delay the announcement.",
+   "grammarly": "I suggest we delay the announcement.",
+   "changed": true
+  },
+  {
+   "batch": 4,
+   "theme": "hedging and qualifiers",
+   "original": "It could be argued that the current design is somewhat fragile.",
+   "grammarly": "The current design is somewhat fragile.",
+   "changed": true
+  },
+  {
+   "batch": 4,
+   "theme": "hedging and qualifiers",
+   "original": "Arguably, the results are fairly encouraging in a general sense.",
+   "grammarly": "The results are fairly encouraging overall.",
+   "changed": true
+  },
+  {
+   "batch": 4,
+   "theme": "hedging and qualifiers",
+   "original": "We are fairly confident that the fix will most likely hold.",
+   "grammarly": "We are confident the fix will hold.",
+   "changed": true
+  },
+  {
+   "batch": 4,
+   "theme": "hedging and qualifiers",
+   "original": "Perhaps it might be worth taking another look at the retry policy.",
+   "grammarly": "I recommend taking another look at the retry policy.",
+   "changed": true
+  },
+  {
+   "batch": 4,
+   "theme": "hedging and qualifiers",
+   "original": "This is quite possibly the single most important open risk.",
+   "grammarly": "This is quite possibly the single most important open risk.",
+   "changed": false
+  },
+  {
+   "batch": 4,
+   "theme": "hedging and qualifiers",
+   "original": "I tend to think that the second option is probably a bit safer.",
+   "grammarly": "I tend to think that the second option is probably a bit safer.",
+   "changed": false
+  },
+  {
+   "batch": 5,
+   "theme": "redundant pairs and tautology",
+   "original": "Please provide advance warning before you restart the cluster.",
+   "grammarly": "Please provide a warning before you restart the cluster.",
+   "changed": true
+  },
+  {
+   "batch": 5,
+   "theme": "redundant pairs and tautology",
+   "original": "The final outcome of the vote was a unanimous consensus of opinion.",
+   "grammarly": "The vote resulted in unanimous consensus.",
+   "changed": true
+  },
+  {
+   "batch": 5,
+   "theme": "redundant pairs and tautology",
+   "original": "We need to revert back to the previous version of the schema.",
+   "grammarly": "We need to revert to the previous schema version.",
+   "changed": true
+  },
+  {
+   "batch": 5,
+   "theme": "redundant pairs and tautology",
+   "original": "The two teams cooperated together on the joint partnership.",
+   "grammarly": "The two teams cooperated on the joint partnership.",
+   "changed": true
+  },
+  {
+   "batch": 5,
+   "theme": "redundant pairs and tautology",
+   "original": "This is a brand new innovation that has never been done before.",
+   "grammarly": "This is a brand innovation that has never been done before.",
+   "changed": true
+  },
+  {
+   "batch": 5,
+   "theme": "redundant pairs and tautology",
+   "original": "The end result was a complete and total failure of the pipeline.",
+   "grammarly": "The result was a complete failure of the pipeline.",
+   "changed": true
+  },
+  {
+   "batch": 5,
+   "theme": "redundant pairs and tautology",
+   "original": "Please repeat that again so I can write down the exact same figure.",
+   "grammarly": "Please repeat that so I can write down the same figure.",
+   "changed": true
+  },
+  {
+   "batch": 5,
+   "theme": "redundant pairs and tautology",
+   "original": "We must plan ahead for future contingencies that may arise.",
+   "grammarly": "We must plan for future contingencies.",
+   "changed": true
+  },
+  {
+   "batch": 5,
+   "theme": "redundant pairs and tautology",
+   "original": "The report contains a brief summary of the basic fundamentals.",
+   "grammarly": "The report summarises the fundamentals.",
+   "changed": true
+  },
+  {
+   "batch": 5,
+   "theme": "redundant pairs and tautology",
+   "original": "Each individual engineer received their own personal laptop.",
+   "grammarly": "Each individual engineer received their own personal laptop.",
+   "changed": false
+  },
+  {
+   "batch": 6,
+   "theme": "expletive constructions",
+   "original": "There is a need for better documentation of the ingestion pipeline.",
+   "grammarly": "The ingestion pipeline needs better documentation.",
+   "changed": true
+  },
+  {
+   "batch": 6,
+   "theme": "expletive constructions",
+   "original": "It is necessary that every service expose a health endpoint.",
+   "grammarly": "Every service must expose a health endpoint.",
+   "changed": true
+  },
+  {
+   "batch": 6,
+   "theme": "expletive constructions",
+   "original": "There were three engineers who objected to the proposed schedule.",
+   "grammarly": "Three engineers objected to the proposed schedule.",
+   "changed": true
+  },
+  {
+   "batch": 6,
+   "theme": "expletive constructions",
+   "original": "It is our expectation that the backlog will clear by Thursday.",
+   "grammarly": "We expect the backlog to clear by Thursday.",
+   "changed": true
+  },
+  {
+   "batch": 6,
+   "theme": "expletive constructions",
+   "original": "There appears to be a memory leak in the background worker.",
+   "grammarly": "There appears to be a memory leak in the background worker.",
+   "changed": false
+  },
+  {
+   "batch": 6,
+   "theme": "expletive constructions",
+   "original": "It was decided that the feature flag would remain on for now.",
+   "grammarly": "We decided to keep the feature flag on for now.",
+   "changed": true
+  },
+  {
+   "batch": 6,
+   "theme": "expletive constructions",
+   "original": "There is no doubt that the current approach will not scale.",
+   "grammarly": "The current approach will not scale.",
+   "changed": true
+  },
+  {
+   "batch": 6,
+   "theme": "expletive constructions",
+   "original": "It has come to our attention that the export job silently fails.",
+   "grammarly": "We learned that the export job fails silently.",
+   "changed": true
+  },
+  {
+   "batch": 6,
+   "theme": "expletive constructions",
+   "original": "There are many customers that are asking for single sign-on.",
+   "grammarly": "Many customers are asking for single sign-on.",
+   "changed": true
+  },
+  {
+   "batch": 6,
+   "theme": "expletive constructions",
+   "original": "It turns out that the timeout was configured in milliseconds.",
+   "grammarly": "It turns out that the timeout was configured in milliseconds.",
+   "changed": false
+  },
+  {
+   "batch": 7,
+   "theme": "relative clauses and modifiers",
+   "original": "The service which is written in Go handles all authentication.",
+   "grammarly": "The Go service handles all authentication.",
+   "changed": true
+  },
+  {
+   "batch": 7,
+   "theme": "relative clauses and modifiers",
+   "original": "The report that was published yesterday contains the revised figures.",
+   "grammarly": "The report that was published yesterday contains the revised figures.",
+   "changed": false
+  },
+  {
+   "batch": 7,
+   "theme": "relative clauses and modifiers",
+   "original": "Any request that is larger than one megabyte will be rejected.",
+   "grammarly": "Any request that is larger than one megabyte will be rejected.",
+   "changed": false
+  },
+  {
+   "batch": 7,
+   "theme": "relative clauses and modifiers",
+   "original": "The engineer who is responsible for the pipeline is on holiday.",
+   "grammarly": "The engineer who is responsible for the pipeline is on holiday.",
+   "changed": false
+  },
+  {
+   "batch": 7,
+   "theme": "relative clauses and modifiers",
+   "original": "The dashboard, which was designed in 2021, which nobody maintains, is still live.",
+   "grammarly": "The dashboard, designed in 2021 and no longer maintained, is still live.",
+   "changed": true
+  },
+  {
+   "batch": 7,
+   "theme": "relative clauses and modifiers",
+   "original": "We removed the records that were duplicated during the import.",
+   "grammarly": "We removed the records that were duplicated during the import.",
+   "changed": false
+  },
+  {
+   "batch": 7,
+   "theme": "relative clauses and modifiers",
+   "original": "The customers who are located in Europe see a different currency.",
+   "grammarly": "Customers in Europe see a different currency.",
+   "changed": true
+  },
+  {
+   "batch": 7,
+   "theme": "relative clauses and modifiers",
+   "original": "The alert that fired at midnight was caused by a scheduled backup.",
+   "grammarly": "A scheduled backup caused the alert that fired at midnight.",
+   "changed": true
+  },
+  {
+   "batch": 7,
+   "theme": "relative clauses and modifiers",
+   "original": "The document that I sent you earlier has now been superseded.",
+   "grammarly": "The document that I sent you earlier has now been superseded.",
+   "changed": false
+  },
+  {
+   "batch": 7,
+   "theme": "relative clauses and modifiers",
+   "original": "The tool which we evaluated last year has since been discontinued.",
+   "grammarly": "The tool which we evaluated last year has since been discontinued.",
+   "changed": false
+  },
+  {
+   "batch": 8,
+   "theme": "long compound and run-on sentences",
+   "original": "We reviewed the logs and we found the error and we deployed a fix and we confirmed the recovery.",
+   "grammarly": "We reviewed the logs, found the error, deployed a fix, and confirmed the recovery.",
+   "changed": true
+  },
+  {
+   "batch": 8,
+   "theme": "long compound and run-on sentences",
+   "original": "The pipeline ingests the raw events, and then it normalizes them, and after that it writes them to the warehouse for downstream consumption by analysts.",
+   "grammarly": "The pipeline ingests raw events, normalizes them, and then writes them to the warehouse for downstream consumption by analysts.",
+   "changed": true
+  },
+  {
+   "batch": 8,
+   "theme": "long compound and run-on sentences",
+   "original": "Because the vendor missed the deadline and because the budget was already committed, we had to descope two features that had been promised to the customer.",
+   "grammarly": "Because the vendor missed the deadline and the budget was already committed, we had to descope two features we had promised the customer.",
+   "changed": true
+  },
+  {
+   "batch": 8,
+   "theme": "long compound and run-on sentences",
+   "original": "The system is slow, the queries are unoptimized, the indexes are missing, and nobody has had the time to look into any of it.",
+   "grammarly": "The system is slow, the queries are unoptimized, the indexes are missing, and nobody has had the time to look into any of it.",
+   "changed": false
+  },
+  {
+   "batch": 8,
+   "theme": "long compound and run-on sentences",
+   "original": "Although we agreed on the architecture in principle, there remain a number of open questions regarding ownership, funding, and the timeline for delivery.",
+   "grammarly": "Although we agreed on the architecture in principle, several open questions remain about ownership, funding, and the delivery timeline.",
+   "changed": true
+  },
+  {
+   "batch": 8,
+   "theme": "long compound and run-on sentences",
+   "original": "After the incident was resolved and after the postmortem was written and circulated, we scheduled a follow-up meeting to track the action items.",
+   "grammarly": "After the incident was resolved and after the postmortem was written and circulated, we scheduled a follow-up meeting to track the action items.",
+   "changed": false
+  },
+  {
+   "batch": 8,
+   "theme": "long compound and run-on sentences",
+   "original": "The analyst exported the data, cleaned it, joined it with the reference table, and produced a summary that was shared with the steering group.",
+   "grammarly": "The analyst exported the data, cleaned it, joined it with the reference table, and produced a summary that was shared with the steering group.",
+   "changed": false
+  },
+  {
+   "batch": 8,
+   "theme": "long compound and run-on sentences",
+   "original": "If the primary region fails and if the replica has not caught up, then manual intervention will be required before traffic can be redirected.",
+   "grammarly": "If the primary region fails and the replica has not caught up, then manual intervention will be required before traffic can be redirected.",
+   "changed": true
+  },
+  {
+   "batch": 8,
+   "theme": "long compound and run-on sentences",
+   "original": "We could either rewrite the service from scratch, or we could refactor it incrementally, but either way it will take at least two quarters.",
+   "grammarly": "We could either rewrite the service from scratch or refactor it incrementally, but either way it will take at least two quarters.",
+   "changed": true
+  },
+  {
+   "batch": 8,
+   "theme": "long compound and run-on sentences",
+   "original": "The customer reported the issue on Monday, our support team reproduced it on Tuesday, and engineering shipped a patch on Wednesday afternoon.",
+   "grammarly": "The customer reported the issue on Monday, our support team reproduced it on Tuesday, and engineering shipped a patch on Wednesday afternoon.",
+   "changed": false
+  },
+  {
+   "batch": 9,
+   "theme": "corporate and business jargon",
+   "original": "We need to leverage our core competencies to drive synergies across the portfolio.",
+   "grammarly": "We need to leverage our core competencies to drive synergies across the portfolio.",
+   "changed": false
+  },
+  {
+   "batch": 9,
+   "theme": "corporate and business jargon",
+   "original": "Let us circle back offline and touch base on the deliverables next week.",
+   "grammarly": "Let us reevaluate offline and touch base on the deliverables next week.",
+   "changed": true
+  },
+  {
+   "batch": 9,
+   "theme": "corporate and business jargon",
+   "original": "Going forward, we will operationalize the framework at a granular level.",
+   "grammarly": "In the future, we will operationalise the framework at a granular level.",
+   "changed": true
+  },
+  {
+   "batch": 9,
+   "theme": "corporate and business jargon",
+   "original": "This initiative will enable us to unlock value in the medium term.",
+   "grammarly": "This initiative will unlock value in the medium term.",
+   "changed": true
+  },
+  {
+   "batch": 9,
+   "theme": "corporate and business jargon",
+   "original": "We should socialize the proposal with stakeholders prior to the deep dive.",
+   "grammarly": "We should socialise the proposal with stakeholders before the deep dive.",
+   "changed": true
+  },
+  {
+   "batch": 9,
+   "theme": "corporate and business jargon",
+   "original": "The team is fully bandwidth constrained until the end of the quarter.",
+   "grammarly": "The team is fully bandwidth constrained until the end of the quarter.",
+   "changed": false
+  },
+  {
+   "batch": 9,
+   "theme": "corporate and business jargon",
+   "original": "At the end of the day, we need to move the needle on retention.",
+   "grammarly": "Ultimately, we need to move the needle on retention.",
+   "changed": true
+  },
+  {
+   "batch": 9,
+   "theme": "corporate and business jargon",
+   "original": "Please action the items and revert with your feedback at your earliest convenience.",
+   "grammarly": "Please action the items and revert with your feedback at your earliest convenience.",
+   "changed": false
+  },
+  {
+   "batch": 9,
+   "theme": "corporate and business jargon",
+   "original": "We are looking to onboard a strategic partner in the very near term.",
+   "grammarly": "We are looking to onboard a strategic partner in the very near term.",
+   "changed": false
+  },
+  {
+   "batch": 9,
+   "theme": "corporate and business jargon",
+   "original": "This is a mission critical workstream with significant downstream impact.",
+   "grammarly": "This is a mission-critical workstream with significant downstream impact.",
+   "changed": true
+  },
+  {
+   "batch": 10,
+   "theme": "technical documentation prose",
+   "original": "In the event of a failure, the client will retry the request three times.",
+   "grammarly": "If the request fails, the client will retry it three times.",
+   "changed": true
+  },
+  {
+   "batch": 10,
+   "theme": "technical documentation prose",
+   "original": "It should be noted that the endpoint requires an authentication token.",
+   "grammarly": "The endpoint requires an authentication token.",
+   "changed": true
+  },
+  {
+   "batch": 10,
+   "theme": "technical documentation prose",
+   "original": "The purpose of this document is to describe the deployment procedure.",
+   "grammarly": "The purpose of this document is to describe the deployment procedure.",
+   "changed": false
+  },
+  {
+   "batch": 10,
+   "theme": "technical documentation prose",
+   "original": "This section provides a description of the available configuration options.",
+   "grammarly": "This section describes the available configuration options.",
+   "changed": true
+  },
+  {
+   "batch": 10,
+   "theme": "technical documentation prose",
+   "original": "Users are able to filter the results by date, status, and owner.",
+   "grammarly": "Users can filter results by date, status, and owner.",
+   "changed": true
+  },
+  {
+   "batch": 10,
+   "theme": "technical documentation prose",
+   "original": "The function has the capability of processing batches of up to ten items.",
+   "grammarly": "The function can process batches of up to ten items.",
+   "changed": true
+  },
+  {
+   "batch": 10,
+   "theme": "technical documentation prose",
+   "original": "Prior to running the script, ensure that the environment variables are set.",
+   "grammarly": "Before running the script, ensure the environment variables are set.",
+   "changed": true
+  },
+  {
+   "batch": 10,
+   "theme": "technical documentation prose",
+   "original": "In order for the job to succeed, the input file must be valid JSON.",
+   "grammarly": "For the job to succeed, the input file must be valid JSON.",
+   "changed": true
+  },
+  {
+   "batch": 10,
+   "theme": "technical documentation prose",
+   "original": "The service makes use of a connection pool with a maximum of fifty connections.",
+   "grammarly": "The service uses a connection pool with a maximum of fifty connections.",
+   "changed": true
+  },
+  {
+   "batch": 10,
+   "theme": "technical documentation prose",
+   "original": "Due to the asynchronous nature of the queue, ordering is not guaranteed.",
+   "grammarly": "Because the queue is asynchronous, ordering is not guaranteed.",
+   "changed": true
+  },
+  {
+   "batch": 11,
+   "theme": "email and workplace communication",
+   "original": "I am writing to inform you that the meeting has been moved to Thursday.",
+   "grammarly": "I am writing to inform you that the meeting has been moved to Thursday.",
+   "changed": false
+  },
+  {
+   "batch": 11,
+   "theme": "email and workplace communication",
+   "original": "Please be advised that the office will be closed on Monday for maintenance.",
+   "grammarly": "Please be advised that the office will be closed on Monday for maintenance.",
+   "changed": false
+  },
+  {
+   "batch": 11,
+   "theme": "email and workplace communication",
+   "original": "I wanted to reach out and follow up on my previous email regarding the invoice.",
+   "grammarly": "I wanted to follow up on my previous email regarding the invoice.",
+   "changed": true
+  },
+  {
+   "batch": 11,
+   "theme": "email and workplace communication",
+   "original": "Thank you in advance for your kind attention to this urgent matter.",
+   "grammarly": "Thank you in advance for your kind attention to this urgent matter.",
+   "changed": false
+  },
+  {
+   "batch": 11,
+   "theme": "email and workplace communication",
+   "original": "Kindly find attached the document that you requested during our call.",
+   "grammarly": "Kindly find attached the document that you requested during our call.",
+   "changed": false
+  },
+  {
+   "batch": 11,
+   "theme": "email and workplace communication",
+   "original": "I hope this email finds you well and that you had a restful weekend.",
+   "grammarly": "I hope this email finds you well and that you had a restful weekend.",
+   "changed": false
+  },
+  {
+   "batch": 11,
+   "theme": "email and workplace communication",
+   "original": "Please do not hesitate to contact me should you require any further information.",
+   "grammarly": "Please get in touch with me if you need any further information.",
+   "changed": true
+  },
+  {
+   "batch": 11,
+   "theme": "email and workplace communication",
+   "original": "At your earliest convenience, could you please confirm receipt of the files?",
+   "grammarly": "At your earliest convenience, could you please confirm receipt of the files?",
+   "changed": false
+  },
+  {
+   "batch": 11,
+   "theme": "email and workplace communication",
+   "original": "We regret to inform you that your request has not been approved at this time.",
+   "grammarly": "We regret to inform you that we have not approved your request at this time.",
+   "changed": true
+  },
+  {
+   "batch": 11,
+   "theme": "email and workplace communication",
+   "original": "Just following up on the below to see if you have had a chance to review.",
+   "grammarly": "Just following up on the below to see if you have had a chance to review.",
+   "changed": false
+  },
+  {
+   "batch": 12,
+   "theme": "academic and formal register",
+   "original": "The present study seeks to investigate the effect of latency on user retention.",
+   "grammarly": "This study investigates the effect of latency on user retention.",
+   "changed": true
+  },
+  {
+   "batch": 12,
+   "theme": "academic and formal register",
+   "original": "It has been demonstrated by previous research that caching improves throughput.",
+   "grammarly": "Previous research has shown that caching improves throughput.",
+   "changed": true
+  },
+  {
+   "batch": 12,
+   "theme": "academic and formal register",
+   "original": "The data would seem to suggest that there is a correlation between the two variables.",
+   "grammarly": "The data suggest a correlation between the two variables.",
+   "changed": true
+  },
+  {
+   "batch": 12,
+   "theme": "academic and formal register",
+   "original": "A significant number of the participants failed to complete the second task.",
+   "grammarly": "A significant number of the participants failed to complete the second task.",
+   "changed": false
+  },
+  {
+   "batch": 12,
+   "theme": "academic and formal register",
+   "original": "The results obtained from the experiment are presented in the following section.",
+   "grammarly": "The following section presents the results from the experiment.",
+   "changed": true
+  },
+  {
+   "batch": 12,
+   "theme": "academic and formal register",
+   "original": "It is worth noting that the sample size was relatively small in this instance.",
+   "grammarly": "The sample size was relatively small in this instance.",
+   "changed": true
+  },
+  {
+   "batch": 12,
+   "theme": "academic and formal register",
+   "original": "The methodology employed in this analysis is described in detail in Appendix A.",
+   "grammarly": "Appendix A describes the methodology used in this analysis.",
+   "changed": true
+  },
+  {
+   "batch": 12,
+   "theme": "academic and formal register",
+   "original": "These findings are consistent with the hypothesis that was stated earlier.",
+   "grammarly": "These findings are consistent with the earlier stated hypothesis.",
+   "changed": true
+  },
+  {
+   "batch": 12,
+   "theme": "academic and formal register",
+   "original": "Further research will be required in order to establish causality definitively.",
+   "grammarly": "Further research is needed to establish causality definitively.",
+   "changed": true
+  },
+  {
+   "batch": 12,
+   "theme": "academic and formal register",
+   "original": "The literature on this subject is extensive and, for the most part, inconclusive.",
+   "grammarly": "The literature on this subject is extensive and, for the most part, inconclusive.",
+   "changed": false
+  },
+  {
+   "batch": 13,
+   "theme": "clean controls (expect no clarity suggestions)",
+   "original": "The build finished in four minutes.",
+   "grammarly": "The build finished in four minutes.",
+   "changed": false
+  },
+  {
+   "batch": 13,
+   "theme": "clean controls (expect no clarity suggestions)",
+   "original": "We deployed the fix to production on Friday morning.",
+   "grammarly": "We deployed the fix to production on Friday morning.",
+   "changed": false
+  },
+  {
+   "batch": 13,
+   "theme": "clean controls (expect no clarity suggestions)",
+   "original": "The database holds twelve million customer records.",
+   "grammarly": "The database holds twelve million customer records.",
+   "changed": false
+  },
+  {
+   "batch": 13,
+   "theme": "clean controls (expect no clarity suggestions)",
+   "original": "Sarah leads the platform team in Zurich.",
+   "grammarly": "Sarah leads the platform team in Zurich.",
+   "changed": false
+  },
+  {
+   "batch": 13,
+   "theme": "clean controls (expect no clarity suggestions)",
+   "original": "The API returns a 404 when the record does not exist.",
+   "grammarly": "The API returns a 404 when the record does not exist.",
+   "changed": false
+  },
+  {
+   "batch": 13,
+   "theme": "clean controls (expect no clarity suggestions)",
+   "original": "Our costs fell by a third after the migration.",
+   "grammarly": "Our costs fell by a third after the migration.",
+   "changed": false
+  },
+  {
+   "batch": 13,
+   "theme": "clean controls (expect no clarity suggestions)",
+   "original": "The meeting starts at nine and ends at ten.",
+   "grammarly": "The meeting starts at nine and ends at ten.",
+   "changed": false
+  },
+  {
+   "batch": 13,
+   "theme": "clean controls (expect no clarity suggestions)",
+   "original": "He rewrote the parser in Rust last summer.",
+   "grammarly": "He rewrote the parser in Rust last summer.",
+   "changed": false
+  },
+  {
+   "batch": 13,
+   "theme": "clean controls (expect no clarity suggestions)",
+   "original": "The queue drains faster than it fills.",
+   "grammarly": "The queue drains faster than it fills.",
+   "changed": false
+  },
+  {
+   "batch": 13,
+   "theme": "clean controls (expect no clarity suggestions)",
+   "original": "She approved the budget and signed the contract.",
+   "grammarly": "She approved the budget and signed the contract.",
+   "changed": false
+  },
+  {
+   "batch": 14,
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "original": "The job processes roughly 2.5 million rows in under 40 seconds.",
+   "grammarly": "The job processes roughly 2.5 million rows in under 40 seconds.",
+   "changed": false
+  },
+  {
+   "batch": 14,
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "original": "We upgraded from version 3.11 to version 4.0 without downtime.",
+   "grammarly": "We upgraded from version 3.11 to version 4.0 without downtime.",
+   "changed": false
+  },
+  {
+   "batch": 14,
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "original": "The threshold was raised from 100 ms to 250 ms last Tuesday.",
+   "grammarly": "Last Tuesday, we raised the threshold from 100 ms to 250 ms.",
+   "changed": true
+  },
+  {
+   "batch": 14,
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "original": "Revenue in Q3 was up 14 points against a target of 10 points.",
+   "grammarly": "Revenue in Q3 was up 14 points against a target of 10 points.",
+   "changed": false
+  },
+  {
+   "batch": 14,
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "original": "The cluster runs on eight nodes with 64 GB of memory each.",
+   "grammarly": "The cluster runs on eight nodes, each with 64 GB of memory.",
+   "changed": true
+  },
+  {
+   "batch": 14,
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "original": "Postgres, Redis, and Kafka are all managed by the platform team.",
+   "grammarly": "The platform team manages Postgres, Redis, and Kafka.",
+   "changed": true
+  },
+  {
+   "batch": 14,
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "original": "The contract with Acme Corp expires on 31 December 2026.",
+   "grammarly": "The contract with Acme Corp expires on 31 December 2026.",
+   "changed": false
+  },
+  {
+   "batch": 14,
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "original": "Only 3 of the 47 tenants have enabled the beta feature so far.",
+   "grammarly": "Only 3 of the 47 tenants have enabled the beta feature so far.",
+   "changed": false
+  },
+  {
+   "batch": 14,
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "original": "The file is 1.2 GB and takes about ninety seconds to upload.",
+   "grammarly": "The file is 1.2 GB and takes about ninety seconds to upload.",
+   "changed": false
+  },
+  {
+   "batch": 14,
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "original": "Our SLA guarantees 99.95 percent availability measured monthly.",
+   "grammarly": "Our SLA guarantees 99.95% availability, measured monthly.",
+   "changed": true
+  },
+  {
+   "batch": 15,
+   "theme": "negation, modality and certainty (safety probes)",
+   "original": "The service must never write to the primary during a failover.",
+   "grammarly": "The service must never write to the primary during a failover.",
+   "changed": false
+  },
+  {
+   "batch": 15,
+   "theme": "negation, modality and certainty (safety probes)",
+   "original": "Users cannot delete records that are referenced by an open case.",
+   "grammarly": "Users cannot delete records that are referenced by an open case.",
+   "changed": false
+  },
+  {
+   "batch": 15,
+   "theme": "negation, modality and certainty (safety probes)",
+   "original": "We should not assume that the upstream provider will retry.",
+   "grammarly": "We should not assume that the upstream provider will retry.",
+   "changed": false
+  },
+  {
+   "batch": 15,
+   "theme": "negation, modality and certainty (safety probes)",
+   "original": "It is not impossible that the vendor will miss the deadline again.",
+   "grammarly": "It is not impossible that the vendor will miss the deadline again.",
+   "changed": false
+  },
+  {
+   "batch": 15,
+   "theme": "negation, modality and certainty (safety probes)",
+   "original": "The change will not affect customers on the legacy plan.",
+   "grammarly": "The change will not affect customers on the legacy plan.",
+   "changed": false
+  },
+  {
+   "batch": 15,
+   "theme": "negation, modality and certainty (safety probes)",
+   "original": "No engineer is permitted to deploy without a second approval.",
+   "grammarly": "No engineer is permitted to deploy without a second approval.",
+   "changed": false
+  },
+  {
+   "batch": 15,
+   "theme": "negation, modality and certainty (safety probes)",
+   "original": "The system may reject the request if the quota has been exceeded.",
+   "grammarly": "The system may reject the request if the quota has been exceeded.",
+   "changed": false
+  },
+  {
+   "batch": 15,
+   "theme": "negation, modality and certainty (safety probes)",
+   "original": "This must be completed before the audit, not merely started.",
+   "grammarly": "This must be completed before the audit, not merely started.",
+   "changed": false
+  },
+  {
+   "batch": 15,
+   "theme": "negation, modality and certainty (safety probes)",
+   "original": "Nothing in the logs suggests that the disk was ever full.",
+   "grammarly": "Nothing in the logs suggests that the disk was ever full.",
+   "changed": false
+  },
+  {
+   "batch": 15,
+   "theme": "negation, modality and certainty (safety probes)",
+   "original": "The migration might fail, in which case we roll back immediately.",
+   "grammarly": "The migration might fail, in which case we roll back immediately.",
+   "changed": false
+  },
+  {
+   "batch": 16,
+   "theme": "questions and imperatives",
+   "original": "Could you please let me know what the reason for the delay is?",
+   "grammarly": "Could you please let me know the reason for the delay?",
+   "changed": true
+  },
+  {
+   "batch": 16,
+   "theme": "questions and imperatives",
+   "original": "Would it be possible for you to provide us with an updated estimate?",
+   "grammarly": "Could you provide an updated estimate?",
+   "changed": true
+  },
+  {
+   "batch": 16,
+   "theme": "questions and imperatives",
+   "original": "Do you happen to know whether or not the backup job completed?",
+   "grammarly": "Do you know whether the backup job has completed?",
+   "changed": true
+  },
+  {
+   "batch": 16,
+   "theme": "questions and imperatives",
+   "original": "Please make sure that you do not forget to rotate the credentials.",
+   "grammarly": "Please make sure you rotate the credentials.",
+   "changed": true
+  },
+  {
+   "batch": 16,
+   "theme": "questions and imperatives",
+   "original": "Ensure that all of the tests are passing prior to merging the branch.",
+   "grammarly": "Ensure all tests pass before merging the branch.",
+   "changed": true
+  },
+  {
+   "batch": 16,
+   "theme": "questions and imperatives",
+   "original": "Can you give consideration to the alternative approach we discussed?",
+   "grammarly": "Can you consider the alternative approach we discussed?",
+   "changed": true
+  },
+  {
+   "batch": 16,
+   "theme": "questions and imperatives",
+   "original": "Try to avoid making changes to the schema during the freeze period.",
+   "grammarly": "Try to avoid schema changes during the freeze period.",
+   "changed": true
+  },
+  {
+   "batch": 16,
+   "theme": "questions and imperatives",
+   "original": "Kindly refrain from deploying to production after four in the afternoon.",
+   "grammarly": "Kindly refrain from deploying to production after four in the afternoon.",
+   "changed": false
+  },
+  {
+   "batch": 16,
+   "theme": "questions and imperatives",
+   "original": "What is the current status with regard to the outstanding invoices?",
+   "grammarly": "What is the current status of the outstanding invoices?",
+   "changed": true
+  },
+  {
+   "batch": 16,
+   "theme": "questions and imperatives",
+   "original": "Remember to take into account the fact that timezones differ.",
+   "grammarly": "Remember to take into account the fact that timezones differ.",
+   "changed": false
+  },
+  {
+   "batch": 17,
+   "theme": "lists and parallel structure",
+   "original": "The pipeline validates the input, transformation of the data, and then it loads it.",
+   "grammarly": "The pipeline validates the input and transforms the data, then loads it.",
+   "changed": true
+  },
+  {
+   "batch": 17,
+   "theme": "lists and parallel structure",
+   "original": "Our goals are improving latency, to reduce cost, and that we increase reliability.",
+   "grammarly": "Our goals are to reduce latency, lower costs, and increase reliability.",
+   "changed": true
+  },
+  {
+   "batch": 17,
+   "theme": "lists and parallel structure",
+   "original": "The role involves writing code, code review, and to mentor junior engineers.",
+   "grammarly": "The role involves writing code, reviewing code, and mentoring junior engineers.",
+   "changed": true
+  },
+  {
+   "batch": 17,
+   "theme": "lists and parallel structure",
+   "original": "We need to fix the bug, the documentation must be updated, and notify the customer.",
+   "grammarly": "We need to fix the bug, update the documentation, and notify the customer.",
+   "changed": true
+  },
+  {
+   "batch": 17,
+   "theme": "lists and parallel structure",
+   "original": "The report covers revenue, what our costs were, and the headcount projections.",
+   "grammarly": "The report covers revenue, costs, and headcount projections.",
+   "changed": true
+  },
+  {
+   "batch": 17,
+   "theme": "lists and parallel structure",
+   "original": "Please check the logs, that the metrics look normal, and restarting the worker.",
+   "grammarly": "Please check the logs to ensure the metrics look normal, then restart the worker.",
+   "changed": true
+  },
+  {
+   "batch": 17,
+   "theme": "lists and parallel structure",
+   "original": "The system is fast, reliable, and it has good security.",
+   "grammarly": "The system is fast, reliable, and it has good security.",
+   "changed": false
+  },
+  {
+   "batch": 17,
+   "theme": "lists and parallel structure",
+   "original": "She is responsible for hiring, for the budget, and she runs the roadmap.",
+   "grammarly": "She is responsible for hiring, for the budget, and she runs the roadmap.",
+   "changed": false
+  },
+  {
+   "batch": 17,
+   "theme": "lists and parallel structure",
+   "original": "The tool can export to CSV, JSON, and it also supports Parquet files.",
+   "grammarly": "The tool can export to CSV, JSON, and it also supports Parquet files.",
+   "changed": false
+  },
+  {
+   "batch": 17,
+   "theme": "lists and parallel structure",
+   "original": "We measured throughput, the latency was measured, and error rates were tracked.",
+   "grammarly": "We measured throughput, the latency was measured, and error rates were tracked.",
+   "changed": false
+  },
+  {
+   "batch": 18,
+   "theme": "idioms and figurative language (expect preservation)",
+   "original": "The new dashboard is a game changer for the analysts.",
+   "grammarly": "The new dashboard is a game changer for the analysts.",
+   "changed": false
+  },
+  {
+   "batch": 18,
+   "theme": "idioms and figurative language (expect preservation)",
+   "original": "We are boiling the ocean by trying to fix everything at once.",
+   "grammarly": "We're trying to boil the ocean by fixing everything at once.",
+   "changed": true
+  },
+  {
+   "batch": 18,
+   "theme": "idioms and figurative language (expect preservation)",
+   "original": "That approach opens a can of worms we would rather keep closed.",
+   "grammarly": "That approach opens a can of worms we would rather keep closed.",
+   "changed": false
+  },
+  {
+   "batch": 18,
+   "theme": "idioms and figurative language (expect preservation)",
+   "original": "The team went the extra mile to get the release out on time.",
+   "grammarly": "The team went the extra mile to release on time.",
+   "changed": true
+  },
+  {
+   "batch": 18,
+   "theme": "idioms and figurative language (expect preservation)",
+   "original": "This is low hanging fruit that we can pick up next sprint.",
+   "grammarly": "This is low-hanging fruit that we can pick up next sprint.",
+   "changed": true
+  },
+  {
+   "batch": 18,
+   "theme": "idioms and figurative language (expect preservation)",
+   "original": "We are flying blind without proper observability in place.",
+   "grammarly": "We are flying blind without proper observability.",
+   "changed": true
+  },
+  {
+   "batch": 18,
+   "theme": "idioms and figurative language (expect preservation)",
+   "original": "The proposal was dead on arrival at the steering committee.",
+   "grammarly": "The proposal was dead on arrival at the steering committee.",
+   "changed": false
+  },
+  {
+   "batch": 18,
+   "theme": "idioms and figurative language (expect preservation)",
+   "original": "Let us not throw the baby out with the bathwater here.",
+   "grammarly": "Let us not throw the baby out with the bathwater here.",
+   "changed": false
+  },
+  {
+   "batch": 18,
+   "theme": "idioms and figurative language (expect preservation)",
+   "original": "The migration turned out to be a blessing in disguise.",
+   "grammarly": "The migration turned out to be a blessing in disguise.",
+   "changed": false
+  },
+  {
+   "batch": 18,
+   "theme": "idioms and figurative language (expect preservation)",
+   "original": "They moved the goalposts halfway through the project.",
+   "grammarly": "They moved the goalposts halfway through the project.",
+   "changed": false
+  },
+  {
+   "batch": 19,
+   "theme": "meeting notes and status updates",
+   "original": "Just to give a quick update on where we are with the integration work.",
+   "grammarly": "To give a quick update on where we are with the integration work.",
+   "changed": true
+  },
+  {
+   "batch": 19,
+   "theme": "meeting notes and status updates",
+   "original": "The main takeaway from the session was that we need clearer ownership.",
+   "grammarly": "The main takeaway from the session was that we need clearer ownership.",
+   "changed": false
+  },
+  {
+   "batch": 19,
+   "theme": "meeting notes and status updates",
+   "original": "We spent a fair amount of time discussing the trade-offs of each option.",
+   "grammarly": "We spent a fair amount of time discussing the trade-offs of each option.",
+   "changed": false
+  },
+  {
+   "batch": 19,
+   "theme": "meeting notes and status updates",
+   "original": "Action item for me is to follow up with the vendor about the pricing.",
+   "grammarly": "My action item is to follow up with the vendor about pricing.",
+   "changed": true
+  },
+  {
+   "batch": 19,
+   "theme": "meeting notes and status updates",
+   "original": "One thing that came up was the question of who owns the data quality checks.",
+   "grammarly": "One thing that came up was who owns the data quality checks.",
+   "changed": true
+  },
+  {
+   "batch": 19,
+   "theme": "meeting notes and status updates",
+   "original": "There was general agreement that the current SLA is too aggressive.",
+   "grammarly": "We generally agreed that the current SLA is too aggressive.",
+   "changed": true
+  },
+  {
+   "batch": 19,
+   "theme": "meeting notes and status updates",
+   "original": "We did not manage to get through the whole agenda in the time available.",
+   "grammarly": "We did not manage to get through the whole agenda in the time available.",
+   "changed": false
+  },
+  {
+   "batch": 19,
+   "theme": "meeting notes and status updates",
+   "original": "Next week we will pick up where we left off and go through the remaining items.",
+   "grammarly": "Next week we will pick up where we left off and go through the remaining items.",
+   "changed": false
+  },
+  {
+   "batch": 19,
+   "theme": "meeting notes and status updates",
+   "original": "A couple of people raised concerns around the timeline being unrealistic.",
+   "grammarly": "A couple of people raised concerns around the timeline being unrealistic.",
+   "changed": false
+  },
+  {
+   "batch": 19,
+   "theme": "meeting notes and status updates",
+   "original": "In summary, we are broadly on track but there are a few risks to watch.",
+   "grammarly": "In summary, we are broadly on track, but there are a few risks to watch.",
+   "changed": true
+  },
+  {
+   "batch": 20,
+   "theme": "edge cases: short, fragment, quoted, mixed punctuation",
+   "original": "Done.",
+   "grammarly": "Done.",
+   "changed": false
+  },
+  {
+   "batch": 20,
+   "theme": "edge cases: short, fragment, quoted, mixed punctuation",
+   "original": "Not yet, unfortunately.",
+   "grammarly": "Not yet, unfortunately.",
+   "changed": false
+  },
+  {
+   "batch": 20,
+   "theme": "edge cases: short, fragment, quoted, mixed punctuation",
+   "original": "The reason being that the cache had not been warmed.",
+   "grammarly": "The cache hadn't been warmed.",
+   "changed": true
+  },
+  {
+   "batch": 20,
+   "theme": "edge cases: short, fragment, quoted, mixed punctuation",
+   "original": "He said that the deadline is, in his words, completely unrealistic.",
+   "grammarly": "He said that the deadline is, in his words, completely unrealistic.",
+   "changed": false
+  },
+  {
+   "batch": 20,
+   "theme": "edge cases: short, fragment, quoted, mixed punctuation",
+   "original": "The config file (which lives in /etc/app/config.yaml) must be readable.",
+   "grammarly": "The config file (/etc/app/config.yaml) must be readable.",
+   "changed": true
+  },
+  {
+   "batch": 20,
+   "theme": "edge cases: short, fragment, quoted, mixed punctuation",
+   "original": "We tried three things: restarting, rescaling, and finally rebuilding.",
+   "grammarly": "We tried three things: restarting, rescaling, and finally rebuilding.",
+   "changed": false
+  },
+  {
+   "batch": 20,
+   "theme": "edge cases: short, fragment, quoted, mixed punctuation",
+   "original": "The error message says \"connection refused\" but the port is open.",
+   "grammarly": "The error message says \"connection refused\", but the port is open.",
+   "changed": true
+  },
+  {
+   "batch": 20,
+   "theme": "edge cases: short, fragment, quoted, mixed punctuation",
+   "original": "It works; however, it is far slower than we had anticipated.",
+   "grammarly": "It works; however, it is far slower than we had anticipated.",
+   "changed": false
+  },
+  {
+   "batch": 20,
+   "theme": "edge cases: short, fragment, quoted, mixed punctuation",
+   "original": "Why? Because the index was never created in the first place.",
+   "grammarly": "Why? Because the index was never created in the first place.",
+   "changed": false
+  },
+  {
+   "batch": 20,
+   "theme": "edge cases: short, fragment, quoted, mixed punctuation",
+   "original": "The team, having reviewed the options, decided to wait.",
+   "grammarly": "After reviewing the options, the team decided to wait.",
+   "changed": true
+  }
+ ],
+ "provenance": "Third-party text. See bench/corpus/THIRD-PARTY.md: not covered by LICENSE or LICENSE-DATA."
+}

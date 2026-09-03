@@ -1,0 +1,81 @@
+# A real model answering real sentences.
+#
+# Every other job in CI runs the pipeline against a stub. This one runs it against weights
+# — through llama-server and through Ollama — because the two failures that matter most
+# here are invisible to a stub: a server that silently drops `keep_alive`, and a model
+# that returns its reasoning instead of an answer. Both look like working code.
+#
+# Not on every push: it downloads 1.5 GB and spends several minutes generating.
+
+name: live
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "43 5 * * 1"
+  push:
+    tags: ["v*"]
+
+jobs:
+  # The measured configuration: llama-server, the pinned Q6_K artefact, the flags every
+  # number in REPORT.md was produced with.
+  llama-server:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+
+      - name: Fetch the pinned weights
+        run: node tools/fetch-models.mjs
+
+      - name: Provision a runtime and leave it running
+        id: server
+        run: node tools/provision.mjs --confirm --keep --state "${{ runner.temp }}/tolben"
+
+      # The six tests that skip without a server are the point of this job. They are the
+      # only ones that exercise the real contract: schema-constrained decoding, the stop
+      # string, and a verifier that answers.
+      - name: The live-model tests, which skip everywhere else
+        run: npm test
+
+      - name: Stop anything left running
+        if: always()
+        run: |
+          pid=$(node -p "try{require('${{ runner.temp }}/tolben/llama-server.pid.json').pid}catch(e){''}" || true)
+          if [ -n "$pid" ]; then kill "$pid" || true; fi
+
+  # Ollama, which is how most people who already run a local model run one. The adapter
+  # chooses between /v1 and /api/chat from a probe; this is the job that says whether the
+  # probe is right about a real Ollama.
+  ollama:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+
+      - name: Install Ollama
+        run: curl -fsSL https://ollama.com/install.sh | sh
+
+      - name: Serve
+        run: |
+          ollama serve &
+          for _ in $(seq 1 30); do
+            curl -sf http://127.0.0.1:11434/api/tags >/dev/null && break
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:11434/api/tags >/dev/null
+
+      # Pulls the SAME artefact models/MANIFEST.json pins, so this measures the model the
+      # numbers describe rather than a similarly-named requantisation.
+      - name: Pull the pinned tag, probe the dialect, and run ten sentences
+        run: node tools/ollama-check.mjs --pull --smoke 10

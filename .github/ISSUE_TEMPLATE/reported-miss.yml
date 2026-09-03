@@ -1,0 +1,42 @@
+name: Reported miss — a rewrite changed the meaning
+description: The tool accepted or proposed a rewrite that does not mean the same thing.
+labels: ["reported miss"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the most important issue type in the project. Tolben's whole claim is that
+        it refuses rewrites it cannot prove preserve meaning, so a suggestion that changed
+        the meaning is a defect in the core product, not a preference.
+  - type: textarea
+    id: original
+    attributes:
+      label: The original sentence
+      description: Exactly as you typed it, including punctuation.
+      render: text
+    validations: { required: true }
+  - type: textarea
+    id: proposed
+    attributes:
+      label: What Tolben proposed
+      description: The full proposed sentence from the hover card.
+      render: text
+    validations: { required: true }
+  - type: textarea
+    id: why
+    attributes:
+      label: What the change did to the meaning
+      description: One or two sentences. What does the rewrite say that the original did not, or stop saying that it did?
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes:
+      label: Tolben version
+      placeholder: "1.0.0"
+    validations: { required: true }
+  - type: dropdown
+    id: backend
+    attributes:
+      label: Model backend
+      options: ["Bundled llama-server (provisioned)", "Own llama-server", "Ollama", "Other OpenAI-compatible endpoint"]
+    validations: { required: true }

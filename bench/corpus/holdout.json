@@ -1,0 +1,506 @@
+{
+  "schemaVersion": 1,
+  "name": "clarity-holdout",
+  "rows": [
+    {
+      "id": "hold-r01",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "nominalization",
+      "source": "The committee will carry out a review of the safety protocol next month.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use the direct verb 'review'."
+    },
+    {
+      "id": "hold-r02",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "nominalization",
+      "source": "Our team performed a comparison of the two vendors before signing.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'compared'."
+    },
+    {
+      "id": "hold-r03",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "nominalization",
+      "source": "The inspector made an inquiry into the missing shipment.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'inquired into'."
+    },
+    {
+      "id": "hold-r04",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "nominalization",
+      "source": "She undertook the negotiation of the lease with the landlord.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'negotiated'."
+    },
+    {
+      "id": "hold-r05",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "inflated-phrase",
+      "source": "In spite of the fact that the printer jammed, we met the deadline.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'Although'."
+    },
+    {
+      "id": "hold-r06",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "inflated-phrase",
+      "source": "The technician will arrive in the near future to swap the drive.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'soon'."
+    },
+    {
+      "id": "hold-r07",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "inflated-phrase",
+      "source": "We hold meetings on a monthly basis to review the backlog.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'monthly'."
+    },
+    {
+      "id": "hold-r08",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "inflated-phrase",
+      "source": "The kiln reaches temperature in the space of ten minutes.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'in ten minutes'."
+    },
+    {
+      "id": "hold-r09",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "inflated-phrase",
+      "source": "She has the capacity to handle three cases at once.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'can'."
+    },
+    {
+      "id": "hold-r10",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "redundancy",
+      "source": "The two proposals were completely identical in every respect.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Identical' already means in every respect."
+    },
+    {
+      "id": "hold-r11",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "redundancy",
+      "source": "He gave a brief summary of the incident in a few words.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "A summary is already brief."
+    },
+    {
+      "id": "hold-r12",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "redundancy",
+      "source": "The final conclusion of the study surprised the sponsors.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "A conclusion is already final."
+    },
+    {
+      "id": "hold-r13",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "redundancy",
+      "source": "They collaborated together on the grant application.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Collaborated' already means together."
+    },
+    {
+      "id": "hold-r14",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "redundancy",
+      "source": "We received an added bonus for finishing early.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "A bonus is already added."
+    },
+    {
+      "id": "hold-r15",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "expletive-construction",
+      "source": "There is a chance that the shipment will arrive late.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Prefer 'The shipment may arrive late.'"
+    },
+    {
+      "id": "hold-r16",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "expletive-construction",
+      "source": "It is the case that most applicants withdraw before the interview.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Remove the empty opening."
+    },
+    {
+      "id": "hold-r17",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "indirect-phrase",
+      "source": "The reason the valve failed is because the gasket had cracked.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Prefer 'The valve failed because the gasket had cracked.'"
+    },
+    {
+      "id": "hold-r18",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "indirect-phrase",
+      "source": "The manager is of the opinion that the schedule is too tight.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Prefer 'The manager believes'."
+    },
+    {
+      "id": "hold-r19",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "awkward-construction",
+      "source": "The auditor wrote the report in a manner that was confusing.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Prefer 'confusingly' or 'a confusing report'."
+    },
+    {
+      "id": "hold-r20",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "agreement",
+      "source": "The list of approved vendors are posted in the break room.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "The subject 'list' is singular."
+    },
+    {
+      "id": "hold-r21",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "agreement",
+      "source": "Each of the technicians have completed the certification.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Each' takes a singular verb."
+    },
+    {
+      "id": "hold-r22",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "agreement",
+      "source": "Neither the driver nor the dispatcher were aware of the delay.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Neither ... nor' takes a singular verb here."
+    },
+    {
+      "id": "hold-r23",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "article",
+      "source": "She submitted application without a signature.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "The noun needs an article."
+    },
+    {
+      "id": "hold-r24",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "confused-word",
+      "source": "The new policy effects every contractor on site.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Affects' is the verb."
+    },
+    {
+      "id": "hold-r25",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "confused-word",
+      "source": "Its likely that the vendor will miss the deadline.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'It's' is the contraction."
+    },
+    {
+      "id": "hold-r26",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "confused-word",
+      "source": "The team performed better then last quarter.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Than' makes the comparison."
+    },
+    {
+      "id": "hold-r27",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "number-consistency",
+      "source": "Both engineer reviewed the schematic.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Both' requires the plural noun."
+    },
+    {
+      "id": "hold-r28",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "capitalization",
+      "source": "the shipment cleared customs on friday.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Capitalize the opener and the weekday."
+    },
+    {
+      "id": "hold-r29",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "punctuation",
+      "source": "We ordered cable,connectors, and clips.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Add the missing space after the comma."
+    },
+    {
+      "id": "hold-r30",
+      "partition": "holdout",
+      "kind": "clarity",
+      "issueClass": "wordiness",
+      "source": "Please make sure that you check that the seal is seated before you close the lid.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Prefer 'Please check that the seal is seated before closing the lid.'"
+    },
+    {
+      "id": "hold-k01",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The kiln reached 1,240 \u00b0C during the second firing.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k02",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Marcus signed the lease on 3 March 2027.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k03",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Deploy API_V2 to the staging cluster before noon.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k04",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The pump runs for twelve minutes after each cycle.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k05",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "She filed the appeal because the deadline had passed.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k06",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Read the notes in /srv/reports/audit.md before the meeting.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k07",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The alloy resists corrosion better than stainless steel.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k08",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Neither candidate withdrew before the hearing.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k09",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "We may postpone the migration if the index rebuild fails.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k10",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The sensor reports pressure every thirty seconds.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k11",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Could the courier reach Lisbon before Friday?",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k12",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Do not open the housing while the rotor is spinning.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k13",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Revenue fell 4.2% in the third quarter.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k14",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The grant covers travel but not equipment.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k15",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "He rewrote the parser to handle nested quotes.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k16",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Visit https://example.test/status for the current outage.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k17",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The committee voted unanimously to extend the trial.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k18",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Ivan measured the gap with a feeler gauge.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k19",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The contract expires unless both parties renew it.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    },
+    {
+      "id": "hold-k20",
+      "partition": "holdout",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Frost damaged the outer seals last winter.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear; a suggestion here is a false positive."
+    }
+  ]
+}

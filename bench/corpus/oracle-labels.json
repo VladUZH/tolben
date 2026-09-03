@@ -1,0 +1,498 @@
+{
+ "description": "Hand labelling of every refusal bench/oracle.mjs produces on Grammarly's own accepted rewrites. ALIGNED = refused on purpose (see `ground`); UNINTENDED = an artefact of whole-sentence word counting. Committed BEFORE any guard change so the work cannot become rationalisation of whatever the guards already do. ALIGNED rows must stay refused forever; only UNINTENDED rows are targets.",
+ "labelled": "2026-09-01",
+ "corpus": "grammarly-pairs.json",
+ "counts": {
+  "UNINTENDED": 37,
+  "ALIGNED": 17
+ },
+ "labels": [
+  {
+   "original": "In the majority of cases, the retry logic recovers the request.",
+   "grammarly": "In most cases, the retry logic recovers the request.",
+   "theme": "wordy connectives and prepositional phrases",
+   "refusedAs": "quantifier-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "The migration was delayed for a period of three weeks.",
+   "grammarly": "The migration was delayed by three weeks.",
+   "theme": "wordy connectives and prepositional phrases",
+   "refusedAs": "order-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "They put forward a proposal for restructuring the data model.",
+   "grammarly": "They proposed restructuring the data model.",
+   "theme": "nominalizations and buried verbs",
+   "refusedAs": "tense-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "The configuration file is read by the loader at startup.",
+   "grammarly": "The loader reads the configuration file at startup.",
+   "theme": "passive voice variants",
+   "refusedAs": "tense-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "The tickets are reviewed by the on-call engineer every morning.",
+   "grammarly": "The on-call engineer reviews the tickets every morning.",
+   "theme": "passive voice variants",
+   "refusedAs": "word-substituted",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "The old cluster was decommissioned last quarter.",
+   "grammarly": "The team decommissioned the old cluster last quarter.",
+   "theme": "passive voice variants",
+   "refusedAs": "word-substituted",
+   "label": "ALIGNED",
+   "ground": "agent-invention",
+   "note": "'The team' has no antecedent in an agentless passive"
+  },
+  {
+   "original": "There is a chance that the job could possibly time out under load.",
+   "grammarly": "The job could time out under load.",
+   "theme": "hedging and qualifiers",
+   "refusedAs": "certainty-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "I would just like to suggest that we perhaps delay the announcement.",
+   "grammarly": "I suggest we delay the announcement.",
+   "theme": "hedging and qualifiers",
+   "refusedAs": "certainty-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "It could be argued that the current design is somewhat fragile.",
+   "grammarly": "The current design is somewhat fragile.",
+   "theme": "hedging and qualifiers",
+   "refusedAs": "certainty-changed",
+   "label": "ALIGNED",
+   "ground": "certainty-raised",
+   "note": "the frame's removal makes a hedged claim the writer's own"
+  },
+  {
+   "original": "Arguably, the results are fairly encouraging in a general sense.",
+   "grammarly": "The results are fairly encouraging overall.",
+   "theme": "hedging and qualifiers",
+   "refusedAs": "name-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "We are fairly confident that the fix will most likely hold.",
+   "grammarly": "We are confident the fix will hold.",
+   "theme": "hedging and qualifiers",
+   "refusedAs": "certainty-changed",
+   "label": "ALIGNED",
+   "ground": "certainty-raised",
+   "note": "GRAMMARLY-BEHAVIOUR.md §3 names this exact pair"
+  },
+  {
+   "original": "Perhaps it might be worth taking another look at the retry policy.",
+   "grammarly": "I recommend taking another look at the retry policy.",
+   "theme": "hedging and qualifiers",
+   "refusedAs": "certainty-changed",
+   "label": "ALIGNED",
+   "ground": "certainty-raised",
+   "note": "hedge removed and an agent ('I') invented"
+  },
+  {
+   "original": "The final outcome of the vote was a unanimous consensus of opinion.",
+   "grammarly": "The vote resulted in unanimous consensus.",
+   "theme": "redundant pairs and tautology",
+   "refusedAs": "word-substituted",
+   "label": "ALIGNED",
+   "ground": "vocabulary",
+   "note": "'resulted' has no antecedent in the source"
+  },
+  {
+   "original": "We must plan ahead for future contingencies that may arise.",
+   "grammarly": "We must plan for future contingencies.",
+   "theme": "redundant pairs and tautology",
+   "refusedAs": "certainty-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "The report contains a brief summary of the basic fundamentals.",
+   "grammarly": "The report summarises the fundamentals.",
+   "theme": "redundant pairs and tautology",
+   "refusedAs": "content-dropped",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "There is a need for better documentation of the ingestion pipeline.",
+   "grammarly": "The ingestion pipeline needs better documentation.",
+   "theme": "expletive constructions",
+   "refusedAs": "word-substituted",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "It is our expectation that the backlog will clear by Thursday.",
+   "grammarly": "We expect the backlog to clear by Thursday.",
+   "theme": "expletive constructions",
+   "refusedAs": "certainty-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "It was decided that the feature flag would remain on for now.",
+   "grammarly": "We decided to keep the feature flag on for now.",
+   "theme": "expletive constructions",
+   "refusedAs": "certainty-changed",
+   "label": "ALIGNED",
+   "ground": "agent-invention",
+   "note": "§3's canonical agentless-passive case"
+  },
+  {
+   "original": "There is no doubt that the current approach will not scale.",
+   "grammarly": "The current approach will not scale.",
+   "theme": "expletive constructions",
+   "refusedAs": "quantifier-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "It has come to our attention that the export job silently fails.",
+   "grammarly": "We learned that the export job fails silently.",
+   "theme": "expletive constructions",
+   "refusedAs": "tense-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "The dashboard, which was designed in 2021, which nobody maintains, is still live.",
+   "grammarly": "The dashboard, designed in 2021 and no longer maintained, is still live.",
+   "theme": "relative clauses and modifiers",
+   "refusedAs": "quantifier-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "Because the vendor missed the deadline and because the budget was already committed, we had to descope two features that had been promised to the customer.",
+   "grammarly": "Because the vendor missed the deadline and the budget was already committed, we had to descope two features we had promised the customer.",
+   "theme": "long compound and run-on sentences",
+   "refusedAs": "dropped-content",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "Although we agreed on the architecture in principle, there remain a number of open questions regarding ownership, funding, and the timeline for delivery.",
+   "grammarly": "Although we agreed on the architecture in principle, several open questions remain about ownership, funding, and the delivery timeline.",
+   "theme": "long compound and run-on sentences",
+   "refusedAs": "information-dropped",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "If the primary region fails and if the replica has not caught up, then manual intervention will be required before traffic can be redirected.",
+   "grammarly": "If the primary region fails and the replica has not caught up, then manual intervention will be required before traffic can be redirected.",
+   "theme": "long compound and run-on sentences",
+   "refusedAs": "dropped-content",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "We could either rewrite the service from scratch, or we could refactor it incrementally, but either way it will take at least two quarters.",
+   "grammarly": "We could either rewrite the service from scratch or refactor it incrementally, but either way it will take at least two quarters.",
+   "theme": "long compound and run-on sentences",
+   "refusedAs": "certainty-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "Let us circle back offline and touch base on the deliverables next week.",
+   "grammarly": "Let us reevaluate offline and touch base on the deliverables next week.",
+   "theme": "corporate and business jargon",
+   "refusedAs": "word-substituted",
+   "label": "ALIGNED",
+   "ground": "vocabulary",
+   "note": "'reevaluate' has no antecedent in the source"
+  },
+  {
+   "original": "Going forward, we will operationalize the framework at a granular level.",
+   "grammarly": "In the future, we will operationalise the framework at a granular level.",
+   "theme": "corporate and business jargon",
+   "refusedAs": "name-changed",
+   "label": "ALIGNED",
+   "ground": "dialect",
+   "note": "operationalize -> operationalise is en-GB conversion, out of scope"
+  },
+  {
+   "original": "At the end of the day, we need to move the needle on retention.",
+   "grammarly": "Ultimately, we need to move the needle on retention.",
+   "theme": "corporate and business jargon",
+   "refusedAs": "name-changed",
+   "label": "ALIGNED",
+   "ground": "vocabulary",
+   "note": "'Ultimately' has no antecedent in the source"
+  },
+  {
+   "original": "In the event of a failure, the client will retry the request three times.",
+   "grammarly": "If the request fails, the client will retry it three times.",
+   "theme": "technical documentation prose",
+   "refusedAs": "pronoun-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "It should be noted that the endpoint requires an authentication token.",
+   "grammarly": "The endpoint requires an authentication token.",
+   "theme": "technical documentation prose",
+   "refusedAs": "certainty-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "Please do not hesitate to contact me should you require any further information.",
+   "grammarly": "Please get in touch with me if you need any further information.",
+   "theme": "email and workplace communication",
+   "refusedAs": "certainty-changed",
+   "label": "ALIGNED",
+   "ground": "vocabulary",
+   "note": "'get in touch' has no antecedent in the source"
+  },
+  {
+   "original": "We regret to inform you that your request has not been approved at this time.",
+   "grammarly": "We regret to inform you that we have not approved your request at this time.",
+   "theme": "email and workplace communication",
+   "refusedAs": "tense-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "The present study seeks to investigate the effect of latency on user retention.",
+   "grammarly": "This study investigates the effect of latency on user retention.",
+   "theme": "academic and formal register",
+   "refusedAs": "information-dropped",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "It has been demonstrated by previous research that caching improves throughput.",
+   "grammarly": "Previous research has shown that caching improves throughput.",
+   "theme": "academic and formal register",
+   "refusedAs": "order-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "The data would seem to suggest that there is a correlation between the two variables.",
+   "grammarly": "The data suggest a correlation between the two variables.",
+   "theme": "academic and formal register",
+   "refusedAs": "certainty-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "The results obtained from the experiment are presented in the following section.",
+   "grammarly": "The following section presents the results from the experiment.",
+   "theme": "academic and formal register",
+   "refusedAs": "tense-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "It is worth noting that the sample size was relatively small in this instance.",
+   "grammarly": "The sample size was relatively small in this instance.",
+   "theme": "academic and formal register",
+   "refusedAs": "information-dropped",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "The methodology employed in this analysis is described in detail in Appendix A.",
+   "grammarly": "Appendix A describes the methodology used in this analysis.",
+   "theme": "academic and formal register",
+   "refusedAs": "word-substituted",
+   "label": "ALIGNED",
+   "ground": "vocabulary",
+   "note": "'used' for 'employed' is a synonym swap, and 'in detail' is dropped"
+  },
+  {
+   "original": "Further research will be required in order to establish causality definitively.",
+   "grammarly": "Further research is needed to establish causality definitively.",
+   "theme": "academic and formal register",
+   "refusedAs": "certainty-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "The threshold was raised from 100 ms to 250 ms last Tuesday.",
+   "grammarly": "Last Tuesday, we raised the threshold from 100 ms to 250 ms.",
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "refusedAs": "pronoun-changed",
+   "label": "ALIGNED",
+   "ground": "agent-invention",
+   "note": "safety probe: 'we' invented for an agentless passive"
+  },
+  {
+   "original": "The cluster runs on eight nodes with 64 GB of memory each.",
+   "grammarly": "The cluster runs on eight nodes, each with 64 GB of memory.",
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "refusedAs": "order-changed",
+   "label": "ALIGNED",
+   "ground": "quantity/entity",
+   "note": "safety probe: a pure reordering of a quantity clause; the gate is conservative here by design"
+  },
+  {
+   "original": "Postgres, Redis, and Kafka are all managed by the platform team.",
+   "grammarly": "The platform team manages Postgres, Redis, and Kafka.",
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "refusedAs": "quantifier-changed",
+   "label": "ALIGNED",
+   "ground": "quantity/entity",
+   "note": "safety probe: the universal 'all' is dropped"
+  },
+  {
+   "original": "Our SLA guarantees 99.95 percent availability measured monthly.",
+   "grammarly": "Our SLA guarantees 99.95% availability, measured monthly.",
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "refusedAs": "numbers-changed",
+   "label": "ALIGNED",
+   "ground": "quantity/entity",
+   "note": "safety probe: 'percent' -> '%' is a notation change to a measured quantity; refusing is defensible and not worth pursuing"
+  },
+  {
+   "original": "Would it be possible for you to provide us with an updated estimate?",
+   "grammarly": "Could you provide an updated estimate?",
+   "theme": "questions and imperatives",
+   "refusedAs": "certainty-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "Do you happen to know whether or not the backup job completed?",
+   "grammarly": "Do you know whether the backup job has completed?",
+   "theme": "questions and imperatives",
+   "refusedAs": "negation-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "Please make sure that you do not forget to rotate the credentials.",
+   "grammarly": "Please make sure you rotate the credentials.",
+   "theme": "questions and imperatives",
+   "refusedAs": "negation-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "Our goals are improving latency, to reduce cost, and that we increase reliability.",
+   "grammarly": "Our goals are to reduce latency, lower costs, and increase reliability.",
+   "theme": "lists and parallel structure",
+   "refusedAs": "word-substituted",
+   "label": "ALIGNED",
+   "ground": "vocabulary",
+   "note": "'lower' invented, and 'improving latency' -> 'reduce latency' is itself a meaning change"
+  },
+  {
+   "original": "The role involves writing code, code review, and to mentor junior engineers.",
+   "grammarly": "The role involves writing code, reviewing code, and mentoring junior engineers.",
+   "theme": "lists and parallel structure",
+   "refusedAs": "word-substituted",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "We need to fix the bug, the documentation must be updated, and notify the customer.",
+   "grammarly": "We need to fix the bug, update the documentation, and notify the customer.",
+   "theme": "lists and parallel structure",
+   "refusedAs": "certainty-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "The report covers revenue, what our costs were, and the headcount projections.",
+   "grammarly": "The report covers revenue, costs, and headcount projections.",
+   "theme": "lists and parallel structure",
+   "refusedAs": "tense-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "We are flying blind without proper observability in place.",
+   "grammarly": "We are flying blind without proper observability.",
+   "theme": "idioms and figurative language (expect preservation)",
+   "refusedAs": "information-dropped",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "Just to give a quick update on where we are with the integration work.",
+   "grammarly": "To give a quick update on where we are with the integration work.",
+   "theme": "meeting notes and status updates",
+   "refusedAs": "quantifier-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  },
+  {
+   "original": "There was general agreement that the current SLA is too aggressive.",
+   "grammarly": "We generally agreed that the current SLA is too aggressive.",
+   "theme": "meeting notes and status updates",
+   "refusedAs": "certainty-changed",
+   "label": "ALIGNED",
+   "ground": "agent-invention",
+   "note": "'We' invented for an agentless nominalisation"
+  },
+  {
+   "original": "The config file (which lives in /etc/app/config.yaml) must be readable.",
+   "grammarly": "The config file (/etc/app/config.yaml) must be readable.",
+   "theme": "edge cases: short, fragment, quoted, mixed punctuation",
+   "refusedAs": "protected-token-changed",
+   "label": "UNINTENDED",
+   "ground": "counting-artefact",
+   "note": ""
+  }
+ ],
+ "provenance": "Author's labelling, quoting the third-party rewrite each label judges. See bench/corpus/THIRD-PARTY.md."
+}

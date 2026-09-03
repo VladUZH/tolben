@@ -1,0 +1,325 @@
+{
+ "description": "200 probe sentences containing deliberate CORRECTNESS errors (grammar, punctuation, spelling, usage), typed into the Grammarly editor to record how their correctness engine behaves. Grouped in batches of 10 by error class. Includes deliberate controls that are already correct.",
+ "batches": [
+  {
+   "id": 1,
+   "theme": "subject-verb agreement",
+   "sentences": [
+    "The list of items are on the desk.",
+    "Neither the manager nor the engineers was aware of the outage.",
+    "Each of the servers have been patched.",
+    "There is three open tickets in the queue.",
+    "A number of requests was rejected by the gateway.",
+    "The set of results show a clear trend.",
+    "Every one of the tests pass on the first run.",
+    "The engineer, along with the analysts, are joining the call.",
+    "Statistics show that the average latency have improved.",
+    "One of the nodes were unreachable during the incident."
+   ]
+  },
+  {
+   "id": 2,
+   "theme": "pronoun case and agreement",
+   "sentences": [
+    "Please send the report to John and I.",
+    "Who did you give the credentials to?",
+    "The person which wrote the script left the company.",
+    "Between you and I, the estimate is optimistic.",
+    "Us engineers prefer the simpler design.",
+    "Him and I reviewed the pull request together.",
+    "The report was written by she and her colleague.",
+    "Whom is responsible for the deployment tonight?",
+    "Each developer must test their own code before merging.",
+    "The committee published their findings last week."
+   ]
+  },
+  {
+   "id": 3,
+   "theme": "articles, determiners and countability",
+   "sentences": [
+    "She is a engineer with ten years of experience.",
+    "We need an unique identifier for each record.",
+    "I have a informations about the incident.",
+    "The team made a good progresses this week.",
+    "We bought new equipments for the lab.",
+    "There were less errors after the fix.",
+    "We have a lot of works to do before Friday.",
+    "Can you give me some feedbacks on the draft?",
+    "He is best engineer on the team.",
+    "She gave me an advice about the migration."
+   ]
+  },
+  {
+   "id": 4,
+   "theme": "prepositions and idiomatic usage",
+   "sentences": [
+    "The results are different than we expected.",
+    "The system is comprised of four services.",
+    "We discussed about the roadmap yesterday.",
+    "She is married with a doctor.",
+    "He is capable to handle the migration alone.",
+    "We are looking forward to hear from you.",
+    "This depends of the configuration file.",
+    "I am interested to know the results.",
+    "He apologized of the delay in shipping.",
+    "The engineer is responsible of the pipeline."
+   ]
+  },
+  {
+   "id": 5,
+   "theme": "verb tense and sequence",
+   "sentences": [
+    "If I would have known, I would have told you.",
+    "He said he will call me tomorrow morning.",
+    "I have seen him yesterday at the office.",
+    "By the time we arrived, the meeting already started.",
+    "She has worked here since three years.",
+    "We are working on this issue since Monday.",
+    "If it rains tomorrow, we would cancel the event.",
+    "I wish I would have more time for testing.",
+    "He suggested that she goes to the meeting instead.",
+    "After he had left, she has called the client."
+   ]
+  },
+  {
+   "id": 6,
+   "theme": "irregular verbs and participles",
+   "sentences": [
+    "He has went to the client site this morning.",
+    "The server had ran out of memory overnight.",
+    "She laid on the couch after the incident call.",
+    "I have drank three coffees today already.",
+    "The picture was hanged on the wall yesterday.",
+    "They have swam across the lake before.",
+    "He seen the error message in the logs.",
+    "The file was wrote by the export job.",
+    "We have began the migration this morning.",
+    "The alarm was rang at midnight by the monitor."
+   ]
+  },
+  {
+   "id": 7,
+   "theme": "comma usage",
+   "sentences": [
+    "After the deployment we ran the smoke tests.",
+    "The engineer who wrote the parser, is on holiday.",
+    "We tested the API the UI and the database.",
+    "My colleague Sarah who lives in Zurich leads the team.",
+    "However we decided to postpone the release.",
+    "The build failed we had to roll back immediately.",
+    "She finished the report, she sent it to the client.",
+    "In 2024 we migrated to the new platform.",
+    "The tool is fast reliable and cheap.",
+    "Before running the script check the environment variables."
+   ]
+  },
+  {
+   "id": 8,
+   "theme": "apostrophes and possessives",
+   "sentences": [
+    "Its important to rotate the keys every quarter.",
+    "The server lost it's connection to the database.",
+    "The engineers laptop needs a security update.",
+    "We reviewed the three teams reports this morning.",
+    "This is Chris car in the parking lot.",
+    "The 1990's were formative for the early web.",
+    "Who's laptop is this on the desk?",
+    "The companys revenue grew by a third.",
+    "Their going to deploy the fix on Friday.",
+    "The childrens toys were scattered across the office."
+   ]
+  },
+  {
+   "id": 9,
+   "theme": "commonly confused words",
+   "sentences": [
+    "The outage will effect all enterprise customers.",
+    "The new policy had a positive affect on morale.",
+    "Their are two ways to solve this problem.",
+    "We need to loose the extra dependency.",
+    "The principle reason for the delay is cost.",
+    "Please be discrete about the upcoming layoffs.",
+    "This compliments the existing approach nicely.",
+    "He excepted the offer from the vendor.",
+    "Then we will decide weather to proceed.",
+    "The team preformed well under pressure."
+   ]
+  },
+  {
+   "id": 10,
+   "theme": "hyphenation and compounds",
+   "sentences": [
+    "We need a well designed interface for the console.",
+    "This is a state of the art monitoring system.",
+    "We scheduled a follow up meeting for Thursday.",
+    "The decision making process is far too slow.",
+    "It is a long term commitment from both sides.",
+    "He is a full time engineer on the platform team.",
+    "The dashboard is very user friendly.",
+    "We did a real time analysis of the traffic.",
+    "This is a high quality product overall.",
+    "The up to date figures are in the appendix."
+   ]
+  },
+  {
+   "id": 11,
+   "theme": "capitalization",
+   "sentences": [
+    "we deployed the release on friday afternoon.",
+    "The ceo approved the budget this morning.",
+    "In the Summer we run fewer batch jobs.",
+    "She speaks french and german fluently.",
+    "he asked, \"can we deploy today?\"",
+    "We use python and javascript on the backend.",
+    "the API returns json for every endpoint.",
+    "I met doctor smith at the conference.",
+    "The book is titled the art of clarity.",
+    "our office in zurich opens at eight."
+   ]
+  },
+  {
+   "id": 12,
+   "theme": "dangling and misplaced modifiers",
+   "sentences": [
+    "Running the tests, the server crashed unexpectedly.",
+    "After reviewing the logs, the cause was obvious.",
+    "Having deployed the fix, the errors stopped completely.",
+    "She only eats vegetables on Tuesdays.",
+    "We almost lost all of the customer data.",
+    "Covered in dust, I found the old server.",
+    "To improve latency, the cache was added last week.",
+    "While waiting for the build, the coffee got cold.",
+    "He served sandwiches to the guests on paper plates.",
+    "Being late, the meeting started without him."
+   ]
+  },
+  {
+   "id": 13,
+   "theme": "comparatives and superlatives",
+   "sentences": [
+    "This solution is more better than the old one.",
+    "It is the most unique approach we have seen.",
+    "She is the taller of the three engineers.",
+    "This design is more easier to maintain.",
+    "Fewer memory is required after the refactor.",
+    "The new version is more faster than the last.",
+    "He is the most smartest person on the team.",
+    "This approach is best than the alternative.",
+    "There are less bugs than before the rewrite.",
+    "It is the worse outage we have ever had."
+   ]
+  },
+  {
+   "id": 14,
+   "theme": "fragments, run-ons and comma splices",
+   "sentences": [
+    "Because the disk was completely full.",
+    "Which is why we rolled back the release.",
+    "The build failed the tests passed anyway.",
+    "We deployed the fix it worked immediately.",
+    "Although we tested it very thoroughly.",
+    "Running the migration overnight without supervision.",
+    "The server crashed, we restarted it, the issue persisted.",
+    "He arrived late therefore he missed the demo.",
+    "The API is slow it needs a caching layer.",
+    "The customer called, they were not happy."
+   ]
+  },
+  {
+   "id": 15,
+   "theme": "quotation marks, semicolons, colons and dashes",
+   "sentences": [
+    "He said \"the deadline is unrealistic\".",
+    "The error was clear; connection refused.",
+    "We need three things, speed, safety and cost.",
+    "She replied, \"we will fix it tomorrow\"",
+    "The list is as follows; alpha, beta and gamma.",
+    "It failed - twice - during the live demo.",
+    "He asked, \"Can we deploy?\".",
+    "The reason is simple, the index was missing.",
+    "There are two options; rewrite or refactor.",
+    "\"Ship it\", he said before leaving the room."
+   ]
+  },
+  {
+   "id": 16,
+   "theme": "numbers, dates and units",
+   "sentences": [
+    "The meeting is on 5th of March.",
+    "We processed 1000000 records overnight.",
+    "It took 3 hrs and 20 mins to finish.",
+    "The file is 5gb in size.",
+    "She was born in the year of 1990.",
+    "20 people attended the workshop yesterday.",
+    "The temperature in the server room was 20°c.",
+    "We have a 5 % error rate on that endpoint.",
+    "The deadline is 31.12.2026 at the latest.",
+    "It costs $ 500 per month per seat."
+   ]
+  },
+  {
+   "id": 17,
+   "theme": "double negatives and auxiliary misuse",
+   "sentences": [
+    "We don't have no budget left for this quarter.",
+    "I could of finished it yesterday evening.",
+    "You should of told me about the outage earlier.",
+    "He didn't do nothing about the alert.",
+    "We must to review the code before merging.",
+    "She can to handle the migration herself.",
+    "They didn't went to the postmortem meeting.",
+    "Does he has the credentials for production?",
+    "We wasn't able to reproduce the issue.",
+    "There wasn't nobody available on call."
+   ]
+  },
+  {
+   "id": 18,
+   "theme": "word order, questions and negation placement",
+   "sentences": [
+    "Why you did not tell me about the incident?",
+    "Do you know where is the config file?",
+    "Never I have seen such a severe outage.",
+    "He asked me what did I want for lunch.",
+    "Can you tell me how much costs the license?",
+    "I don't know why did it fail last night.",
+    "Always we deploy on Friday afternoons.",
+    "What time starts the meeting tomorrow?",
+    "Not only he was late, but also unprepared.",
+    "Rarely we see this error in production."
+   ]
+  },
+  {
+   "id": 19,
+   "theme": "spelling and near-miss typos",
+   "sentences": [
+    "We need to accomodate the new requirements.",
+    "The two systems are completely seperate.",
+    "This is definately a bug in the parser.",
+    "The occurence was logged at midnight.",
+    "It is neccessary to restart the service.",
+    "We recieved the invoice this morning.",
+    "The enviroment variables are missing again.",
+    "He is responsable for the ingestion pipeline.",
+    "The lenght of the queue grew overnight.",
+    "Please refere to the documentation for details."
+   ]
+  },
+  {
+   "id": 20,
+   "theme": "messy real-world prose with stacked errors",
+   "sentences": [
+    "hi team, just wanted to let you know that the deploy is done, their were no issues.",
+    "the customer reported that they cant login since yesterday, its affecting 3 users.",
+    "Me and Sarah will handle the migration, we should of started earlier.",
+    "Please review the attached document and let me know you're thoughts.",
+    "The API returns a error when the payload is to large.",
+    "We seen this issue before, its related to the cache.",
+    "Their are alot of open tickets, we need to priorotize.",
+    "The server crashed again, i think its the memory leak.",
+    "Can you send me the report, i need it for the meeting tommorow.",
+    "The tests passes locally but fails on ci."
+   ]
+  }
+ ]
+}

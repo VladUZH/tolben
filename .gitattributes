@@ -1,0 +1,32 @@
+# Line endings are LF in the working tree on every platform, not only in the repository.
+#
+# Windows checkouts default to core.autocrlf=true, which rewrites tracked text files to
+# CRLF on the way out. For most projects that is invisible. Here it is not, because
+# several tracked files are compared BYTE FOR BYTE:
+#
+#   obsidian-plugin/main.js   a tracked esbuild output. tests/plugin-bundle.test.mjs
+#                             builds it in memory and holds the committed file to the
+#                             result — and esbuild writes LF, so a CRLF checkout fails a
+#                             test that is otherwise about the bundle being stale. That
+#                             is exactly the false alarm a byte-for-byte guard must not
+#                             produce, and it is what the Windows CI job found.
+#
+#   bench/corpus/*.json       hashed and re-serialised by the bench instruments.
+#   models/MANIFEST.json      the record of which bytes a measurement was taken on.
+#
+# `text=auto eol=lf` keeps LF in the working tree everywhere. Anyone editing on Windows
+# gets LF files, which every editor Obsidian users are likely to have handles.
+* text=auto eol=lf
+
+#   tests/fixtures/*.tar.gz  archives written by a real GNU tar, read byte for byte by
+#                            the extractor. A CRLF rewrite would not corrupt them
+#                            subtly — it would make them not gzip at all.
+#
+# Images and archives are bytes and must never be touched.
+*.tar.gz binary
+*.tgz binary
+*.zip binary
+*.png binary
+*.jpg binary
+*.gguf binary
+*.onnx binary

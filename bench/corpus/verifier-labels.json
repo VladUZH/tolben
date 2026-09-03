@@ -1,0 +1,807 @@
+{
+ "description": "What the 2B verifier SHOULD answer for every rewrite put to it. It is asked one question — does the rest of the proposed sentence still tell the reader what the removed word told them? — and `expected` is graded against THAT question, on the same meaning bar as accepted-labels.json so the instruments cannot disagree with each other. `reaches: deferred` rows are the real production population: rewrites the deletion policy hands it today. `reaches: probe` rows are real recorded model output that the deterministic policy refuses BEFORE the verifier is consulted; they never reach it in production but ask it the same question, and without them the positive class is three rows. `inRemit: false` marks a rewrite that changes meaning for a reason this question cannot reach — a substitution, a reanalysis, or a word the loss list names wrongly; a verifier answering those with hide would be right by accident, so they are scored apart.",
+ "labelled": "2026-09-01",
+ "counts": {
+  "total": 61,
+  "expectHide": 9,
+  "expectShow": 52,
+  "outsideRemit": 3,
+  "deferred": 54,
+  "probe": 7
+ },
+ "labels": [
+  {
+   "source": "At this point in time we are not able to approve the transfer.",
+   "replacement": "At this point we cannot approve the transfer.",
+   "lost": [
+    "able"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The collection of samples were logged by the night shift.",
+   "replacement": "The samples were logged by the night shift.",
+   "lost": [
+    "collection"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "Make sure you loosen the bolts before you loose the alignment.",
+   "replacement": "Make sure you loosen the bolts before loosening the alignment.",
+   "lost": [
+    "loose"
+   ],
+   "expected": "show",
+   "inRemit": false,
+   "reaches": "deferred",
+   "meaningLabel": "CHANGED",
+   "ground": "action-changed",
+   "note": "The removed \"loose\" is replaced by \"loosening\" in the same slot. What makes the rewrite wrong is the substitution — a warning becomes an instruction — and the verifier is only asked about deletions."
+  },
+  {
+   "source": "The blocker is that finance hasn't confirmed the budget code yet, so I can't actually submit the purchase order.",
+   "replacement": "The blocker is that finance hasn't confirmed the budget code yet, so I can't submit the purchase order.",
+   "lost": [
+    "actually"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "Handing this over to Daniel while I'm out, he's got context on the client escalation and the open action items.",
+   "replacement": "Handing this over to Daniel while I'm out, he has context on the client escalation and open action items.",
+   "lost": [
+    "got"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The loads measured on the struts are good indicators of stress since all loads between Shuttle elements are carried through the struts.",
+   "replacement": "The loads measured on the struts indicate stress since all loads between Shuttle elements are carried through the struts.",
+   "lost": [
+    "good"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The panel came to the conclusion that the request should be denied.",
+   "replacement": "The panel concluded that the request should be denied.",
+   "lost": [
+    "came"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "First and foremost, we need to confirm the account owner.",
+   "replacement": "First, we need to confirm the account owner.",
+   "lost": [
+    "foremost"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The end result was a smaller and more reliable component.",
+   "replacement": "The end result was a smaller component.",
+   "lost": [
+    "reliable"
+   ],
+   "expected": "hide",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "CHANGED",
+   "ground": "coordinate-dropped",
+   "note": ""
+  },
+  {
+   "source": "Despite the fact that the alarm sounded, the operator stayed calm.",
+   "replacement": "Despite the alarm, the operator stayed calm.",
+   "lost": [
+    "sounded"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "Just a heads up the design review ran long so the mockups won't be ready until end of day tomorrow.",
+   "replacement": "Just a heads up the design review ran long, so the mockups won't be ready until tomorrow.",
+   "lost": [
+    "day"
+   ],
+   "expected": "hide",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "CHANGED",
+   "ground": "boundary-moved",
+   "note": ""
+  },
+  {
+   "source": "The committee will make a determination regarding the revised budget.",
+   "replacement": "The committee will determine the revised budget.",
+   "lost": [
+    "regarding"
+   ],
+   "expected": "show",
+   "inRemit": false,
+   "reaches": "deferred",
+   "meaningLabel": "CHANGED",
+   "ground": "sense-changed",
+   "note": "\"regarding\" is a preposition carrying nothing on its own. What makes the rewrite wrong is the sense shift from ruling on the budget to setting it."
+  },
+  {
+   "source": "The spacecraft body structure consists of a payload structure and a spacecraft structure.",
+   "replacement": "The spacecraft body structure consists of a payload structure and a structure.",
+   "lost": [
+    "spacecraft"
+   ],
+   "expected": "hide",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "CHANGED",
+   "ground": "distinguishing-modifier-dropped",
+   "note": ""
+  },
+  {
+   "source": "The valve is capable of withstanding sixty bar.",
+   "replacement": "The valve can withstand sixty bar.",
+   "lost": [
+    "capable"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "There exists a possibility that the coating will crack.",
+   "replacement": "There is a possibility that the coating will crack.",
+   "lost": [
+    "exists"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The batch of samples were stored at four degrees.",
+   "replacement": "The samples were stored at four degrees.",
+   "lost": [
+    "batch"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The rig is not able to run without coolant.",
+   "replacement": "The rig cannot run without coolant.",
+   "lost": [
+    "able"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "Ravi documented the failure in the incident log.",
+   "replacement": "Ravi documented the incident log failure.",
+   "lost": [
+    "failure"
+   ],
+   "expected": "show",
+   "inRemit": false,
+   "reaches": "deferred",
+   "meaningLabel": "CHANGED",
+   "ground": "adjunct-reanalysed",
+   "note": "\"failure\" is still in the proposed sentence (\"the incident log failure\"); lostContentWords reports it lost because the inversion rule bills every deletion in a run when a failure word leaves it, and the surviving one landed in a different run. The verifier is being asked about a word that did not go."
+  },
+  {
+   "source": "The kiln is capable of holding temperature for six hours.",
+   "replacement": "The kiln can hold temperature for six hours.",
+   "lost": [
+    "capable"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "She filed the objection inside the statutory window.",
+   "replacement": "She filed the objection within the statutory window.",
+   "lost": [
+    "inside"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "Owing to the fact that the bridge was closed, the load went north.",
+   "replacement": "The bridge was closed, so the load went north.",
+   "lost": [
+    "Owing"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The reason the alarm sounded is because the float stuck.",
+   "replacement": "The alarm sounded because the float stuck.",
+   "lost": [
+    "reason"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "Our office made a request for the missing certificates.",
+   "replacement": "Our office requested the missing certificates.",
+   "lost": [
+    "made"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The generator is capable of powering the site for a day.",
+   "replacement": "The generator can power the site for a day.",
+   "lost": [
+    "capable"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "She served the notice inside the appeal window.",
+   "replacement": "She served the notice in the appeal window.",
+   "lost": [
+    "inside"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The report included a brief summary of the findings.",
+   "replacement": "The report included a summary of the findings.",
+   "lost": [
+    "brief"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The reason the pump cavitated is because the strainer blocked.",
+   "replacement": "The pump cavitated because the strainer blocked.",
+   "lost": [
+    "reason"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "She filed the counterclaim inside the limitation period.",
+   "replacement": "She filed the counterclaim within the limitation period.",
+   "lost": [
+    "inside"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The reason the pump cavitated is because the strainer blocked.",
+   "replacement": "The pump cavitated because the strainer was blocked.",
+   "lost": [
+    "reason"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The committee will carry out a review of the safety protocol next month.",
+   "replacement": "The committee will review the safety protocol next month.",
+   "lost": [
+    "carry"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The kiln reaches temperature in the space of ten minutes.",
+   "replacement": "The kiln reaches temperature in ten minutes.",
+   "lost": [
+    "space"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "He gave a brief summary of the incident in a few words.",
+   "replacement": "He summarized the incident in a few words.",
+   "lost": [
+    "brief"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "It is the case that most applicants withdraw before the interview.",
+   "replacement": "Most applicants withdraw before the interview.",
+   "lost": [
+    "case"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The reason the valve failed is because the gasket had cracked.",
+   "replacement": "The valve failed because the gasket had cracked.",
+   "lost": [
+    "reason"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "Please make sure that you check that the seal is seated before you close the lid.",
+   "replacement": "Please ensure the seal is seated before closing the lid.",
+   "lost": [
+    "check"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "We may postpone the migration if the index rebuild fails.",
+   "replacement": "We may postpone the migration if the rebuild fails.",
+   "lost": [
+    "index"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "I am not able to make the 3pm slot, but I can do anything after 4.",
+   "replacement": "I cannot make the 3pm slot, but I can do anything after 4.",
+   "lost": [
+    "able"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "Your going to need the badge to get past the front desk.",
+   "replacement": "You'll need the badge to get past the front desk.",
+   "lost": [
+    "going"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The migration was delayed for a period of three weeks.",
+   "replacement": "The migration was delayed by three weeks.",
+   "lost": [
+    "period"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "During the course of the review, we found two blocking defects.",
+   "replacement": "During the review, we found two blocking defects.",
+   "lost": [
+    "course"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "It seems to me that we may want to consider revisiting the estimate.",
+   "replacement": "It seems we may want to revisit the estimate.",
+   "lost": [
+    "consider"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "Please repeat that again so I can write down the exact same figure.",
+   "replacement": "Please repeat that so I can write down the same figure.",
+   "lost": [
+    "exact"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "It is necessary that every service expose a health endpoint.",
+   "replacement": "Every service must expose a health endpoint.",
+   "lost": [
+    "necessary"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The service which is written in Go handles all authentication.",
+   "replacement": "The Go service handles all authentication.",
+   "lost": [
+    "written"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The customers who are located in Europe see a different currency.",
+   "replacement": "Customers in Europe see a different currency.",
+   "lost": [
+    "located"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "This initiative will enable us to unlock value in the medium term.",
+   "replacement": "This initiative will unlock value in the medium term.",
+   "lost": [
+    "enable"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "I wanted to reach out and follow up on my previous email regarding the invoice.",
+   "replacement": "I wanted to follow up on my previous email regarding the invoice.",
+   "lost": [
+    "reach"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The present study seeks to investigate the effect of latency on user retention.",
+   "replacement": "This study investigates the effect of latency on user retention.",
+   "lost": [
+    "seeks"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "Please make sure that you do not forget to rotate the credentials.",
+   "replacement": "Please make sure you rotate the credentials.",
+   "lost": [
+    "forget"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "Try to avoid making changes to the schema during the freeze period.",
+   "replacement": "Try to avoid schema changes during the freeze period.",
+   "lost": [
+    "making"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The team went the extra mile to get the release out on time.",
+   "replacement": "The team went the extra mile to release on time.",
+   "lost": [
+    "get"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "One thing that came up was the question of who owns the data quality checks.",
+   "replacement": "One thing that came up was who owns the data quality checks.",
+   "lost": [
+    "question"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The reason being that the cache had not been warmed.",
+   "replacement": "The cache hadn't been warmed.",
+   "lost": [
+    "reason"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "The config file (which lives in /etc/app/config.yaml) must be readable.",
+   "replacement": "The config file (/etc/app/config.yaml) must be readable.",
+   "lost": [
+    "lives"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "deferred",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": ""
+  },
+  {
+   "source": "Following up again on the budget approval from last week, we can't move forward on procurement without it.",
+   "replacement": "Following up on the budget approval from last week, we cannot move forward on procurement without it.",
+   "lost": [
+    "again"
+   ],
+   "expected": "hide",
+   "inRemit": true,
+   "reaches": "probe",
+   "meaningLabel": "CHANGED",
+   "ground": "",
+   "note": "Loses that this is a repeat."
+  },
+  {
+   "source": "Just to be clear, we decided to keep the current pricing tiers and revisit after the pilot wraps up in October.",
+   "replacement": "We decided to keep the current pricing tiers and revisit after the pilot wraps up in October.",
+   "lost": [
+    "clear"
+   ],
+   "expected": "show",
+   "inRemit": true,
+   "reaches": "probe",
+   "meaningLabel": "PRESERVING",
+   "ground": "",
+   "note": "\"Just to be clear\" is a discourse frame; the claim is untouched."
+  },
+  {
+   "source": "The failure is therefore intermittent and load-related, and it is a property of the WebKit content process rather than of the search.",
+   "replacement": "The failure is therefore intermittent and load-related, and it is a property of the WebKit content process.",
+   "lost": [
+    "search"
+   ],
+   "expected": "hide",
+   "inRemit": true,
+   "reaches": "probe",
+   "meaningLabel": "CHANGED",
+   "ground": "",
+   "note": "Loses what the failure is NOT a property of, which is the contrast the sentence makes."
+  },
+  {
+   "source": "The manual repeats the same instruction twice over.",
+   "replacement": "The manual repeats the same instruction.",
+   "lost": [
+    "twice"
+   ],
+   "expected": "hide",
+   "inRemit": true,
+   "reaches": "probe",
+   "meaningLabel": "CHANGED",
+   "ground": "",
+   "note": "Loses how many times."
+  },
+  {
+   "source": "The consultant logged 31 hours against the job.",
+   "replacement": "The consultant logged 31 hours.",
+   "lost": [
+    "job"
+   ],
+   "expected": "hide",
+   "inRemit": true,
+   "reaches": "probe",
+   "meaningLabel": "CHANGED",
+   "ground": "",
+   "note": "Loses what the hours were logged against."
+  },
+  {
+   "source": "Compress the archive before uploading it.",
+   "replacement": "Compress the archive.",
+   "lost": [
+    "uploading"
+   ],
+   "expected": "hide",
+   "inRemit": true,
+   "reaches": "probe",
+   "meaningLabel": "CHANGED",
+   "ground": "",
+   "note": "Loses the second action, which is the point of \"before\"."
+  },
+  {
+   "source": "There are several reasons why our customers stay with us for years.",
+   "replacement": "There are several reasons why our customers stay with us.",
+   "lost": [
+    "years"
+   ],
+   "expected": "hide",
+   "inRemit": true,
+   "reaches": "probe",
+   "meaningLabel": "CHANGED",
+   "ground": "",
+   "note": "Loses how long they stay."
+  }
+ ]
+}

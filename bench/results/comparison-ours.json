@@ -1,0 +1,490 @@
+{
+  "schemaVersion": 1,
+  "generatedAtUTC": "2026-08-27T19:06:08.867Z",
+  "corpusName": "grammarly-comparison",
+  "corpusSHA256": "2a568cc7c2c479ffecb0072b39c69ed9edd24f950ae21a3a444390bbf77c9d90",
+  "promptSHA256": "53ef1a58904e7230a5f999a4abca16360066b621cd0600319f397d315b4791ee",
+  "prompt": "You are the decision engine for blue-underline clarity suggestions in an English text editor. Evaluate exactly one completed sentence. Return a rewrite when the sentence has a specific, objective clarity or correctness problem; return keep when it is already clear. Correct grammar does not make wording clear: a sentence can be perfectly grammatical and still be redundant, inflated, or needlessly indirect.\n\nRun every check before deciding keep:\n\n1. DIRECT VERB. A weak verb (make, give, provide, perform, conduct, carry out, reach, raise, offer, undertake, hold) followed by an abstract noun is almost always a hidden verb. Use the ordinary verb when the meaning is unchanged: reached a conclusion -> concluded; conducted an analysis -> analyzed; gave an explanation -> explained; provided an explanation of -> explained; gave an indication that -> indicated; made a recommendation -> recommended; performed an inspection -> inspected; raised the question whether -> asked whether; offered a suggestion -> suggested.\n2. INFLATED PHRASE. Shorten conventional wordy phrases: is able to -> can; has a tendency to -> tends to; on a weekly basis -> weekly; at a later point in time -> later; in close proximity to -> near; due to the fact that -> because; in the event that -> if; for the purpose of -> to; there are several reasons why X cannot Y -> X cannot Y for several reasons. When the phrase carries a hedge, shorten the phrase but keep the hedge: \"has a tendency to fail\" becomes \"tends to fail\", never \"fails\".\n3. REDUNDANCY. Two words that carry the same meaning are redundant even when the phrase sounds completely normal and idiomatic, and familiarity is not a reason to keep one. Test each word: read the sentence without it, and if nothing at all is lost, it was redundant. Remove a word only when another word already carries its meaning: each and every -> each; first and foremost -> first; end result -> result; basic fundamentals -> fundamentals; unexpected surprise -> surprise; future plans -> plans (a plan is already about the future); past history -> history; advance warning -> warning; at the present time -> now; joined together -> joined; completely eliminated -> eliminated. Two intensifiers doing one job are redundant even when they sit apart in the sentence (\"entirely removed it altogether\"): keep the one that best preserves the original emphasis and drop the other.\n4. INDIRECTNESS. Repair an empty opening (there is, there are, it is the case that), a buried subject, an awkward construction, an imprecise or confused word, or a locally repairable ambiguity, using a small conventional edit.\n5. AGREEMENT. Find the real subject and check the verb against it, ignoring any words between them. A set, list, group, collection, bundle, series, batch, or number is singular even when followed by a plural noun: \"The set of keys IS stored\", \"A bundle of forms IS missing\". \"Neither\", \"either\", \"each\", \"every one\", and \"none\" normally take a singular verb: \"Neither of the dates WORKS\". Repair the verb alone; do not recast the sentence around it. Also check singular/plural consistency between a noun and the words that depend on it.\n6. WORD CHOICE AND AGREEMENT ERRORS. Check that articles are present and correct, that a series is punctuated consistently, and that confused words are right (your/you're, its/it's, affect/effect, then/than, lead/led, to/too). Spacing and capitalization are repaired before you see the sentence, so do not comment on them.\n\nWork through checks 1 to 6 against the actual words in front of you before you answer. Choose rewrite if a check finds a concrete problem with a small safe repair, and name the check that found it in the reason. Choose keep only after all six checks come back clean; when you choose keep, the reason must say which possibility you considered and ruled out. Never answer that a sentence is clear without having read it against every check. Do choose keep when the only available change would swap synonyms, reflect personal style, or need context you do not have.\n\nRestraint and safety:\n\n- Make the smallest useful edit. Preserve every word the problem does not touch.\n- If you choose rewrite, the replacement must actually differ from the input. If you cannot write a different and better sentence, choose keep instead.\n- Do not delete a time, cause, condition, contrast, purpose, or any other meaningful clause merely to shorten the sentence.\n- Fix a punctuation, capitalization, or agreement error without recasting the rest of the sentence.\n- Do not change voice, contractions, or word order unless doing so fixes the named problem.\n- Do not replace an already precise word with a synonym. Do not rewrite a clear question, command, heading, or technical statement merely because another phrasing exists.\n- Return one complete replacement sentence carrying the same terminal punctuation.\n- Preserve every fact, name, number, date, unit, URL, citation, path, identifier, and technical term exactly.\n- Preserve certainty, negation, tense, commitments, tone, and whether the input is a question.\n- Never answer the input, add information, add a preamble, or put commentary in the replacement.\n\nExamples:\n\nInput: The coordinator made an assessment of the draft.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"The coordinator assessed the draft.\",\"reason\":\"Replaces a nominalization with a direct verb.\"}\n\nInput: The archive is copied on a weekly basis.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"The archive is copied weekly.\",\"reason\":\"Shortens an inflated frequency phrase.\"}\n\nInput: The final outcome was an unexpected surprise.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"The outcome was a surprise.\",\"reason\":\"Removes redundant wording.\"}\n\nInput: A collection of signed forms are missing.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"A collection of signed forms is missing.\",\"reason\":\"Corrects subject-verb agreement.\"}\n\nInput: There is a risk that the seal will fail.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"The seal may fail.\",\"reason\":\"Removes an empty opening construction.\"}\n\nInput: your scheduled to inspect the valve on monday.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"You're scheduled to inspect the valve on Monday.\",\"reason\":\"Corrects a confused word and capitalization.\"}\n\nInput: The test was brief , but it was complete.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"The test was brief, but it was complete.\",\"reason\":\"Removes the space before the comma.\"}\n\nInput: Nora checked the seal twice before opening it.\nOutput: {\"action\":\"keep\",\"replacement\":\"\",\"reason\":\"The temporal clause carries meaning and the sentence is clear.\"}\n\nInput: Could the backup finish before noon?\nOutput: {\"action\":\"keep\",\"replacement\":\"\",\"reason\":\"The question is already clear and direct.\"}\n\nInput: The sensor records temperature every minute.\nOutput: {\"action\":\"keep\",\"replacement\":\"\",\"reason\":\"The sentence is clear and direct.\"}\n\nInput: Lina may deploy API_V2 at 14:30 UTC.\nOutput: {\"action\":\"keep\",\"replacement\":\"\",\"reason\":\"The sentence is clear and preserves a qualified commitment.\"}\n\nOutput only one JSON object with exactly these fields: action (\"keep\" or \"rewrite\"), replacement (empty string for keep), and a short reason.\n",
+  "model": {
+    "id": "models/Qwen3.5-2B-Q6_K.gguf",
+    "path": "served",
+    "bytes": null
+  },
+  "rows": [
+    {
+      "id": "c01",
+      "group": "user-reported",
+      "source": "Please provide only the minimum information needed and remove unnecessary customer, employee, or confidential details.",
+      "expectedAction": "keep",
+      "issueClass": "imperative-clause",
+      "notes": "Engine previously deleted the second clause.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "content-dropped",
+      "engineError": null,
+      "milliseconds": 378
+    },
+    {
+      "id": "c02",
+      "group": "user-reported",
+      "source": "We have been waiting for you!",
+      "expectedAction": "keep",
+      "issueClass": "clean",
+      "notes": "Short exclamation.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 625
+    },
+    {
+      "id": "c03",
+      "group": "nominalization",
+      "source": "The department will conduct an investigation into the missing inventory.",
+      "expectedAction": "rewrite",
+      "issueClass": "nominalization",
+      "notes": "investigate",
+      "action": "rewrite",
+      "replacement": "The department will investigate the missing inventory.",
+      "reason": "Replaces a nominalization with a direct verb.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 412
+    },
+    {
+      "id": "c04",
+      "group": "nominalization",
+      "source": "Facilities provided confirmation that the alarm was tested.",
+      "expectedAction": "rewrite",
+      "issueClass": "nominalization",
+      "notes": "confirmed",
+      "action": "rewrite",
+      "replacement": "Facilities confirmed the alarm was tested.",
+      "reason": "Removes redundant 'provided' and 'was' to replace a nominalization with a direct verb.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 539
+    },
+    {
+      "id": "c05",
+      "group": "wordiness",
+      "source": "At this point in time we are not able to approve the transfer.",
+      "expectedAction": "rewrite",
+      "issueClass": "inflated-phrase",
+      "notes": "Now / cannot",
+      "action": "rewrite",
+      "replacement": "At this point we cannot approve the transfer.",
+      "reason": "Removes redundant 'in time' and 'able' to make the sentence more direct.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 563
+    },
+    {
+      "id": "c06",
+      "group": "wordiness",
+      "source": "In the event that the sensor fails, switch to the backup unit.",
+      "expectedAction": "rewrite",
+      "issueClass": "inflated-phrase",
+      "notes": "If",
+      "action": "rewrite",
+      "replacement": "If the sensor fails, switch to the backup unit.",
+      "reason": "Removes the empty opening construction 'In the event that'.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 468
+    },
+    {
+      "id": "c07",
+      "group": "wordiness",
+      "source": "It should be noted that the deadline has not changed.",
+      "expectedAction": "rewrite",
+      "issueClass": "expletive",
+      "notes": "Remove the empty opener.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 417
+    },
+    {
+      "id": "c08",
+      "group": "redundancy",
+      "source": "The engineers worked in close collaboration together on the retrofit.",
+      "expectedAction": "rewrite",
+      "issueClass": "redundancy",
+      "notes": "Idiomatic redundancy: a known weak spot.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "content-dropped",
+      "engineError": null,
+      "milliseconds": 377
+    },
+    {
+      "id": "c09",
+      "group": "redundancy",
+      "source": "We will need to plan ahead for the winter shutdown.",
+      "expectedAction": "rewrite",
+      "issueClass": "redundancy",
+      "notes": "'Plan ahead' is redundant.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 290
+    },
+    {
+      "id": "c10",
+      "group": "redundancy",
+      "source": "The committee made a final decision to terminate the pilot.",
+      "expectedAction": "rewrite",
+      "issueClass": "redundancy",
+      "notes": "decided",
+      "action": "rewrite",
+      "replacement": "The committee decided to terminate the pilot.",
+      "reason": "Replaces a nominalization with a direct verb.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 432
+    },
+    {
+      "id": "c11",
+      "group": "expletive",
+      "source": "There are several factors that contribute to the delay.",
+      "expectedAction": "rewrite",
+      "issueClass": "expletive",
+      "notes": "Several factors contribute to the delay.",
+      "action": "rewrite",
+      "replacement": "Several factors contribute to the delay.",
+      "reason": "Removes redundant 'that' and 'the' to shorten the sentence while preserving meaning.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 481
+    },
+    {
+      "id": "c12",
+      "group": "complexity",
+      "source": "Because the vendor had not delivered the revised drawings, and because the inspector was unavailable until Thursday, the site meeting that had been scheduled for Tuesday was moved to the following week.",
+      "expectedAction": "rewrite",
+      "issueClass": "sentence-complexity",
+      "notes": "Grammarly's 'hard to read' class; ours has no split capability.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "dropped-content",
+      "engineError": null,
+      "milliseconds": 856
+    },
+    {
+      "id": "c13",
+      "group": "passive",
+      "source": "The revised layout was approved by the site manager on Monday.",
+      "expectedAction": "rewrite",
+      "issueClass": "passive-voice",
+      "notes": "Grammarly often flags passive; ours is told not to change voice.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 262
+    },
+    {
+      "id": "c14",
+      "group": "agreement",
+      "source": "The collection of samples were logged by the night shift.",
+      "expectedAction": "rewrite",
+      "issueClass": "agreement",
+      "notes": "was logged",
+      "action": "rewrite",
+      "replacement": "The samples were logged by the night shift.",
+      "reason": "Corrects subject-verb agreement (plural 'samples' requires plural verb 'were').",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 548
+    },
+    {
+      "id": "c15",
+      "group": "agreement",
+      "source": "Neither of the alarms are wired to the panel.",
+      "expectedAction": "rewrite",
+      "issueClass": "agreement",
+      "notes": "is wired",
+      "action": "rewrite",
+      "replacement": "Neither alarm is wired to the panel.",
+      "reason": "Corrects subject-verb agreement (singular 'alarm' with singular verb 'is').",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 500
+    },
+    {
+      "id": "c16",
+      "group": "confused-word",
+      "source": "The revised tolerance had a greater affect on yield than expected.",
+      "expectedAction": "rewrite",
+      "issueClass": "confused-word",
+      "notes": "effect",
+      "action": "rewrite",
+      "replacement": "The revised tolerance had a greater effect on yield than expected.",
+      "reason": "Removes redundant wording.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 440
+    },
+    {
+      "id": "c17",
+      "group": "confused-word",
+      "source": "Make sure you loosen the bolts before you loose the alignment.",
+      "expectedAction": "rewrite",
+      "issueClass": "confused-word",
+      "notes": "lose",
+      "action": "rewrite",
+      "replacement": "Make sure you loosen the bolts before loosening the alignment.",
+      "reason": "Removes redundant wording.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 415
+    },
+    {
+      "id": "c18",
+      "group": "mechanics",
+      "source": "the inspection is booked for tuesday at the leeds site.",
+      "expectedAction": "rewrite",
+      "issueClass": "capitalization",
+      "notes": "Three capitalisation faults.",
+      "action": "rewrite",
+      "replacement": "The inspection is booked for Tuesday at the leeds site.",
+      "reason": "Capitalizes the first word. Capitalizes a day or month name.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": true,
+        "model": false
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 333
+    },
+    {
+      "id": "c19",
+      "group": "mechanics",
+      "source": "Bring the manual ,the torque wrench and a spare seal.",
+      "expectedAction": "rewrite",
+      "issueClass": "punctuation",
+      "notes": "Space before comma, missing space after, serial comma.",
+      "action": "rewrite",
+      "replacement": "Bring the manual, torque wrench, and spare seal.",
+      "reason": "Removes redundant article 'the' before each noun. Removes a space before punctuation. Adds the missing space after punctuation.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": true,
+        "model": true
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 504
+    },
+    {
+      "id": "c20",
+      "group": "safety",
+      "source": "Maya may ship API_V2 at 14:30 UTC on 4 May 2027.",
+      "expectedAction": "keep",
+      "issueClass": "protected-tokens",
+      "notes": "Names, identifiers, times, dates must survive.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 336
+    },
+    {
+      "id": "c21",
+      "group": "safety",
+      "source": "The coating does not prevent corrosion below 4 °C.",
+      "expectedAction": "keep",
+      "issueClass": "negation",
+      "notes": "Negation must survive.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 399
+    },
+    {
+      "id": "c22",
+      "group": "clean",
+      "source": "The turbine tripped when the inlet filter clogged.",
+      "expectedAction": "keep",
+      "issueClass": "clean",
+      "notes": "Clear.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 463
+    },
+    {
+      "id": "c23",
+      "group": "clean",
+      "source": "Could you send the revised drawings before Thursday?",
+      "expectedAction": "keep",
+      "issueClass": "clean",
+      "notes": "Clear question.",
+      "action": "rewrite",
+      "replacement": "Could you send the revised drawings by Thursday?",
+      "reason": "Removes the redundant 'before' which is already implied by the deadline 'Thursday'.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 586
+    },
+    {
+      "id": "c24",
+      "group": "clean",
+      "source": "We rejected the bid because the delivery window was too long.",
+      "expectedAction": "keep",
+      "issueClass": "clean",
+      "notes": "Clear causal sentence.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 321
+    },
+    {
+      "id": "c25",
+      "group": "clean",
+      "source": "Anders logged 12 hours against the retrofit last week.",
+      "expectedAction": "keep",
+      "issueClass": "clean",
+      "notes": "Clear with figures.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "engineError": null,
+      "milliseconds": 434
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+Tolben
+Copyright 2026 The Tolben Authors
+
+This product includes software developed by the Tolben Authors, licensed under
+the Apache License, Version 2.0 (see LICENSE).
+
+The author-written corpora and labels under bench/ are licensed separately
+under CC BY 4.0 (see LICENSE-DATA).
+
+
+Third-party artefacts this project runs on
+------------------------------------------
+
+None of the following is redistributed in this repository. Each is fetched or
+installed by the user; this notice records what the project depends on and
+under what terms.
+
+  Qwen3.5-2B (Q6_K GGUF)
+    Apache License 2.0.
+    Fetched from lmstudio-community/Qwen3.5-2B-GGUF by `npm run models:fetch`
+    and verified byte-for-byte against models/MANIFEST.json.
+    Upstream: https://huggingface.co/Qwen/Qwen3.5-2B
+
+  llama.cpp (llama-server)
+    MIT License. Copyright (c) 2023-2024 The ggml authors.
+    Supplied by the user on PATH; not bundled, not linked.
+    Upstream: https://github.com/ggml-org/llama.cpp
+
+  Obsidian API, CodeMirror 6, esbuild, jsdom
+    Development and build dependencies only, resolved by npm from
+    package-lock.json under their own licences (MIT unless stated there).
+    CodeMirror is marked external in the plugin bundle: the plugin uses
+    Obsidian's own instance at runtime and ships no copy.
+
+
+Third-party text quoted for reproducibility
+-------------------------------------------
+
+The files below hold sentences rewritten by Grammarly's hosted service, or
+example sentences published in Grammarly's own documentation, harvested on
+2026-08-29 and 2026-08-30. They exist so that the published comparison numbers
+can be re-derived by a reader, and they are quoted for that purpose. They are
+NOT the author's work, are NOT licensed by the author to anyone, and are
+covered by neither LICENSE nor LICENSE-DATA:
+
+  bench/corpus/grammarly-pairs.json               200 sentences typed into
+      Grammarly's editor with every suggestion accepted; 118 of the 200 came
+      back changed. The 118 rewrites are Grammarly's output. Four instruments
+      read this file; bench/corpus/THIRD-PARTY.md says which and why.
+  bench/corpus/oracle-labels.json                 author-written meaning labels
+      that quote the Grammarly rewrite each one judges, in its `grammarly`
+      field. The labelling is the author's; the quoted rewrite is not.
+  bench/corpus/grammarly-dev.json                 66 rows: 54 whose source
+      sentences come from Grammarly's published documentation, and a 12-row
+      comparison battery.
+
+Two further collections were removed from the tree on 2026-09-02 because no
+instrument read them: grammarly-reference.json (every suggestion card
+transcribed, with Grammarly's own category labels) and
+grammarly-correctness-pairs.json. They remain in git history until that
+history is rewritten before the repository is made public.
+
+Grammarly is a trademark of its owner. This project is not affiliated with,
+endorsed by, or derived from Grammarly's software.

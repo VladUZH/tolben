@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "name": "clarity-safety-2026-08-27",
+  "rows": [
+    {"id":"safe-01","partition":"safety","kind":"safety","issueClass":"name","source":"Katarina reviewed the unusually long draft before dinner.","expectedAction":"rewrite","preserve":["Katarina","before dinner"],"notes":"A rewrite may shorten wording but must preserve the name."},
+    {"id":"safe-02","partition":"safety","kind":"safety","issueClass":"number","source":"The device requires exactly 18 volts during calibration.","expectedAction":"keep","preserve":["18 volts","exactly"],"notes":"Do not change or remove the measurement."},
+    {"id":"safe-03","partition":"safety","kind":"safety","issueClass":"date","source":"The agreement remains valid until 14 October 2027.","expectedAction":"keep","preserve":["14 October 2027"],"notes":"Do not alter the date."},
+    {"id":"safe-04","partition":"safety","kind":"safety","issueClass":"url","source":"The complete instructions are available at https://docs.example.org/setup.","expectedAction":"keep","preserve":["https://docs.example.org/setup"],"notes":"Do not alter the URL."},
+    {"id":"safe-05","partition":"safety","kind":"safety","issueClass":"email","source":"Please send the receipt to billing@example.org before noon.","expectedAction":"keep","preserve":["billing@example.org","before noon"],"notes":"Do not alter the email address."},
+    {"id":"safe-06","partition":"safety","kind":"safety","issueClass":"path","source":"The obsolete cache is located at /var/tmp/atlas-cache.","expectedAction":"keep","preserve":["/var/tmp/atlas-cache"],"notes":"Do not alter the path."},
+    {"id":"safe-07","partition":"safety","kind":"safety","issueClass":"identifier","source":"The handler returns ERR_RETRY_LATER when the queue is full.","expectedAction":"keep","preserve":["ERR_RETRY_LATER"],"notes":"Do not alter the technical identifier."},
+    {"id":"safe-08","partition":"safety","kind":"safety","issueClass":"version","source":"Protocol v3.8 remains available for legacy devices.","expectedAction":"keep","preserve":["v3.8","legacy devices"],"notes":"Do not alter the version."},
+    {"id":"safe-09","partition":"safety","kind":"safety","issueClass":"citation","source":"The method follows ISO 8601:2019 for calendar dates.","expectedAction":"keep","preserve":["ISO 8601:2019"],"notes":"Do not alter the standard citation."},
+    {"id":"safe-10","partition":"safety","kind":"safety","issueClass":"negation","source":"The backup did not include temporary files.","expectedAction":"keep","preserve":["did not","temporary files"],"notes":"Do not remove negation."},
+    {"id":"safe-11","partition":"safety","kind":"safety","issueClass":"certainty","source":"The patch may reduce startup time on older machines.","expectedAction":"keep","preserve":["may","older machines"],"notes":"Do not strengthen possibility into certainty."},
+    {"id":"safe-12","partition":"safety","kind":"safety","issueClass":"certainty","source":"The warning probably came from the second sensor.","expectedAction":"keep","preserve":["probably","second sensor"],"notes":"Do not remove the hedge."},
+    {"id":"safe-13","partition":"safety","kind":"safety","issueClass":"commitment","source":"We will publish the summary after counsel approves it.","expectedAction":"keep","preserve":["will","after counsel approves it"],"notes":"Do not weaken or strengthen the commitment."},
+    {"id":"safe-14","partition":"safety","kind":"safety","issueClass":"tense","source":"The operator had closed the valve before the alarm sounded.","expectedAction":"keep","preserve":["had closed","before","alarm sounded"],"notes":"Do not change past-perfect sequence."},
+    {"id":"safe-15","partition":"safety","kind":"safety","issueClass":"question","source":"Can the importer preserve both signatures?","expectedAction":"keep","preserve":["Can","both signatures","?"],"notes":"Do not answer or convert the question."},
+    {"id":"safe-16","partition":"safety","kind":"safety","issueClass":"currency","source":"The approved ceiling is CHF 12,450.00 for this phase.","expectedAction":"keep","preserve":["CHF 12,450.00","this phase"],"notes":"Do not alter currency or amount."},
+    {"id":"safe-17","partition":"safety","kind":"safety","issueClass":"percentage","source":"Only 7.5% of requests exceeded the latency target.","expectedAction":"keep","preserve":["Only","7.5%","latency target"],"notes":"Do not alter scope or percentage."},
+    {"id":"safe-18","partition":"safety","kind":"safety","issueClass":"technical-term","source":"The Bloom filter intentionally allows false positives.","expectedAction":"keep","preserve":["Bloom filter","false positives","intentionally"],"notes":"Do not simplify the technical term or change intent."},
+    {"id":"safe-19","partition":"safety","kind":"safety","issueClass":"unit","source":"The motor turns at 3,200 rpm under full load.","expectedAction":"keep","preserve":["3,200 rpm","full load"],"notes":"Do not alter the measurement."},
+    {"id":"safe-20","partition":"safety","kind":"safety","issueClass":"proper-nouns","source":"Amina transferred the Zurich account to Mateo yesterday.","expectedAction":"keep","preserve":["Amina","Zurich","Mateo","yesterday"],"notes":"Do not change people, place, or timing."}
+  ]
+}

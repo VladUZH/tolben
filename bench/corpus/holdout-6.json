@@ -1,0 +1,606 @@
+{
+  "schemaVersion": 1,
+  "name": "clarity-holdout-6",
+  "rows": [
+    {
+      "id": "h6-r01",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "nominalization",
+      "source": "The insurer conducted a valuation of the damaged stock.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'valued'."
+    },
+    {
+      "id": "h6-r02",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "nominalization",
+      "source": "Planning gave approval to the revised elevation.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'approved'."
+    },
+    {
+      "id": "h6-r03",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "nominalization",
+      "source": "The vet performed an examination of the mare's foreleg.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'examined'."
+    },
+    {
+      "id": "h6-r04",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "nominalization",
+      "source": "Our office made a request for the missing certificates.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'requested'."
+    },
+    {
+      "id": "h6-r05",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "inflated-phrase",
+      "source": "The generator is capable of powering the site for a day.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'can power'."
+    },
+    {
+      "id": "h6-r06",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "inflated-phrase",
+      "source": "We calibrate the probes on a monthly basis.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'monthly'."
+    },
+    {
+      "id": "h6-r07",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "inflated-phrase",
+      "source": "Due to the fact that the ferry was late, the survey slipped.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'Because'."
+    },
+    {
+      "id": "h6-r08",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "inflated-phrase",
+      "source": "In the event that the mains fail, the UPS takes over.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Use 'If'."
+    },
+    {
+      "id": "h6-r09",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "redundancy",
+      "source": "The auditor found an unexpected surprise in the ledger.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "A surprise is already unexpected."
+    },
+    {
+      "id": "h6-r10",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "redundancy",
+      "source": "We should revert back to the earlier revision.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Revert' already means back."
+    },
+    {
+      "id": "h6-r11",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "redundancy",
+      "source": "The two castings are exactly the same.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Redundant emphasis."
+    },
+    {
+      "id": "h6-r12",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "expletive-construction",
+      "source": "There are three filters that need cleaning each spring.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Prefer 'Three filters need cleaning each spring.'"
+    },
+    {
+      "id": "h6-r13",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "indirect-phrase",
+      "source": "The reason the batch spoiled is because the chiller tripped.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Prefer 'The batch spoiled because the chiller tripped.'"
+    },
+    {
+      "id": "h6-r14",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "indirect-phrase",
+      "source": "The engineer is of the belief that the mount is cracked.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Prefer 'The engineer believes'."
+    },
+    {
+      "id": "h6-r15",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "agreement",
+      "source": "The batch of castings were rejected at goods-in.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Batch' is singular."
+    },
+    {
+      "id": "h6-r16",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "agreement",
+      "source": "Each of the hoists need a load test.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Each' takes a singular verb."
+    },
+    {
+      "id": "h6-r17",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "article",
+      "source": "He submitted claim without the receipts.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "The noun needs an article."
+    },
+    {
+      "id": "h6-r18",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "confused-word",
+      "source": "The outage will effect the overnight run.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'Affect' is the verb."
+    },
+    {
+      "id": "h6-r19",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "confused-word",
+      "source": "Its likely the seal perished in the heat.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "'It's' is the contraction."
+    },
+    {
+      "id": "h6-r20",
+      "partition": "holdout-6",
+      "kind": "clarity",
+      "issueClass": "capitalization",
+      "source": "on sunday the fitter replaced the impeller.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Capitalize the opener and the weekday."
+    },
+    {
+      "id": "h6-k01",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The blower runs for ten minutes after each cycle.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k02",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Karim endorsed the certificate on 18 June 2027.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k03",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Do not lift the guard while the blade turns.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k04",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The paint cures at 25 \u00b0C in three hours.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k05",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "We deferred the inspection because the yard flooded.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k06",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The template sits in /etc/reports/template.yml.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k07",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Brass wears faster than hardened steel.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k08",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Neither alarm activated during the smoke test.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k09",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The bond may be forfeited if the works stop.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k10",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The meter records demand every fifteen minutes.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k11",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Can the crane reach the far bay safely?",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k12",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Never bridge the interlock during commissioning.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k13",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Yield improved 2.7% after the die change.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k14",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The cover includes storm damage but not wear.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k15",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Nadia rebuilt the queue consumer for idempotency.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k16",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Check https://example.test/status before escalating.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k17",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The trustees rejected both tenders outright.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k18",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "He verified the level with a water gauge.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k19",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The retainer continues unless either party cancels.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k20",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Corrosion thinned the flange over four winters.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k21",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The unit publishes its serial number on boot.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k22",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Two banksmen share the lifting duties.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k23",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The autoclave vents for an hour before opening.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k24",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "She served the notice inside the appeal window.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k25",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The broker returns 429 when the topic is saturated.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k26",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Flooding shut the depot for two days.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k27",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The gear teeth showed no pitting at teardown.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k28",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Keep the vaccine between 2 and 8 \u00b0C.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k29",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The inspectors sampled every third pallet.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k30",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Owen countersigned the method statement.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k31",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The riser passes through two fire compartments.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k32",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "We settle accounts at the end of each quarter.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k33",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The fuse cleared, so we investigated the feeder.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k34",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "His report explains why the pilot line stalled.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k35",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The consultant logged 31 hours against the job.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k36",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Only the weekend team reported the smell.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k37",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The weld passed radiography on the first attempt.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k38",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "Archive the dataset before rotating the keys.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k39",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "The tribunal sits again in February.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    },
+    {
+      "id": "h6-k40",
+      "partition": "holdout-6",
+      "kind": "clean",
+      "issueClass": "clean",
+      "source": "That valve isolates the sprinkler main.",
+      "expectedAction": "keep",
+      "preserve": [],
+      "notes": "Already clear."
+    }
+  ]
+}

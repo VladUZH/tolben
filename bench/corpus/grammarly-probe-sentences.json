@@ -1,0 +1,325 @@
+{
+ "description": "200 probe sentences typed into the Grammarly editor to record their clarity behaviour. Grouped in batches of 10 by construction type. British/American spelling triggers deliberately avoided so the diffs stay clarity-only.",
+ "batches": [
+  {
+   "id": 1,
+   "theme": "wordy connectives and prepositional phrases",
+   "sentences": [
+    "For the purpose of testing, we created a separate staging environment.",
+    "In the majority of cases, the retry logic recovers the request.",
+    "We postponed the release on account of the fact that the tests were failing.",
+    "With the exception of the billing module, every service passed the audit.",
+    "In light of the fact that traffic doubled, we added two more nodes.",
+    "The migration was delayed for a period of three weeks.",
+    "We will proceed in accordance with the plan agreed last month.",
+    "In the near future we intend to replace the queue with a stream.",
+    "During the course of the review, we found two blocking defects.",
+    "The outage occurred in the vicinity of the maintenance window."
+   ]
+  },
+  {
+   "id": 2,
+   "theme": "nominalizations and buried verbs",
+   "sentences": [
+    "The auditors made a recommendation that we rotate the keys quarterly.",
+    "We need to perform an analysis of the failure rates before Friday.",
+    "The vendor provided a demonstration of the new reporting module.",
+    "Management reached an agreement with the union on Tuesday.",
+    "The engineer carried out a review of the deployment scripts.",
+    "We will undertake a comparison of the two storage backends.",
+    "The committee gave approval to the revised security policy.",
+    "Our team is in the process of migrating the legacy accounts.",
+    "The report makes mention of three unresolved dependencies.",
+    "They put forward a proposal for restructuring the data model."
+   ]
+  },
+  {
+   "id": 3,
+   "theme": "passive voice variants",
+   "sentences": [
+    "The alert was triggered by a spike in memory usage.",
+    "The configuration file is read by the loader at startup.",
+    "A new index was created by the database administrator last night.",
+    "The findings were presented by the analyst to the steering group.",
+    "The tickets are reviewed by the on-call engineer every morning.",
+    "The old cluster was decommissioned last quarter.",
+    "The invoice has been approved and will be paid on Friday.",
+    "The schema changes were reverted by the release manager.",
+    "The customer records are encrypted at rest and in transit.",
+    "The incident was escalated by the support team to engineering."
+   ]
+  },
+  {
+   "id": 4,
+   "theme": "hedging and qualifiers",
+   "sentences": [
+    "It seems to me that we may want to consider revisiting the estimate.",
+    "There is a chance that the job could possibly time out under load.",
+    "We would probably be more or less ready by the end of the month.",
+    "I would just like to suggest that we perhaps delay the announcement.",
+    "It could be argued that the current design is somewhat fragile.",
+    "Arguably, the results are fairly encouraging in a general sense.",
+    "We are fairly confident that the fix will most likely hold.",
+    "Perhaps it might be worth taking another look at the retry policy.",
+    "This is quite possibly the single most important open risk.",
+    "I tend to think that the second option is probably a bit safer."
+   ]
+  },
+  {
+   "id": 5,
+   "theme": "redundant pairs and tautology",
+   "sentences": [
+    "Please provide advance warning before you restart the cluster.",
+    "The final outcome of the vote was a unanimous consensus of opinion.",
+    "We need to revert back to the previous version of the schema.",
+    "The two teams cooperated together on the joint partnership.",
+    "This is a brand new innovation that has never been done before.",
+    "The end result was a complete and total failure of the pipeline.",
+    "Please repeat that again so I can write down the exact same figure.",
+    "We must plan ahead for future contingencies that may arise.",
+    "The report contains a brief summary of the basic fundamentals.",
+    "Each individual engineer received their own personal laptop."
+   ]
+  },
+  {
+   "id": 6,
+   "theme": "expletive constructions",
+   "sentences": [
+    "There is a need for better documentation of the ingestion pipeline.",
+    "It is necessary that every service expose a health endpoint.",
+    "There were three engineers who objected to the proposed schedule.",
+    "It is our expectation that the backlog will clear by Thursday.",
+    "There appears to be a memory leak in the background worker.",
+    "It was decided that the feature flag would remain on for now.",
+    "There is no doubt that the current approach will not scale.",
+    "It has come to our attention that the export job silently fails.",
+    "There are many customers that are asking for single sign-on.",
+    "It turns out that the timeout was configured in milliseconds."
+   ]
+  },
+  {
+   "id": 7,
+   "theme": "relative clauses and modifiers",
+   "sentences": [
+    "The service which is written in Go handles all authentication.",
+    "The report that was published yesterday contains the revised figures.",
+    "Any request that is larger than one megabyte will be rejected.",
+    "The engineer who is responsible for the pipeline is on holiday.",
+    "The dashboard, which was designed in 2021, which nobody maintains, is still live.",
+    "We removed the records that were duplicated during the import.",
+    "The customers who are located in Europe see a different currency.",
+    "The alert that fired at midnight was caused by a scheduled backup.",
+    "The document that I sent you earlier has now been superseded.",
+    "The tool which we evaluated last year has since been discontinued."
+   ]
+  },
+  {
+   "id": 8,
+   "theme": "long compound and run-on sentences",
+   "sentences": [
+    "We reviewed the logs and we found the error and we deployed a fix and we confirmed the recovery.",
+    "The pipeline ingests the raw events, and then it normalizes them, and after that it writes them to the warehouse for downstream consumption by analysts.",
+    "Because the vendor missed the deadline and because the budget was already committed, we had to descope two features that had been promised to the customer.",
+    "The system is slow, the queries are unoptimized, the indexes are missing, and nobody has had the time to look into any of it.",
+    "Although we agreed on the architecture in principle, there remain a number of open questions regarding ownership, funding, and the timeline for delivery.",
+    "After the incident was resolved and after the postmortem was written and circulated, we scheduled a follow-up meeting to track the action items.",
+    "The analyst exported the data, cleaned it, joined it with the reference table, and produced a summary that was shared with the steering group.",
+    "If the primary region fails and if the replica has not caught up, then manual intervention will be required before traffic can be redirected.",
+    "We could either rewrite the service from scratch, or we could refactor it incrementally, but either way it will take at least two quarters.",
+    "The customer reported the issue on Monday, our support team reproduced it on Tuesday, and engineering shipped a patch on Wednesday afternoon."
+   ]
+  },
+  {
+   "id": 9,
+   "theme": "corporate and business jargon",
+   "sentences": [
+    "We need to leverage our core competencies to drive synergies across the portfolio.",
+    "Let us circle back offline and touch base on the deliverables next week.",
+    "Going forward, we will operationalize the framework at a granular level.",
+    "This initiative will enable us to unlock value in the medium term.",
+    "We should socialize the proposal with stakeholders prior to the deep dive.",
+    "The team is fully bandwidth constrained until the end of the quarter.",
+    "At the end of the day, we need to move the needle on retention.",
+    "Please action the items and revert with your feedback at your earliest convenience.",
+    "We are looking to onboard a strategic partner in the very near term.",
+    "This is a mission critical workstream with significant downstream impact."
+   ]
+  },
+  {
+   "id": 10,
+   "theme": "technical documentation prose",
+   "sentences": [
+    "In the event of a failure, the client will retry the request three times.",
+    "It should be noted that the endpoint requires an authentication token.",
+    "The purpose of this document is to describe the deployment procedure.",
+    "This section provides a description of the available configuration options.",
+    "Users are able to filter the results by date, status, and owner.",
+    "The function has the capability of processing batches of up to ten items.",
+    "Prior to running the script, ensure that the environment variables are set.",
+    "In order for the job to succeed, the input file must be valid JSON.",
+    "The service makes use of a connection pool with a maximum of fifty connections.",
+    "Due to the asynchronous nature of the queue, ordering is not guaranteed."
+   ]
+  },
+  {
+   "id": 11,
+   "theme": "email and workplace communication",
+   "sentences": [
+    "I am writing to inform you that the meeting has been moved to Thursday.",
+    "Please be advised that the office will be closed on Monday for maintenance.",
+    "I wanted to reach out and follow up on my previous email regarding the invoice.",
+    "Thank you in advance for your kind attention to this urgent matter.",
+    "Kindly find attached the document that you requested during our call.",
+    "I hope this email finds you well and that you had a restful weekend.",
+    "Please do not hesitate to contact me should you require any further information.",
+    "At your earliest convenience, could you please confirm receipt of the files?",
+    "We regret to inform you that your request has not been approved at this time.",
+    "Just following up on the below to see if you have had a chance to review."
+   ]
+  },
+  {
+   "id": 12,
+   "theme": "academic and formal register",
+   "sentences": [
+    "The present study seeks to investigate the effect of latency on user retention.",
+    "It has been demonstrated by previous research that caching improves throughput.",
+    "The data would seem to suggest that there is a correlation between the two variables.",
+    "A significant number of the participants failed to complete the second task.",
+    "The results obtained from the experiment are presented in the following section.",
+    "It is worth noting that the sample size was relatively small in this instance.",
+    "The methodology employed in this analysis is described in detail in Appendix A.",
+    "These findings are consistent with the hypothesis that was stated earlier.",
+    "Further research will be required in order to establish causality definitively.",
+    "The literature on this subject is extensive and, for the most part, inconclusive."
+   ]
+  },
+  {
+   "id": 13,
+   "theme": "clean controls (expect no clarity suggestions)",
+   "sentences": [
+    "The build finished in four minutes.",
+    "We deployed the fix to production on Friday morning.",
+    "The database holds twelve million customer records.",
+    "Sarah leads the platform team in Zurich.",
+    "The API returns a 404 when the record does not exist.",
+    "Our costs fell by a third after the migration.",
+    "The meeting starts at nine and ends at ten.",
+    "He rewrote the parser in Rust last summer.",
+    "The queue drains faster than it fills.",
+    "She approved the budget and signed the contract."
+   ]
+  },
+  {
+   "id": 14,
+   "theme": "numbers, units, versions and entities (safety probes)",
+   "sentences": [
+    "The job processes roughly 2.5 million rows in under 40 seconds.",
+    "We upgraded from version 3.11 to version 4.0 without downtime.",
+    "The threshold was raised from 100 ms to 250 ms last Tuesday.",
+    "Revenue in Q3 was up 14 points against a target of 10 points.",
+    "The cluster runs on eight nodes with 64 GB of memory each.",
+    "Postgres, Redis, and Kafka are all managed by the platform team.",
+    "The contract with Acme Corp expires on 31 December 2026.",
+    "Only 3 of the 47 tenants have enabled the beta feature so far.",
+    "The file is 1.2 GB and takes about ninety seconds to upload.",
+    "Our SLA guarantees 99.95 percent availability measured monthly."
+   ]
+  },
+  {
+   "id": 15,
+   "theme": "negation, modality and certainty (safety probes)",
+   "sentences": [
+    "The service must never write to the primary during a failover.",
+    "Users cannot delete records that are referenced by an open case.",
+    "We should not assume that the upstream provider will retry.",
+    "It is not impossible that the vendor will miss the deadline again.",
+    "The change will not affect customers on the legacy plan.",
+    "No engineer is permitted to deploy without a second approval.",
+    "The system may reject the request if the quota has been exceeded.",
+    "This must be completed before the audit, not merely started.",
+    "Nothing in the logs suggests that the disk was ever full.",
+    "The migration might fail, in which case we roll back immediately."
+   ]
+  },
+  {
+   "id": 16,
+   "theme": "questions and imperatives",
+   "sentences": [
+    "Could you please let me know what the reason for the delay is?",
+    "Would it be possible for you to provide us with an updated estimate?",
+    "Do you happen to know whether or not the backup job completed?",
+    "Please make sure that you do not forget to rotate the credentials.",
+    "Ensure that all of the tests are passing prior to merging the branch.",
+    "Can you give consideration to the alternative approach we discussed?",
+    "Try to avoid making changes to the schema during the freeze period.",
+    "Kindly refrain from deploying to production after four in the afternoon.",
+    "What is the current status with regard to the outstanding invoices?",
+    "Remember to take into account the fact that timezones differ."
+   ]
+  },
+  {
+   "id": 17,
+   "theme": "lists and parallel structure",
+   "sentences": [
+    "The pipeline validates the input, transformation of the data, and then it loads it.",
+    "Our goals are improving latency, to reduce cost, and that we increase reliability.",
+    "The role involves writing code, code review, and to mentor junior engineers.",
+    "We need to fix the bug, the documentation must be updated, and notify the customer.",
+    "The report covers revenue, what our costs were, and the headcount projections.",
+    "Please check the logs, that the metrics look normal, and restarting the worker.",
+    "The system is fast, reliable, and it has good security.",
+    "She is responsible for hiring, for the budget, and she runs the roadmap.",
+    "The tool can export to CSV, JSON, and it also supports Parquet files.",
+    "We measured throughput, the latency was measured, and error rates were tracked."
+   ]
+  },
+  {
+   "id": 18,
+   "theme": "idioms and figurative language (expect preservation)",
+   "sentences": [
+    "The new dashboard is a game changer for the analysts.",
+    "We are boiling the ocean by trying to fix everything at once.",
+    "That approach opens a can of worms we would rather keep closed.",
+    "The team went the extra mile to get the release out on time.",
+    "This is low hanging fruit that we can pick up next sprint.",
+    "We are flying blind without proper observability in place.",
+    "The proposal was dead on arrival at the steering committee.",
+    "Let us not throw the baby out with the bathwater here.",
+    "The migration turned out to be a blessing in disguise.",
+    "They moved the goalposts halfway through the project."
+   ]
+  },
+  {
+   "id": 19,
+   "theme": "meeting notes and status updates",
+   "sentences": [
+    "Just to give a quick update on where we are with the integration work.",
+    "The main takeaway from the session was that we need clearer ownership.",
+    "We spent a fair amount of time discussing the trade-offs of each option.",
+    "Action item for me is to follow up with the vendor about the pricing.",
+    "One thing that came up was the question of who owns the data quality checks.",
+    "There was general agreement that the current SLA is too aggressive.",
+    "We did not manage to get through the whole agenda in the time available.",
+    "Next week we will pick up where we left off and go through the remaining items.",
+    "A couple of people raised concerns around the timeline being unrealistic.",
+    "In summary, we are broadly on track but there are a few risks to watch."
+   ]
+  },
+  {
+   "id": 20,
+   "theme": "edge cases: short, fragment, quoted, mixed punctuation",
+   "sentences": [
+    "Done.",
+    "Not yet, unfortunately.",
+    "The reason being that the cache had not been warmed.",
+    "He said that the deadline is, in his words, completely unrealistic.",
+    "The config file (which lives in /etc/app/config.yaml) must be readable.",
+    "We tried three things: restarting, rescaling, and finally rebuilding.",
+    "The error message says \"connection refused\" but the port is open.",
+    "It works; however, it is far slower than we had anticipated.",
+    "Why? Because the index was never created in the first place.",
+    "The team, having reviewed the options, decided to wait."
+   ]
+  }
+ ]
+}

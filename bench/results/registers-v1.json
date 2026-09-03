@@ -1,0 +1,1664 @@
+{
+  "schemaVersion": 1,
+  "generatedAtUTC": "2026-08-28T10:51:44.527Z",
+  "corpusName": "registers",
+  "corpusSHA256": "cdc468b3ad586ea93d1c58a394ab6b6b70bab3c11f4986d9e22d527ae22b4153",
+  "promptSHA256": "53ef1a58904e7230a5f999a4abca16360066b621cd0600319f397d315b4791ee",
+  "prompt": "You are the decision engine for blue-underline clarity suggestions in an English text editor. Evaluate exactly one completed sentence. Return a rewrite when the sentence has a specific, objective clarity or correctness problem; return keep when it is already clear. Correct grammar does not make wording clear: a sentence can be perfectly grammatical and still be redundant, inflated, or needlessly indirect.\n\nRun every check before deciding keep:\n\n1. DIRECT VERB. A weak verb (make, give, provide, perform, conduct, carry out, reach, raise, offer, undertake, hold) followed by an abstract noun is almost always a hidden verb. Use the ordinary verb when the meaning is unchanged: reached a conclusion -> concluded; conducted an analysis -> analyzed; gave an explanation -> explained; provided an explanation of -> explained; gave an indication that -> indicated; made a recommendation -> recommended; performed an inspection -> inspected; raised the question whether -> asked whether; offered a suggestion -> suggested.\n2. INFLATED PHRASE. Shorten conventional wordy phrases: is able to -> can; has a tendency to -> tends to; on a weekly basis -> weekly; at a later point in time -> later; in close proximity to -> near; due to the fact that -> because; in the event that -> if; for the purpose of -> to; there are several reasons why X cannot Y -> X cannot Y for several reasons. When the phrase carries a hedge, shorten the phrase but keep the hedge: \"has a tendency to fail\" becomes \"tends to fail\", never \"fails\".\n3. REDUNDANCY. Two words that carry the same meaning are redundant even when the phrase sounds completely normal and idiomatic, and familiarity is not a reason to keep one. Test each word: read the sentence without it, and if nothing at all is lost, it was redundant. Remove a word only when another word already carries its meaning: each and every -> each; first and foremost -> first; end result -> result; basic fundamentals -> fundamentals; unexpected surprise -> surprise; future plans -> plans (a plan is already about the future); past history -> history; advance warning -> warning; at the present time -> now; joined together -> joined; completely eliminated -> eliminated. Two intensifiers doing one job are redundant even when they sit apart in the sentence (\"entirely removed it altogether\"): keep the one that best preserves the original emphasis and drop the other.\n4. INDIRECTNESS. Repair an empty opening (there is, there are, it is the case that), a buried subject, an awkward construction, an imprecise or confused word, or a locally repairable ambiguity, using a small conventional edit.\n5. AGREEMENT. Find the real subject and check the verb against it, ignoring any words between them. A set, list, group, collection, bundle, series, batch, or number is singular even when followed by a plural noun: \"The set of keys IS stored\", \"A bundle of forms IS missing\". \"Neither\", \"either\", \"each\", \"every one\", and \"none\" normally take a singular verb: \"Neither of the dates WORKS\". Repair the verb alone; do not recast the sentence around it. Also check singular/plural consistency between a noun and the words that depend on it.\n6. WORD CHOICE AND AGREEMENT ERRORS. Check that articles are present and correct, that a series is punctuated consistently, and that confused words are right (your/you're, its/it's, affect/effect, then/than, lead/led, to/too). Spacing and capitalization are repaired before you see the sentence, so do not comment on them.\n\nWork through checks 1 to 6 against the actual words in front of you before you answer. Choose rewrite if a check finds a concrete problem with a small safe repair, and name the check that found it in the reason. Choose keep only after all six checks come back clean; when you choose keep, the reason must say which possibility you considered and ruled out. Never answer that a sentence is clear without having read it against every check. Do choose keep when the only available change would swap synonyms, reflect personal style, or need context you do not have.\n\nRestraint and safety:\n\n- Make the smallest useful edit. Preserve every word the problem does not touch.\n- If you choose rewrite, the replacement must actually differ from the input. If you cannot write a different and better sentence, choose keep instead.\n- Do not delete a time, cause, condition, contrast, purpose, or any other meaningful clause merely to shorten the sentence.\n- Fix a punctuation, capitalization, or agreement error without recasting the rest of the sentence.\n- Do not change voice, contractions, or word order unless doing so fixes the named problem.\n- Do not replace an already precise word with a synonym. Do not rewrite a clear question, command, heading, or technical statement merely because another phrasing exists.\n- Return one complete replacement sentence carrying the same terminal punctuation.\n- Preserve every fact, name, number, date, unit, URL, citation, path, identifier, and technical term exactly.\n- Preserve certainty, negation, tense, commitments, tone, and whether the input is a question.\n- Never answer the input, add information, add a preamble, or put commentary in the replacement.\n\nExamples:\n\nInput: The coordinator made an assessment of the draft.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"The coordinator assessed the draft.\",\"reason\":\"Replaces a nominalization with a direct verb.\"}\n\nInput: The archive is copied on a weekly basis.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"The archive is copied weekly.\",\"reason\":\"Shortens an inflated frequency phrase.\"}\n\nInput: The final outcome was an unexpected surprise.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"The outcome was a surprise.\",\"reason\":\"Removes redundant wording.\"}\n\nInput: A collection of signed forms are missing.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"A collection of signed forms is missing.\",\"reason\":\"Corrects subject-verb agreement.\"}\n\nInput: There is a risk that the seal will fail.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"The seal may fail.\",\"reason\":\"Removes an empty opening construction.\"}\n\nInput: your scheduled to inspect the valve on monday.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"You're scheduled to inspect the valve on Monday.\",\"reason\":\"Corrects a confused word and capitalization.\"}\n\nInput: The test was brief , but it was complete.\nOutput: {\"action\":\"rewrite\",\"replacement\":\"The test was brief, but it was complete.\",\"reason\":\"Removes the space before the comma.\"}\n\nInput: Nora checked the seal twice before opening it.\nOutput: {\"action\":\"keep\",\"replacement\":\"\",\"reason\":\"The temporal clause carries meaning and the sentence is clear.\"}\n\nInput: Could the backup finish before noon?\nOutput: {\"action\":\"keep\",\"replacement\":\"\",\"reason\":\"The question is already clear and direct.\"}\n\nInput: The sensor records temperature every minute.\nOutput: {\"action\":\"keep\",\"replacement\":\"\",\"reason\":\"The sentence is clear and direct.\"}\n\nInput: Lina may deploy API_V2 at 14:30 UTC.\nOutput: {\"action\":\"keep\",\"replacement\":\"\",\"reason\":\"The sentence is clear and preserves a qualified commitment.\"}\n\nOutput only one JSON object with exactly these fields: action (\"keep\" or \"rewrite\"), replacement (empty string for keep), and a short reason.\n",
+  "model": {
+    "id": "models/Qwen3.5-2B-Q6_K.gguf",
+    "path": "models/Qwen3.5-2B-Q6_K.gguf",
+    "bytes": 1574961408
+  },
+  "rows": [
+    {
+      "id": "r-fiction1",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "The old lighthouse keeper made a decision to abandon his post before dawn.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Nominalization in narrative voice: 'decided to abandon'.",
+      "action": "rewrite",
+      "replacement": "The old lighthouse keeper decided to abandon his post before dawn.",
+      "reason": "Shortens “made a decision” to “decided”.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": [
+        "made"
+      ],
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 1130
+    },
+    {
+      "id": "r-fiction2",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "There was a silence in the room that made her uneasy.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Empty opening: 'A silence in the room made her uneasy.'",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 140
+    },
+    {
+      "id": "r-fiction3",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "The set of letters he had hidden under the floorboards were water-stained.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Agreement: 'The set ... was water-stained.'",
+      "action": "rewrite",
+      "replacement": "The set of letters he had hidden under the floorboards was water-stained.",
+      "reason": "Changes “were” to “was” to match the subject.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 279
+    },
+    {
+      "id": "r-fiction4",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "She felt an unexpected surprise when the door swung open on its own.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Redundancy: a surprise is already unexpected.",
+      "action": "rewrite",
+      "replacement": "She felt a surprise when the door swung open on its own.",
+      "reason": "Shortens “an unexpected” to “a”.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 248
+    },
+    {
+      "id": "r-fiction5",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "Rain had been falling on the slate roofs since the middle of the afternoon.",
+      "expectedAction": "keep",
+      "preserve": [
+        "slate",
+        "afternoon"
+      ],
+      "notes": "Clean narrative prose; the time phrase carries meaning.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 129
+    },
+    {
+      "id": "r-fiction6",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "He counted the coins twice and then pushed them across the table.",
+      "expectedAction": "keep",
+      "preserve": [
+        "twice"
+      ],
+      "notes": "Clean; 'twice' is information, not repetition.",
+      "action": "rewrite",
+      "replacement": "He counted the coins and then pushed them across the table.",
+      "reason": "Removes “twice”.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": [
+        "twice"
+      ],
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 700
+    },
+    {
+      "id": "r-fiction7",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "The dog followed her as far as the gate and stopped.",
+      "expectedAction": "keep",
+      "preserve": [
+        "gate"
+      ],
+      "notes": "Clean and already direct.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 132
+    },
+    {
+      "id": "r-fiction8",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "Somewhere below the cliff a bell rang once, and then nothing.",
+      "expectedAction": "keep",
+      "preserve": [
+        "cliff",
+        "once"
+      ],
+      "notes": "Deliberate fragment after the comma; a literary construction, not a fault.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 130
+    },
+    {
+      "id": "r-fiction9",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "Her grandmother had kept the letters in a biscuit tin for forty years.",
+      "expectedAction": "keep",
+      "preserve": [
+        "biscuit",
+        "forty"
+      ],
+      "notes": "Clean; every phrase carries a fact.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "trivial-edit",
+      "modelRejection": "trivial-edit",
+      "rejectedText": "Her grandmother kept the letters in a biscuit tin for forty years.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 260
+    },
+    {
+      "id": "r-fiction10",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "The train pulled out before he reached the platform.",
+      "expectedAction": "keep",
+      "preserve": [
+        "platform"
+      ],
+      "notes": "Clean; the temporal clause is the point of the sentence.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "word-substituted",
+      "modelRejection": "word-substituted",
+      "rejectedText": "The train departed before he reached the platform.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 214
+    },
+    {
+      "id": "r-fiction11",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "Frost had sealed the window shut, so she used the side door.",
+      "expectedAction": "keep",
+      "preserve": [
+        "Frost",
+        "side"
+      ],
+      "notes": "Clean; the causal link is doing work.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 128
+    },
+    {
+      "id": "r-fiction12",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "fiction",
+      "source": "He said nothing about the fire, and she did not ask.",
+      "expectedAction": "keep",
+      "preserve": [
+        "fire"
+      ],
+      "notes": "Clean; the negations are the meaning.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 123
+    },
+    {
+      "id": "r-academic1",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "This study carried out an analysis of soil samples from twelve upland sites.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "twelve"
+      ],
+      "notes": "Nominalization: 'analysed soil samples'.",
+      "action": "rewrite",
+      "replacement": "This study analyzed soil samples from twelve upland sites.",
+      "reason": "Shortens “carried out an analysis of” to “analyzed”.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": [
+        "carried"
+      ],
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 603
+    },
+    {
+      "id": "r-academic2",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "Due to the fact that the sample size was small, the effect did not reach significance.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Inflated phrase: 'Because the sample size was small'.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "information-dropped",
+      "modelRejection": "information-dropped",
+      "rejectedText": "The small sample size did not reach significance.",
+      "lostWords": [
+        "Due",
+        "effect"
+      ],
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 219
+    },
+    {
+      "id": "r-academic3",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "A collection of demographic variables were entered into the regression model.",
+      "expectedAction": "rewrite",
+      "preserve": [],
+      "notes": "Agreement: 'A collection ... was entered'.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 130
+    },
+    {
+      "id": "r-academic4",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "The end result of the intervention was a modest reduction in reported symptoms.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "modest"
+      ],
+      "notes": "Redundancy: 'end result' is a result.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "word-substituted",
+      "modelRejection": "word-substituted",
+      "rejectedText": "The intervention resulted in a modest reduction in reported symptoms.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 229
+    },
+    {
+      "id": "r-academic5",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "We recruited 214 participants from three primary care clinics between March and September.",
+      "expectedAction": "keep",
+      "preserve": [
+        "214",
+        "three",
+        "March",
+        "September"
+      ],
+      "notes": "Clean methods sentence; every number and date is load-bearing.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 130
+    },
+    {
+      "id": "r-academic6",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "Participants completed the questionnaire before and after the eight-week program.",
+      "expectedAction": "keep",
+      "preserve": [
+        "eight-week"
+      ],
+      "notes": "Clean; 'before and after' is not redundancy.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 128
+    },
+    {
+      "id": "r-academic7",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "The model explained 34 percent of the variance in reported outcomes.",
+      "expectedAction": "keep",
+      "preserve": [
+        "34"
+      ],
+      "notes": "Clean result sentence.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 130
+    },
+    {
+      "id": "r-academic8",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "Two coders classified each transcript independently, and disagreements were resolved by discussion.",
+      "expectedAction": "keep",
+      "preserve": [
+        "Two",
+        "independently"
+      ],
+      "notes": "Clean; 'each' and 'independently' both carry meaning.",
+      "action": "rewrite",
+      "replacement": "Two coders independently classified each transcript, with disagreements resolved by discussion.",
+      "reason": "Adds “independently” and shortens “independently, and disagreements were” to “, with disagreements”.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 259
+    },
+    {
+      "id": "r-academic9",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "Data were collected under a protocol approved by the institutional review board.",
+      "expectedAction": "keep",
+      "preserve": [
+        "institutional",
+        "board"
+      ],
+      "notes": "Passive is the register's convention here; changing voice is style, not clarity.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 129
+    },
+    {
+      "id": "r-academic10",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "The findings extend earlier work on adherence in rural populations.",
+      "expectedAction": "keep",
+      "preserve": [
+        "adherence",
+        "rural"
+      ],
+      "notes": "Clean discussion sentence.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 128
+    },
+    {
+      "id": "r-academic11",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "We excluded seventeen records because the baseline measurement was missing.",
+      "expectedAction": "keep",
+      "preserve": [
+        "seventeen",
+        "baseline"
+      ],
+      "notes": "Clean; the causal clause is required.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "dropped-content",
+      "modelRejection": "dropped-content",
+      "rejectedText": "We excluded seventeen records due to a missing baseline measurement.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 230
+    },
+    {
+      "id": "r-academic12",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "academic",
+      "source": "Further trials are needed before these results can guide clinical practice.",
+      "expectedAction": "keep",
+      "preserve": [
+        "clinical"
+      ],
+      "notes": "Clean hedged limitation; the hedge must survive.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "unchanged",
+      "modelRejection": "unchanged",
+      "rejectedText": "Further trials are needed before these results can guide clinical practice.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 238
+    },
+    {
+      "id": "r-casual1",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Just wanted to give you a quick update on where things stand with the venue.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "venue"
+      ],
+      "notes": "Hidden verb: 'quickly update you on'.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "information-dropped",
+      "modelRejection": "information-dropped",
+      "rejectedText": "Just wanted to give you a quick update on the venue.",
+      "lostWords": [
+        "things",
+        "stand"
+      ],
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 241
+    },
+    {
+      "id": "r-casual2",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "I am not able to make the 3pm slot, but I can do anything after 4.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "3pm",
+        "4"
+      ],
+      "notes": "Inflated phrase: 'I cannot make the 3pm slot'.",
+      "action": "rewrite",
+      "replacement": "I cannot make the 3pm slot, but I can do anything after 4.",
+      "reason": "Shortens “am not able to” to “cannot”.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 295
+    },
+    {
+      "id": "r-casual3",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Your going to need the badge to get past the front desk.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "badge"
+      ],
+      "notes": "Confused word: your/you're.",
+      "action": "rewrite",
+      "replacement": "You'll need the badge to get past the front desk.",
+      "reason": "Shortens “Your going to” to “You'll”.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": [
+        "going"
+      ],
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 535
+    },
+    {
+      "id": "r-casual4",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Lets pick this up again at a later point in time.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "again"
+      ],
+      "notes": "Inflated phrase 'at a later point in time' plus the missing apostrophe in 'Let's'.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "name-changed",
+      "modelRejection": "name-changed",
+      "rejectedText": "Let's pick this up later.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 196
+    },
+    {
+      "id": "r-casual5",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Can you send me the deck before you leave today?",
+      "expectedAction": "keep",
+      "preserve": [
+        "deck",
+        "today"
+      ],
+      "notes": "Clean direct question; must stay a question.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "unchanged",
+      "modelRejection": "unchanged",
+      "rejectedText": "Can you send me the deck before you leave today?",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 234
+    },
+    {
+      "id": "r-casual6",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "I moved our coffee to Thursday because the room was double-booked.",
+      "expectedAction": "keep",
+      "preserve": [
+        "Thursday",
+        "double-booked"
+      ],
+      "notes": "Clean; the reason clause is the content.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "content-dropped",
+      "modelRejection": "content-dropped",
+      "rejectedText": "I moved our coffee to Thursday.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 190
+    },
+    {
+      "id": "r-casual7",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Thanks for covering the standup while I was out.",
+      "expectedAction": "keep",
+      "preserve": [
+        "standup"
+      ],
+      "notes": "Clean and idiomatic; nothing to compress.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "word-substituted",
+      "modelRejection": "word-substituted",
+      "rejectedText": "Thanks for covering the standup while I was away.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 229
+    },
+    {
+      "id": "r-casual8",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "No rush on this, but let me know by Friday if you can.",
+      "expectedAction": "keep",
+      "preserve": [
+        "Friday"
+      ],
+      "notes": "Clean; the hedge and the deadline both carry meaning.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 126
+    },
+    {
+      "id": "r-casual9",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "I put the invoice in the shared folder under Q3.",
+      "expectedAction": "keep",
+      "preserve": [
+        "Q3",
+        "invoice"
+      ],
+      "notes": "Clean; the identifier must survive untouched.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "protected-token-changed",
+      "modelRejection": "protected-token-changed",
+      "rejectedText": "I put the invoice in the shared folder.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 208
+    },
+    {
+      "id": "r-casual10",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Sorry, I read that as next week rather than this week.",
+      "expectedAction": "keep",
+      "preserve": [
+        "next",
+        "this"
+      ],
+      "notes": "Clean; the contrast is the whole point and the repetition is deliberate.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "name-changed",
+      "modelRejection": "name-changed",
+      "rejectedText": "Sorry, I read that as next Monday rather than this week.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 243
+    },
+    {
+      "id": "r-casual11",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "Happy to jump on a call if that is easier than typing it out.",
+      "expectedAction": "keep",
+      "preserve": [
+        "call"
+      ],
+      "notes": "Clean conversational offer; idiom is not a clarity fault.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 140
+    },
+    {
+      "id": "r-casual12",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "casual",
+      "source": "The parking garage closes at seven, so park on the street.",
+      "expectedAction": "keep",
+      "preserve": [
+        "seven"
+      ],
+      "notes": "Clean; the repeated 'park' stem is required by the meaning.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "unchanged",
+      "modelRejection": "unchanged",
+      "rejectedText": "The parking garage closes at seven, so park on the street.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 273
+    },
+    {
+      "id": "r-marketing1",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Our platform is able to sync your calendar across every device you own.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "calendar"
+      ],
+      "notes": "Inflated phrase: 'can sync'.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "certainty-changed",
+      "modelRejection": "certainty-changed",
+      "rejectedText": "Our platform syncs your calendar across all devices you own.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 267
+    },
+    {
+      "id": "r-marketing2",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Our design team performed a redesign of the entire onboarding flow.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "onboarding"
+      ],
+      "notes": "Nominalization: 'redesigned the entire onboarding flow'.",
+      "action": "rewrite",
+      "replacement": "Our design team redesigned the entire onboarding flow.",
+      "reason": "Shortens “performed a redesign of” to “redesigned”.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": [
+        "performed"
+      ],
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 603
+    },
+    {
+      "id": "r-marketing3",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "There are several reasons why our customers stay with us for years.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "several",
+        "years"
+      ],
+      "notes": "Empty opening: 'Our customers stay with us for years for several reasons.'",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "information-dropped",
+      "modelRejection": "information-dropped",
+      "rejectedText": "There are several reasons why our customers stay with us.",
+      "lostWords": [
+        "years"
+      ],
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 266
+    },
+    {
+      "id": "r-marketing4",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Each and every plan includes unlimited storage at no extra cost.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "unlimited"
+      ],
+      "notes": "Redundancy: 'each plan'.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "negation-changed",
+      "modelRejection": "negation-changed",
+      "rejectedText": "Each plan includes unlimited storage.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 206
+    },
+    {
+      "id": "r-marketing5",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Set up your first workspace in under two minutes.",
+      "expectedAction": "keep",
+      "preserve": [
+        "two"
+      ],
+      "notes": "Clean imperative headline; already as short as it goes.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 143
+    },
+    {
+      "id": "r-marketing6",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Cancel anytime, and we refund the unused part of the month.",
+      "expectedAction": "keep",
+      "preserve": [
+        "unused"
+      ],
+      "notes": "Clean; the promise must not be softened or dropped.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 144
+    },
+    {
+      "id": "r-marketing7",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Over 40,000 teams ship faster with our review tools.",
+      "expectedAction": "keep",
+      "preserve": [
+        "40,000",
+        "Over"
+      ],
+      "notes": "Clean; the number and its hedge must both survive.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 144
+    },
+    {
+      "id": "r-marketing8",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Your data stays in the region you choose.",
+      "expectedAction": "keep",
+      "preserve": [
+        "region"
+      ],
+      "notes": "Clean short claim.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 141
+    },
+    {
+      "id": "r-marketing9",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Start free, then upgrade when your team outgrows the limits.",
+      "expectedAction": "keep",
+      "preserve": [
+        "free",
+        "limits"
+      ],
+      "notes": "Clean; the two-step offer is the message.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "word-substituted",
+      "modelRejection": "word-substituted",
+      "rejectedText": "Start free, then upgrade when your team exceeds the limits.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 264
+    },
+    {
+      "id": "r-marketing10",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "We answer support tickets in under four hours on weekdays.",
+      "expectedAction": "keep",
+      "preserve": [
+        "four",
+        "weekdays"
+      ],
+      "notes": "Clean; the qualifier bounds the commitment.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "word-substituted",
+      "modelRejection": "word-substituted",
+      "rejectedText": "We respond to support tickets within four hours on weekdays.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 248
+    },
+    {
+      "id": "r-marketing11",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Import your existing boards with a single click.",
+      "expectedAction": "keep",
+      "preserve": [
+        "single"
+      ],
+      "notes": "Clean imperative; 'single' is a claim, not padding.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 137
+    },
+    {
+      "id": "r-marketing12",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "marketing",
+      "source": "Every plan includes the same security controls.",
+      "expectedAction": "keep",
+      "preserve": [
+        "same"
+      ],
+      "notes": "Clean; 'the same' is the claim and cannot be dropped.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 138
+    },
+    {
+      "id": "r-esl1",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "Please give me a information about the new schedule.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "schedule"
+      ],
+      "notes": "L2 article error on a mass noun: 'give me information'.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "word-substituted",
+      "modelRejection": "word-substituted",
+      "rejectedText": "Please provide me with information about the new schedule.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 236
+    },
+    {
+      "id": "r-esl2",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "The manager discussed about the budget with the whole team.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "budget"
+      ],
+      "notes": "L2 preposition error: 'discussed the budget'.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "quantifier-changed",
+      "modelRejection": "quantifier-changed",
+      "rejectedText": "The manager discussed the budget with the whole team.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 240
+    },
+    {
+      "id": "r-esl3",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "Yesterday I go to the warehouse to check the delivery.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "Yesterday",
+        "warehouse"
+      ],
+      "notes": "L2 tense error: 'Yesterday I went'.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "tense-changed",
+      "modelRejection": "tense-changed",
+      "rejectedText": "Yesterday I went to the warehouse to check the delivery.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 252
+    },
+    {
+      "id": "r-esl4",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "We are looking forward to receive your confirmation.",
+      "expectedAction": "rewrite",
+      "preserve": [
+        "confirmation"
+      ],
+      "notes": "L2 gerund error: 'looking forward to receiving'.",
+      "action": "rewrite",
+      "replacement": "We look forward to receiving your confirmation.",
+      "reason": "Shortens “are looking” to “look” and changes “receive” to “receiving”.",
+      "surfaced": true,
+      "stages": {
+        "mechanics": false,
+        "model": true
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 226
+    },
+    {
+      "id": "r-esl5",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "I will send the report on Friday morning.",
+      "expectedAction": "keep",
+      "preserve": [
+        "Friday"
+      ],
+      "notes": "Correct and simple; simplicity is not a clarity fault.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "certainty-changed",
+      "modelRejection": "certainty-changed",
+      "rejectedText": "I'll send the report Friday morning.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 235
+    },
+    {
+      "id": "r-esl6",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "The meeting is in room 4 at ten o'clock.",
+      "expectedAction": "keep",
+      "preserve": [
+        "4",
+        "ten"
+      ],
+      "notes": "Correct; plain phrasing with two load-bearing facts.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 150
+    },
+    {
+      "id": "r-esl7",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "Please tell me if you need more time.",
+      "expectedAction": "keep",
+      "preserve": [
+        "time"
+      ],
+      "notes": "Correct and direct; nothing to repair.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": "word-substituted",
+      "modelRejection": "word-substituted",
+      "rejectedText": "Please let me know if you need more time.",
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 255
+    },
+    {
+      "id": "r-esl8",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "Our team finished the training last week.",
+      "expectedAction": "keep",
+      "preserve": [
+        "training",
+        "last"
+      ],
+      "notes": "Correct; the time phrase carries meaning.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 149
+    },
+    {
+      "id": "r-esl9",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "I speak with the supplier every Monday.",
+      "expectedAction": "keep",
+      "preserve": [
+        "Monday"
+      ],
+      "notes": "Correct habitual present; not an inflated frequency phrase.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 147
+    },
+    {
+      "id": "r-esl10",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "The new badge works on all the doors.",
+      "expectedAction": "keep",
+      "preserve": [
+        "doors"
+      ],
+      "notes": "Correct; 'all' is a quantifier that must survive.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 146
+    },
+    {
+      "id": "r-esl11",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "Thank you for your help with the invoice.",
+      "expectedAction": "keep",
+      "preserve": [
+        "invoice"
+      ],
+      "notes": "Correct courtesy sentence; plain is not wordy.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 144
+    },
+    {
+      "id": "r-esl12",
+      "partition": "registers",
+      "kind": "clarity",
+      "issueClass": "esl",
+      "source": "She joined our office in January.",
+      "expectedAction": "keep",
+      "preserve": [
+        "January"
+      ],
+      "notes": "Correct and minimal; nothing to compress.",
+      "action": "keep",
+      "replacement": "",
+      "reason": "",
+      "surfaced": false,
+      "stages": {
+        "mechanics": false,
+        "model": false
+      },
+      "rejection": null,
+      "modelRejection": null,
+      "rejectedText": null,
+      "lostWords": null,
+      "verifierReason": null,
+      "engineError": null,
+      "milliseconds": 145
+    }
+  ]
+}

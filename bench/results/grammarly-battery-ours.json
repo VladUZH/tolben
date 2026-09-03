@@ -1,0 +1,134 @@
+[
+  {
+    "sentence": "The committee will make a determination regarding the revised budget.",
+    "replacement": "The committee will determine the revised budget.",
+    "reason": "Replaces a nominalization with a direct verb.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 438
+  },
+  {
+    "sentence": "We are in agreement that the vendor should be replaced.",
+    "replacement": null,
+    "reason": null,
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 510
+  },
+  {
+    "sentence": "It is our expectation that the audit will conclude in April.",
+    "replacement": null,
+    "reason": null,
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 518
+  },
+  {
+    "sentence": "The report was prepared by the analyst in a very thorough manner.",
+    "replacement": "The report was prepared by the analyst.",
+    "reason": "Removes redundant adverb 'very' and 'thorough'.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 502
+  },
+  {
+    "sentence": "There are a number of issues that need to be addressed by the team.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "quantifier-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 626
+  },
+  {
+    "sentence": "Due to the fact that the sensor failed, the line stopped.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "word-substituted",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 585
+  },
+  {
+    "sentence": "At this point in time we are unable to confirm the delivery date.",
+    "replacement": "At this point we are unable to confirm the delivery date.",
+    "reason": "Removes redundant 'in time' phrase.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 487
+  },
+  {
+    "sentence": "Each and every one of the forms must be signed prior to departure.",
+    "replacement": "Each form must be signed prior to departure.",
+    "reason": "Removes redundant 'and every' to avoid redundancy.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 525
+  },
+  {
+    "sentence": "The manager gave consideration to the proposal before the meeting.",
+    "replacement": "The manager considered the proposal before the meeting.",
+    "reason": "Replaces a nominalization with a direct verb.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 458
+  },
+  {
+    "sentence": "The results of the test were completely and totally inconclusive.",
+    "replacement": "The results of the test were inconclusive.",
+    "reason": "Removes redundant intensifiers 'completely' and 'totally'.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 537
+  },
+  {
+    "sentence": "In the event that the power fails, the backup will start automatically.",
+    "replacement": "If the power fails, the backup will start automatically.",
+    "reason": "Removes the empty opening construction 'In the event that'.",
+    "rejection": null,
+    "stages": {
+      "mechanics": false,
+      "model": true
+    },
+    "ms": 522
+  },
+  {
+    "sentence": "The new process is more efficient than the old process was.",
+    "replacement": null,
+    "reason": null,
+    "rejection": "tense-changed",
+    "stages": {
+      "mechanics": false,
+      "model": false
+    },
+    "ms": 631
+  }
+]

@@ -1,0 +1,16 @@
+{
+ "description": "The external artefacts this engine runs on, pinned by sha256. The weights under models/ (`models/*.gguf`) are gitignored — they do not live in the repository — so this file is the only record of WHICH bytes any measurement was taken on. It exists because a test failure could not be resolved without it: a set of goldens was recorded against an export whose hash nobody wrote down, and when the same file was re-fetched from the same repository a month later it reproduced 857 of 880. With no hash there is no way to tell a re-quantised upload from a broken port. Fetch and verify with `npm run models:fetch`.",
+ "pinned": "2026-09-01",
+ "artifacts": [
+  {
+   "path": "models/Qwen3.5-2B-Q6_K.gguf",
+   "repo": "lmstudio-community/Qwen3.5-2B-GGUF",
+   "file": "Qwen3.5-2B-Q6_K.gguf",
+   "sha256": "49e219c54fe4e936b078a994cdb10254a6ae24fc022834989d81240172a520f8",
+   "bytes": 1556390368,
+   "role": "the rewrite and verifier model, served by llama-server",
+   "licence": "Apache-2.0"
+  }
+ ],
+ "caveat": "These are the bytes TODAY'S numbers were measured on. Any measurement taken against an unhashed artefact is not reproducible — that is the gap this file closes."
+}
