@@ -1,4 +1,4 @@
-// Bundles the probe into the single CommonJS main.js Obsidian loads.
+// Bundles the plugin into the single CommonJS main.js Obsidian loads.
 //
 // Everything Obsidian already has in its own bundle is marked external and resolved by
 // `require` at runtime — the plugin must use Obsidian's CodeMirror instance, not a

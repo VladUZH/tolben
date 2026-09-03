@@ -65,7 +65,7 @@ const CACHE_EPOCH = 5;
 // a writing tool has no business leaving that in someone's notes. The cost is that a
 // reopened note re-asks the model, at about a second a sentence, once per session.
 
-export default class ClarityProbePlugin extends Plugin {
+export default class TolbenPlugin extends Plugin {
   async onload() {
     this.settings = { ...DEFAULTS, ...(await this.loadData()) };
     this.cache = null;

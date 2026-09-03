@@ -1842,3 +1842,65 @@ not as *nothing exists*.
 **Still a person's job:** one US clearance opinion, on one name, before the tag. That is
 now a smaller and cheaper question than it was this morning — a single coined word instead
 of a contested one — and it is the last thing standing between this and v1.0.0.
+
+## 2026-09-03 — the publication pass, and a name a grep could not see
+
+Preparing the repository to be made public, rather than preparing the product. Four
+things, of which one is a finding and three are hygiene.
+
+### The finding: a verification that could not fail
+
+Phase 1.2 certified that every "probe"-era string was gone from the tree, and its exit
+criterion was:
+
+```
+grep -ri "grammarly-style\|clarity-probe\|throwaway\|Blue_underline_exp"   # is empty
+```
+
+It was empty, and the certification was wrong. The plugin's own entry point still read:
+
+```js
+export default class ClarityProbePlugin extends Plugin {
+```
+
+`ClarityProbePlugin` contains no hyphen, so `clarity-probe` could never match it, and the
+bundle inherited the name twice more. The check was written from the *strings the author
+remembered writing* — kebab-case, as they appear in filenames and CSS — rather than from
+the shapes a name can take in source, where camelCase is the normal one. A grep that can
+only find the spelling you thought of is not a test; it is a restatement of your
+assumption.
+
+Renamed to `TolbenPlugin` and the bundle rebuilt. What survives a case-insensitive sweep
+for `probe` is now only Ollama's *dialect probe* — the capability check in
+`obsidian-plugin/runtime/ollama.mjs` — which is the word used correctly.
+
+### Hygiene
+
+- **History squashed to a single root commit** before publication. It carried three things
+  the tree deliberately does not: a contributor's local filesystem paths (18 occurrences,
+  including a directory named for the project's original working title), 880 recorded
+  outputs of the non-commercially-licensed GECToR tagger whose tier was deleted in
+  `d768ad8` for exactly that licence, and `obsidian-probe/` blobs from before the rename.
+  All three are verified absent from every ref. The old objects remain in GitHub's own
+  storage until it garbage-collects, which is a request to Support rather than a command.
+- **Three internal documents removed** — the launch playbook, the market analysis and the
+  competitor cost analysis. Two Grammarly documents were **kept**: `GRAMMARLY-BEHAVIOUR.md`
+  and `GRAMMARLY-CORRECTNESS.md` are cited eight times from `src/safety.mjs` and
+  `src/clarity-rules.mjs` as the measured reason particular guards exist. Removing them
+  would leave published source pointing at missing files and strip the gate of its
+  provenance; they are evidence, not strategy.
+- **Community health files added** — CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, CHANGELOG, a
+  pull-request template and issue forms. SECURITY.md is scoped to what this product
+  actually does rather than to a template: unpinned or substituted artefacts, archive path
+  traversal through an entry name or a symlink target, anything written into the vault
+  beyond `data.json`, and any outbound connection after setup completes. A bad rewrite is
+  explicitly *not* a vulnerability — it is a reported miss, and has its own issue form.
+
+### Also corrected
+
+`docs/ROADMAP.md` §1 described a tree that no longer existed: it said the plugin needed an
+external `llama-server`, wrote `analysis-cache.json` into the vault, and that its README
+called it "not a shippable plugin". Phases 2.1, 2.3 and 1.2 had each falsified one of
+those, and §1 was the last place in the repository still asserting them. Its test counts
+were two phases stale as well. The measurement row was checked and left alone: 27/36 and
+0/24 are the closing run's own figures, not the superseded 32/36 from model selection.

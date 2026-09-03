@@ -39,14 +39,14 @@ Updated as phase 1 is worked. Every "done" row names what can be re-run to check
 
 | Component | State | Evidence |
 |---|---|---|
-| Deterministic core: segmenter, identity, mechanics, rules, gate (`safety.mjs`, 24 rejection reasons), diff, explain, coordinator, store | Shippable; every `src/*.mjs` imports no Node module, so they run in a browser | `npm test`: 714 tests, 705 pass, 0 fail, 6 skipped without a model server |
+| Deterministic core: segmenter, identity, mechanics, rules, gate (`safety.mjs`, 24 rejection reasons), diff, explain, coordinator, store | Shippable; every `src/*.mjs` imports no Node module, so they run in a browser | `npm test`: 862 tests, 853 pass, 0 fail, 6 skipped without a model server; 859 pass and 0 skipped with one |
 | Model contract (`engine.mjs`) | Shippable; OpenAI-compatible `chat/completions`, JSON-schema constrained, temperature 0, stop at the reason field | Any OpenAI-compatible server works; only llama-server is measured |
 | Web demo (`server.mjs`, `public/`) | Developer harness, not a product | Overlay-mirror textarea; not the launch surface |
-| Obsidian plugin (`obsidian-plugin/`) | Probe: CodeMirror decorations, hover card, markdown projection, native undo, outcome cache all work; needs an external llama-server; writes `analysis-cache.json` into the vault | README says "not a shippable plugin" |
+| Obsidian plugin (`obsidian-plugin/`) | Shippable: CodeMirror decorations, hover card, markdown projection, native undo, an in-memory outcome cache, setup pane, refusal ledger and network pane. It provisions and runs its own `llama-server` — pinned to b10760 on six platforms — and also speaks Ollama or any OpenAI-compatible endpoint | `obsidian-plugin/runtime/`, 10 modules; `tests/plugin-vault.test.mjs` proves nothing but `data.json` reaches the vault, against the committed bundle as well as the source. The outcome cache is held in memory: a record of every sentence a writer finished has no business living in their notes |
 | Bench (`bench/`) | Shippable and reproducible: oracle, precision-check, unlock-check, verifier-check, run, score; dev corpus, three adjudicated sealed holdouts, four unadjudicated | Holdouts 1 to 3 ran on an earlier model file and tree |
 | Measurements | 27/36 surfaced and 0/24 false positives on the dev corpus; 49/75 useful and 81/90 clean untouched on the sealed holdouts; p50 1.3 s, p95 2.5 s on a 4-vCPU CPU; 1.96 GB RSS | `REPORT.md` closing section |
 | Known gate gaps (verified 2026-09-02) | Closed the same day by phase 1.4, except `In the majority of cases` to `In most cases`, which is deliberate: it is the periphrastic-quantity trade `PERIPHRASTIC_QUANTITY` licenses and is on Grammarly's own list | `tests/gate-fixes.test.mjs` |
-| Licence, name, packaging | Done 2026-09-02: Apache-2.0 + CC-BY-4.0 + NOTICE, package `tolben`, plugin id `tolben`. Open: the USPTO trademark check, which could not be run from this container | `LICENSE`, `LICENSE-DATA`, `NOTICE` |
+| Licence, name, packaging | Done 2026-09-02: Apache-2.0 + CC-BY-4.0 + NOTICE, package `tolben`, plugin id `tolben` — renamed from Stet on a preliminary clearance assessment, and screened free on npm, PyPI, RubyGems, Homebrew, nine TLDs, Apple's catalogue, the Obsidian directory, Open VSX and Docker Hub. Open: one US clearance opinion, since the register itself cannot be searched from this container | `LICENSE`, `LICENSE-DATA`, `NOTICE`; REPORT.md, "Stet becomes Tolben" |
 
 ## 2. The end state, so the plan has an end
 

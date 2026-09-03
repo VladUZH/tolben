@@ -353,7 +353,7 @@ var init_server = __esm({
 // obsidian-plugin/main.mjs
 var main_exports = {};
 __export(main_exports, {
-  default: () => ClarityProbePlugin
+  default: () => TolbenPlugin
 });
 module.exports = __toCommonJS(main_exports);
 var import_obsidian = require("obsidian");
@@ -6587,7 +6587,7 @@ var DEFAULTS = {
   setupDone: false
 };
 var CACHE_EPOCH = 5;
-var ClarityProbePlugin = class extends import_obsidian.Plugin {
+var TolbenPlugin = class extends import_obsidian.Plugin {
   async onload() {
     this.settings = { ...DEFAULTS, ...await this.loadData() };
     this.cache = null;
