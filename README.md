@@ -3,6 +3,12 @@
 **An Obsidian plugin that proposes clearer sentences using a language model running on
 your own machine, and refuses any rewrite it cannot prove keeps your meaning.**
 
+![Tolben in Obsidian: a sentence with two blue underlines, and a hover card proposing "evaluated" in place of "carried out an evaluation of", with Replace and Dismiss. The status bar reads "Tolben: ready · local · 2 suggestions · 2 refused".](docs/tolben-in-obsidian.png)
+
+*Tolben 1.0.0 in Obsidian 1.13.7, with the pinned llama.cpp build and Qwen3.5-2B behind
+it. Of the four sentences in that note, two got a suggestion and two rewrites were
+refused by the gate — the status bar counts both.*
+
 Finish a sentence with `.`, `!` or `?` and only that sentence is checked. Words that
 would change get a blue underline; hover one for the full proposed sentence with
 inline insertions and deletions, a reason, Replace, and Dismiss. Marks on earlier

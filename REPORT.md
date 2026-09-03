@@ -2098,3 +2098,37 @@ The roadmap's 3.2 also lists a 2-core laptop, Apple-silicon Metal and Windows CP
 container is a 4-vCPU Linux x86-64 VM; none of those three was run, and no figure for them
 appears anywhere in this repository. The Ollama path was measured separately on 2026-09-02
 and is unchanged by this section.
+
+## 2026-09-03 — the plugin, run in Obsidian at last
+
+The documented-limits table earlier in this report carries the row "Obsidian plugin in
+Obsidian — not runnable here". It has now been run there, and that row is superseded by
+this section rather than edited.
+
+**Method.** Obsidian 1.13.7 (Electron 43) was fetched as the Linux AppImage, unpacked
+with `--appimage-extract` because the container has no FUSE, and started under Xvfb with
+`--remote-debugging-port`. There is no xdotool, so the window was driven over the Chrome
+DevTools Protocol from Playwright: the trust-the-vault dialog, opening the note, hovering
+an underline. A throwaway vault had the plugin installed from the **`v1.0.0` release
+assets themselves** — `main.js`, `manifest.json`, `styles.css` as attached by
+`release.yml`, sha256 `2f1a5af5…` for the bundle — with `data.json` pointing at a
+`llama-server` **b10760** on the pinned Q6_K, CPU only, on loopback. `setupDone: true`
+so the setup pane did not open; the plugin connected on load and the status bar read
+`Tolben: ready · local`.
+
+**Result.** A four-sentence note. Two underlines: `In spite of the fact that` from the
+rules tier, and `carried out an evaluation of` from the model, whose hover card read
+"Shortens “carried out an evaluation of” to “evaluated”" with the diff, `Local model`,
+Replace and Dismiss. The status bar reported **`2 suggestions · 2 refused`** — two model
+rewrites the gate withheld; the refusal-ledger command names them, and this section does
+not guess. The server log for the pass shows prompt evaluation of 23–32 tokens per call
+(the 1,587-token prefix cached after the first) and 1.5–4.0 s per sentence end to end,
+consistent with the 3.2 figures above.
+
+**What it is evidence of.** That the bytes a user downloads load in a current Obsidian,
+connect to the managed server, and put a real suggestion under a real sentence. The
+screenshot at `docs/tolben-in-obsidian.png` is that window, 1180×520, unretouched. It is
+not evidence about install time, about other platforms, or about a machine with a GPU.
+
+**Not yet done.** A recording of typing a sentence and seeing the underline arrive; the
+same setup produces one.
