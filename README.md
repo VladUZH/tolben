@@ -25,7 +25,7 @@ npm run model          # needs llama.cpp's llama-server on PATH; -m models/Qwen3
 npm start              # http://127.0.0.1:4173
 
 # 4. tests, controls and benchmarks
-npm test               # 696 tests; the 6 that need a running model server skip without it
+npm test               # 862 tests; the 6 that need a running model server skip without it
 node bench/oracle.mjs           # Grammarly-replay ceiling of the safety gate     (no model needed)
 node bench/precision-check.mjs  # meaning-changing rewrites that reach the writer (no model needed)
 node bench/unlock-check.mjs     # refusals that a change quietly unlocked         (no model needed)

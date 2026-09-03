@@ -9,12 +9,12 @@ enabling it opens a pane that says what it would download, with every URL, size 
 sha256, and downloads nothing until someone says so. A `llama-server` or Ollama already
 running on loopback is found and used instead.
 
-**One thing is still missing before a stranger on any machine can install it.** The
-llama.cpp binaries in `runtime/manifest.json` carry no recorded sha256 yet, because the
-machine this was built on cannot reach the GitHub releases API. Until
-`node tools/pin-runtime.mjs --write` has been run (CI does it), the managed runtime
-reports itself unavailable and the plugin falls back to an Ollama or llama-server the
-writer runs themselves. This is deliberate: an artefact with no pin is never fetched.
+The llama.cpp binaries in `runtime/manifest.json` are pinned to build **b10760** on all
+six supported platforms, and `node tools/pin-runtime.mjs --check` re-verifies every hash
+against the release API on each push. Were an entry ever to carry no sha256, the managed
+runtime would report itself unavailable and the plugin would fall back to an Ollama or
+llama-server the writer runs themselves, because an artefact with no pin is never
+fetched.
 
 ## What is actually new here
 

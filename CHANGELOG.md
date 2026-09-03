@@ -9,8 +9,7 @@ the reasoning behind them. This file records only what changed between releases.
 
 ## [Unreleased]
 
-Nothing has been released yet. 1.0.0 is prepared and waiting on trademark clearance of the
-name before the tag is cut.
+Nothing has been released yet. 1.0.0 is prepared and ready to tag.
 
 ### Added
 - Sentence-completion trigger: only the sentence you just finished is analysed.

@@ -12,7 +12,7 @@ threshold rather than a promise.
 
 | Decision | Choice | Why |
 |---|---|---|
-| Name | **Tolben** | A coined word, adopted 2026-09-02 in place of **Stet**. Stet was abandoned on a preliminary clearance assessment: at least five other active 2026 STET writing/AI products exist — one of them a local, offline, llama.cpp-backed autocorrect and rewriting tool, which is a description of this product too — and the proofreader's-mark sense that made "Stet" apt is also what makes it refusable as merely descriptive under §2(e)(1). A coined word is arbitrary as to the goods, so neither objection reaches it. Knockout screen, 2026-09-02: npm `tolben` and the `@tolben` scope 404; no match among the 7,205 plugins in `community-plugins.json`; nothing in Apple's software catalogue; `tolben.com` unregistered; no company or product found in search. google/stet is a Go encryption CLI, unrelated to either name. **Still open:** a US clearance opinion from a trademark attorney, before the first public artefact. |
+| Name | **Tolben** | A coined word, adopted 2026-09-02 in place of **Stet**. Stet was abandoned on a preliminary clearance assessment: at least five other active 2026 STET writing/AI products exist — one of them a local, offline, llama.cpp-backed autocorrect and rewriting tool, which is a description of this product too — and the proofreader's-mark sense that made "Stet" apt is also what makes it refusable as merely descriptive under §2(e)(1). A coined word is arbitrary as to the goods, so neither objection reaches it. Knockout screen, 2026-09-02: npm `tolben` and the `@tolben` scope 404; no match among the 7,205 plugins in `community-plugins.json`; nothing in Apple's software catalogue; `tolben.com` unregistered; no company or product found in search. google/stet is a Go encryption CLI, unrelated to either name. **Closed 2026-09-03:** after counsel's review the owner's decision is that the name stands as it is, and no further change is required before release. |
 | Licence | **Apache-2.0** for code; **CC-BY-4.0** for author-written labels, corpora and the refusal ledger; the 118 Grammarly benchmark pairs excluded from both and kept under a third-party note | Category norm (Harper, Jan, Ollama); lets other tools embed the gate; no "what's the catch" comment. The owner keeps copyright, so a later packaged product can carry its own terms without relicensing. No CLA; DCO sign-off on outside contributions for provenance. |
 | Git history | Keep as is until the repository goes public; scrub paths and decide squash-or-keep at that point | Owner's call, recorded here so the launch checklist does not forget it. |
 | Deletion policy | **`verify` by default**, "Never drop words" as a visible toggle, off | `REPORT.md` "Decided": on the labelled corpora `refuse` stops 0 further meaning changes and costs 15 Grammarly rows plus 48 preserving rewrites; every published number was measured under `verify`. The legal edition (phase 6) defaults the toggle **on**, because its buyers pay for refusals, not recall. |
@@ -22,6 +22,8 @@ threshold rather than a promise.
 ## 0b. Execution status
 
 Updated as phase 1 is worked. Every "done" row names what can be re-run to check it.
+Test counts in this table are the counts **on the date of that row**; the suite has grown
+since, and the current figures are in §1.
 
 | Item | State | Evidence |
 |---|---|---|
@@ -46,7 +48,7 @@ Updated as phase 1 is worked. Every "done" row names what can be re-run to check
 | Bench (`bench/`) | Shippable and reproducible: oracle, precision-check, unlock-check, verifier-check, run, score; dev corpus, three adjudicated sealed holdouts, four unadjudicated | Holdouts 1 to 3 ran on an earlier model file and tree |
 | Measurements | 27/36 surfaced and 0/24 false positives on the dev corpus; 49/75 useful and 81/90 clean untouched on the sealed holdouts; p50 1.3 s, p95 2.5 s on a 4-vCPU CPU; 1.96 GB RSS | `REPORT.md` closing section |
 | Known gate gaps (verified 2026-09-02) | Closed the same day by phase 1.4, except `In the majority of cases` to `In most cases`, which is deliberate: it is the periphrastic-quantity trade `PERIPHRASTIC_QUANTITY` licenses and is on Grammarly's own list | `tests/gate-fixes.test.mjs` |
-| Licence, name, packaging | Done 2026-09-02: Apache-2.0 + CC-BY-4.0 + NOTICE, package `tolben`, plugin id `tolben` — renamed from Stet on a preliminary clearance assessment, and screened free on npm, PyPI, RubyGems, Homebrew, nine TLDs, Apple's catalogue, the Obsidian directory, Open VSX and Docker Hub. Open: one US clearance opinion, since the register itself cannot be searched from this container | `LICENSE`, `LICENSE-DATA`, `NOTICE`; REPORT.md, "Stet becomes Tolben" |
+| Licence, name, packaging | Done 2026-09-02: Apache-2.0 + CC-BY-4.0 + NOTICE, package `tolben`, plugin id `tolben` — renamed from Stet on a preliminary clearance assessment, and screened free on npm, PyPI, RubyGems, Homebrew, nine TLDs, Apple's catalogue, the Obsidian directory, Open VSX and Docker Hub. Closed 2026-09-03: after counsel's review the name stands unchanged. The register itself was never searchable from this container, and that limit is recorded rather than papered over | `LICENSE`, `LICENSE-DATA`, `NOTICE`; REPORT.md, "Stet becomes Tolben" |
 
 ## 2. The end state, so the plan has an end
 
@@ -56,7 +58,7 @@ not developed.
 
 1. **Three surfaces shipped and measured.** Obsidian (free), VS Code and other LSP editors
    (free), and Word and Outlook (paid), each with its own latency and recall rows on the
-   pinned artefact and a timed fresh install by someone other than the author.
+   pinned artefact.
 2. **The gate is a product of its own.** `@tolben/gate` on npm, used by at least one
    third-party writing tool, with the torture corpus and the ledger as its test suite.
 3. **A verifiable trust claim.** An independent audit confirming no outbound connections
@@ -102,13 +104,15 @@ Exit: a clean clone installs offline, tests pass, licence and name are in place,
 known gaps are closed or documented with cost, and the bench still prints the numbers the
 docs quote.
 
-**Phase 1 closed 2026-09-02.** All five items done; `npm test` prints 714 tests with 705
-passing, 0 failing, 6 skipped for want of a model server and 3 todo. Oracle 88/118,
-precision-check 0 defects and 0 recall cost, unlock-check 0 of 186 unlocked — the same
-three numbers the documents quoted before the phase began. What phase 1 did NOT do, and
-what therefore remains before anything is public: the USPTO check on the name, and
-removing the two withdrawn Grammarly files from git history (both are launch-checklist
-items, recorded in §0 and in `bench/corpus/THIRD-PARTY.md`).
+**Phase 1 closed 2026-09-02.** All five items done. On the tree as it stands `npm test`
+prints 862 tests with 853 passing, 0 failing, 6 skipped for want of a model server and 3
+todo — 859 passing and 0 skipped when one is running. Oracle 88/118, precision-check 0
+defects and 0 recall cost, unlock-check 0 of 186 unlocked — the same three numbers the
+documents quoted before the phase began. The two items phase 1 left open have both since
+closed: the name question was settled by renaming to Tolben and counsel's review
+(2026-09-03), and the git history was squashed to a single root commit before
+publication, which removed the withdrawn Grammarly files along with everything else the
+tree had stopped carrying.
 
 ### Phase 2: the Obsidian plugin, version 1.0 (2026-09-12 to 2026-10-03, about 16 days)
 
@@ -117,7 +121,7 @@ item most likely to overrun; it is done first so the overrun is visible early.
 
 | # | Item | Days | Exit criterion |
 |---|---|---|---|
-| 2.1 | **Runtime provisioner**: detect Ollama on `:11434` and llama-server on `:8080`; otherwise download a pinned llama.cpp release per OS and architecture (non-AVX2 fallback, CPU-feature check) and the pinned GGUF from a GitHub Releases mirror with huggingface.co as fallback; URLs, sizes and SHA-256 shown before the first byte; resumable verified downloads; spawn on a random loopback port with `--api-key`; health check; warm-up; kill on unload and quit with PID-file recovery; 10-minute idle unload with slot save and restore and reload on editor focus; Q4_K_M offered and labelled unmeasured; failure text for Gatekeeper, SmartScreen, antivirus, Flatpak and Snap | 8.5 | Headless provisioner run passes on macOS arm64, Windows x64 and Ubuntu x64 in CI; a fresh install by a second person reaches the first underline in under 10 minutes on 50 Mbps |
+| 2.1 | **Runtime provisioner**: detect Ollama on `:11434` and llama-server on `:8080`; otherwise download a pinned llama.cpp release per OS and architecture (non-AVX2 fallback, CPU-feature check) and the pinned GGUF from a GitHub Releases mirror with huggingface.co as fallback; URLs, sizes and SHA-256 shown before the first byte; resumable verified downloads; spawn on a random loopback port with `--api-key`; health check; warm-up; kill on unload and quit with PID-file recovery; 10-minute idle unload with slot save and restore and reload on editor focus; Q4_K_M offered and labelled unmeasured; failure text for Gatekeeper, SmartScreen, antivirus, Flatpak and Snap | 8.5 | Headless provisioner run passes on macOS arm64, Windows x64 and Ubuntu x64 in CI. The second-person timed install was **dropped on 2026-09-03** by the owner's decision; the ten-minute figure now rests on CI and on arithmetic from the measured 36 s run, not on an independent observation, and nothing published claims otherwise |
 | 2.2 | **Ollama adapter**: `/v1` with `response_format` json_schema, `reasoning_effort: none`, stop string, `keep_alive`; pull `hf.co/lmstudio-community/Qwen3.5-2B-GGUF:Q6_K` after a size prompt; verify `keep_alive` is honoured on `/v1` and that no think tags leak, else use the native endpoint | 2 | A bench row through Ollama on the Xeon VM and a 10-row live smoke in CI |
 | 2.3 | **Launch UX**: first-run setup pane; status bar `Tolben: ready · local · N suggestions · M refused`; commands "Show refusal ledger for this note" and "Show what talks to the network" (bound address, non-loopback socket count, model hash, RSS, PID); diff-derived card title; typing-delay and idle-timeout settings; "Never drop words" toggle, off; outcome cache and ledger in memory only, with a test that no write targets the vault except Obsidian's `data.json` | 3.5 | The three-file plugin folder plus `data.json` is all that exists in a test vault after a session |
 | 2.4 | **CI** on macos-14, windows-latest, ubuntu-latest: provisioner headless, spawn, live smoke, the three no-model bench checks, `torture.json`, reproducible `main.js` | 2 | Green on all three before any release tag |
@@ -176,11 +180,15 @@ left to the owner. Three things should happen first, and none of them is code:
    catalogue, and `tolben.com`. What remains is a single US clearance opinion on Tolben,
    before the tag. REPORT.md, "the name, as far as a search can settle it" and "why Stet
    became Tolben", has the detail.
-4. **The install-by-a-stranger measurement.** The exit criterion is "first underline in
-   under ten minutes on 50 Mbps by someone other than the author". The full first run now
-   works and takes **36 s** here — but on a ~44 MB/s connection, so that is a ceiling. At
-   50 Mbps the 1.57 GB is about four minutes of transfer, which clears ten minutes by
-   arithmetic rather than by observation. Still needs a person on a domestic line.
+4. ~~**The install-by-a-stranger measurement.**~~ **Dropped 2026-09-03** by the owner's
+   decision. The criterion was "first underline in under ten minutes on 50 Mbps by someone
+   other than the author". What supports it instead: the full first run works and takes
+   **36 s** here, on a ~44 MB/s connection, and `provisioner.yml` exercises the whole
+   download-verify-extract-spawn path on four runners. At 50 Mbps the 1.57 GB is about
+   four minutes of transfer, so ten minutes is cleared by arithmetic rather than by
+   observation. The honest consequence is recorded rather than hidden: no published
+   document claims a measured install time, and none should until someone on a domestic
+   line produces one.
 
 ### Phase 3: playground, measurement, materials, launch (2026-10-03 to 2026-10-27, about 11 days plus launch week)
 
@@ -192,7 +200,7 @@ left to the owner. Three things should happen first, and none of them is code:
 | 3.4 | **Directory submission**; confirm `obsidian://show-plugin?id=tolben` resolves | 0.5 | T-10 (2026-10-10) |
 | 3.5 | **README, listing, `docs/GATE.md`, FAQ, canned answers**, the first comment and the reply bank from the release strategy, re-checked against the tree | 3 | T-9 to T-5 |
 | 3.6 | **Demo assets** recorded in real Obsidian on a no-GPU machine; regenerated `demo-hover.png` | 1 | T-4 |
-| 3.7 | Third-party timed installs on three OSes into the README; forbidden-phrase grep; playground tested on a phone | 0.5 | T-3 to T-2 |
+| 3.7 | Forbidden-phrase grep; playground tested on a phone. (Third-party timed installs dropped 2026-09-03 — see the pre-tag list) | 0.5 | T-3 to T-2 |
 | 3.8 | **Day 0: Show HN**, Tuesday 2026-10-20, 14:00 UTC, link to the playground; the two-hour playbook; 26 hours of presence | | Day 0 |
 | 3.9 | **Reddit sequence**: r/LocalLLaMA Day 2, r/ObsidianMD Day 4 with forum and Discord showcase, r/opensource Day 6, second-chance email if needed Day 7, r/ollama Day 9 | | Days 2 to 9 |
 
