@@ -253,8 +253,10 @@ what is in scope and gives the response windows.
 The Obsidian plugin is complete and tested — 928 tests, 925 passing, 0 failing and 0 skipped
 against a live model server. CI runs the suite on macOS, Windows and Ubuntu on every push,
 and a separate job runs the provisioner's full download-and-spawn on four runners. Version
-1.0.0 is prepared; as of this writing nothing has been released, so the `CHANGELOG.md` entry
-is still `[Unreleased]`.
+1.0.0 was released on 2026-09-03: `release.yml` built it from the `v1.0.0` tag, and the
+`SHA256SUMS` it attached match the committed tree byte for byte. `CHANGELOG.md` has the
+entry. It is not yet in the community-plugin directory; until it is, install from the
+release as the README describes, or through BRAT.
 
 Deliberate limits today: desktop only, Reading view does nothing, and the markdown
 projection is a reader rather than a parser — tables, footnotes and HTML inside a paragraph

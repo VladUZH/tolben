@@ -135,14 +135,16 @@ item most likely to overrun; it is done first so the overrun is visible early.
 Exit: version 1.0.0 tagged as a GitHub Release carrying `main.js`, `manifest.json`,
 `styles.css`, LICENSE and NOTICE; installable through BRAT.
 
-**Phase 2 built 2026-09-02 and merged to `main` (3f6b76d, CI green). The tag is not
-pushed, and cannot be from a Claude Code session:** `git push origin refs/tags/v1.0.0`
-returns **HTTP 403** from GitHub on `git-receive-pack` — for any tag name, not just `v*`,
-so it is a blanket "no tag creation" on this session's credentials rather than a rule
-protecting release tags. The GitHub MCP surface has no create-tag or create-release tool
-either. Branch pushes work; tags do not. It is the same class of denial as the
-workflow-dispatch 403. So this one really does need a person, for a mechanical reason
-rather than a judgement one:
+**Phase 2 built 2026-09-02 and merged to `main` (3f6b76d, CI green). The tag could not
+be pushed from a Claude Code session:** `git push origin refs/tags/v1.0.0` returned
+**HTTP 403** from GitHub on `git-receive-pack` — for any tag name, not just `v*`, and
+again after the repository went public, with a credential the same command had just used
+to push `main` — so it was a blanket "no tag creation" on the session's credentials rather
+than a rule protecting release tags. Branch pushes worked; tags did not. It needed a
+person, for a mechanical reason rather than a judgement one, and on **2026-09-03 the
+owner pushed it** from the Releases page: `v1.0.0` at `352100d`, `release.yml` run #1
+green, six assets attached by the workflow. The commands below are kept for the next
+release:
 
 ```bash
 git checkout main && git pull
@@ -150,11 +152,13 @@ git tag -a v1.0.0 -m "Tolben 1.0.0 — a local clarity editor that refuses to ch
 git push origin v1.0.0     # release.yml does the rest, and refuses to publish on any mismatch
 ```
 
-**Phase 2 built 2026-09-02; the tag is not pushed.** The manifest says 1.0.0,
-`versions.json` exists, and `.github/workflows/release.yml` turns a `v1.0.0` tag into a
-release carrying those five files plus `SHA256SUMS`, refusing to publish if the tag and
-the manifest disagree or the suite fails. Pushing the tag is a person's decision and is
-left to the owner. Two things should happen first, and neither is code — items 1, 2 and 3 below have closed:
+**Phase 2 built 2026-09-02; 1.0.0 released 2026-09-03.** The manifest says 1.0.0,
+`versions.json` has the entry, and `.github/workflows/release.yml` turned the `v1.0.0`
+tag into <https://github.com/VladUZH/tolben/releases/tag/v1.0.0>, carrying `main.js`,
+`manifest.json`, `styles.css`, `LICENSE`, `NOTICE` and `SHA256SUMS`. The hashes in
+`SHA256SUMS`, a fresh download of the assets, GitHub's own per-asset digests and the
+committed tree at `352100d` all agree. The five items that were to happen first have all
+closed, and are kept below as the record of what closing them took:
 
 1. ~~**Pin the llama.cpp assets.**~~ **Done 2026-09-02**, no person needed. The `pins` job
    in `test.yml` runs on every push, which is how a machine that cannot reach the releases
@@ -212,7 +216,7 @@ left to the owner. Two things should happen first, and neither is code — items
 | 3.1 | **Gate playground** on GitHub Pages — **done 2026-09-03**. `playground/`: four tabs (Write with the rules-tier underline badged "rule", Check a rewrite, Replay, Ledger), eight pre-loaded pairs and a ninth read live from the recorded runs because no torture pair reaches the verifier, "Add to Obsidian" on desktop and "desktop only" on a coarse pointer, no analytics. The local-server field was **removed**, not tested: three-browser testing was not possible here, and the roadmap's own wording made that the alternative. `build.mjs --check` fails the deploy if the built page carries a single external reference; `pages.yml` runs it before uploading. **Live at <https://vladuzh.github.io/tolben/> since 2026-09-03**, once the owner switched Pages on (Settings → Pages → Source: GitHub Actions — a workflow cannot do it; `enablement: true` fails with `Resource not accessible by integration`). `pages` run #6 green on `c5f42eb`; the page and all four data files answer 200 | 3.5 | T-25 to T-22 |
 | 3.2 | **Re-measure on the pinned artefact** — **done 2026-09-03** for everything reachable from here: holdouts 1 to 3 on the shipped tree against the genuine b10760 release binary (all six platform archives sha256-verified by download first), the idle-unload first sentence with and without slot restore, and the sealed-set table with holdouts 4 to 7 excluded. **Not done, and not claimed:** Ollama was measured 2026-09-02 and not re-run; a 2-core laptop, Apple-silicon Metal and Windows CPU have no hardware here | 2 | T-16 |
 | 3.3 | **BRAT beta**: forum Developers post and Discord #plugin-dev; gate of 10 testers across three OSes with at least 8 first-try installs. *Copy drafted 2026-09-03 and delivered to the owner; posting and recruiting are a person's* | 0.5 | T-14 (2026-10-06) |
-| 3.4 | **Directory submission**; confirm `obsidian://show-plugin?id=tolben` resolves. *Packet drafted 2026-09-03 with the `community-plugins.json` entry, the PR body, and every guideline checked against the tree. Three blockers it found are now fixed (root `manifest.json` and `versions.json`, the `tolben-` prefix on four command ids, a README that described the repository rather than the plugin); the rest need the repository public* | 0.5 | T-10 (2026-10-10) |
+| 3.4 | **Directory submission**; confirm `obsidian://show-plugin?id=tolben` resolves. *Packet drafted 2026-09-03 with the `community-plugins.json` entry, the PR body, and every guideline checked against the tree. Three blockers it found are now fixed (root `manifest.json` and `versions.json`, the `tolben-` prefix on four command ids, a README that described the repository rather than the plugin). The rest needed the repository public and a release carrying the right assets — both done 2026-09-03 — so what remains is the PR to `obsidianmd/obsidian-releases` itself, and the post-merge check that the URI resolves* | 0.5 | T-10 (2026-10-10) |
 | 3.5 | **README, listing, `docs/GATE.md`, FAQ, canned answers**, the first comment and the reply bank from the release strategy, re-checked against the tree — **done 2026-09-03**. `docs/GATE.md` and `docs/FAQ.md` are in the tree; the README now opens with what the plugin is, what setup downloads and where it puts it. Launch copy is with the owner and deliberately not in the public repository | 3 | T-9 to T-5 |
 | 3.6 | **Demo assets** recorded in real Obsidian on a no-GPU machine. *Not done, and the old asset is now deleted rather than left standing in for one.* `demo-hover.png` was the repository's only image and would have been the first thing a visitor saw: it showed the **web demo** — not the plugin — under the masthead **"Clarity"**, the name the project carried before Stet and two names before Tolben, with a card reading "Improve your text" that the diff-derived title replaced in 2.3. Nothing referenced it. Obsidian is a desktop application and there is none in this container; `obsidian-plugin/harness/` renders the real CodeMirror extension in a browser and can stand in for stills, but a recording made there is not a recording made in Obsidian and must not be captioned as one. **The README has no screenshot until a real one exists**, which is the honest state and also the thing most worth fixing before a launch post | 1 | T-4 |
 | 3.7 | Forbidden-phrase grep — **done 2026-09-03**, `tools/forbidden-phrases.mjs` and `npm run lint:prose`, 60 tests, with waivers that must carry a reason and matching suppressed inside code spans. Playground checked at a 390×844 viewport in Chromium: no horizontal overflow, and the coarse-pointer swap to "desktop only" fires. *A real phone is still a real phone* | 0.5 | T-3 to T-2 |

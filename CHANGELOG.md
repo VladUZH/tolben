@@ -9,7 +9,14 @@ the reasoning behind them. This file records only what changed between releases.
 
 ## [Unreleased]
 
-Nothing has been released yet. 1.0.0 is prepared and ready to tag.
+Nothing yet.
+
+## [1.0.0] - 2026-09-03
+
+First release. Tagged by the owner from the Releases page; `release.yml` built and
+attached `main.js`, `manifest.json`, `styles.css`, `LICENSE`, `NOTICE` and `SHA256SUMS`,
+and the hashes in that file match the committed tree at `352100d`. The gate playground
+went live the same day at <https://vladuzh.github.io/tolben/>.
 
 ### Added
 - Sentence-completion trigger: only the sentence you just finished is analysed.
@@ -36,3 +43,6 @@ Nothing has been released yet. 1.0.0 is prepared and ready to tag.
 - The provisional GECToR grammar tier, whose ONNX weights are licensed for non-commercial
   use only and so could not ship in an Apache-2.0 release. It bought roughly 5 ms of first
   paint, not recall.
+
+[Unreleased]: https://github.com/VladUZH/tolben/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/VladUZH/tolben/releases/tag/v1.0.0
