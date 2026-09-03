@@ -15,6 +15,10 @@ can find any way the meaning moved — a changed number, a dropped qualifier, a 
 relation, a swapped role. Refusing is the default, and `docs/GATE.md` is the long answer
 for how.
 
+**Try the gate without installing anything:** [vladuzh.github.io/tolben](https://vladuzh.github.io/tolben/)
+runs the real modules from `src/` in your browser, against the recorded benchmark runs,
+with no model and no request to anywhere.
+
 ## Install it in Obsidian
 
 The plugin is **desktop only**: it runs a model server on loopback, and Obsidian mobile has

@@ -187,14 +187,14 @@ left to the owner. Two things should happen first, and neither is code — items
    decision is that the name stands as it is, and nothing further is required before the
    tag. REPORT.md, "the name, as far as a search can settle it" and "why Stet became
    Tolben", has the detail.
-5. **Switch GitHub Pages on**, once, in Settings → Pages → Build and deployment →
-   Source: **GitHub Actions**. Everything else the playground needs is in the tree and
-   green: `pages.yml` builds it, `build.mjs --check` refuses to deploy a page that would
-   make a third-party request, and the page itself agrees with Node on all 67 torture
-   pairs. Only the switch is missing, and a workflow cannot throw it — `enablement: true`
-   fails with `Resource not accessible by integration`. Until it is thrown the `pages`
-   run is red on every push to `main`, which is the one red thing left and is a settings
-   gap rather than a defect.
+5. ~~**Switch GitHub Pages on.**~~ **Done 2026-09-03** by the owner, along with three
+   other things a workflow token cannot do: the repository was renamed from
+   `blue-underline` to **`tolben`**, its description rewritten, and it was made
+   **public**. The playground is live at <https://vladuzh.github.io/tolben/>. What
+   remains before the tag is nothing; what remains is the tag itself, which this
+   session's credentials are refused (HTTP 403 from GitHub on any tag ref, re-confirmed
+   after the repository went public), so it is pushed by a person — Codespaces or the
+   Releases page, both described in the section above.
 4. ~~**The install-by-a-stranger measurement.**~~ **Dropped 2026-09-03** by the owner's
    decision. The criterion was "first underline in under ten minutes on 50 Mbps by someone
    other than the author". What supports it instead: the full first run works and takes
@@ -209,7 +209,7 @@ left to the owner. Two things should happen first, and neither is code — items
 
 | # | Item | Days | When |
 |---|---|---|---|
-| 3.1 | **Gate playground** on GitHub Pages — **done 2026-09-03**. `playground/`: four tabs (Write with the rules-tier underline badged "rule", Check a rewrite, Replay, Ledger), eight pre-loaded pairs and a ninth read live from the recorded runs because no torture pair reaches the verifier, "Add to Obsidian" on desktop and "desktop only" on a coarse pointer, no analytics. The local-server field was **removed**, not tested: three-browser testing was not possible here, and the roadmap's own wording made that the alternative. `build.mjs --check` fails the deploy if the built page carries a single external reference; `pages.yml` runs it before uploading. **The page is built and checked but not live, and one manual step stands between**: Pages has never been switched on for this repository, so `configure-pages` fails with `Not Found` and the run goes red. Turning it on is Settings → Pages → Source: **GitHub Actions**, once, by the owner — `enablement: true` was tried and cannot do it from a workflow (`Resource not accessible by integration`). Added to the pre-tag list | 3.5 | T-25 to T-22 |
+| 3.1 | **Gate playground** on GitHub Pages — **done 2026-09-03**. `playground/`: four tabs (Write with the rules-tier underline badged "rule", Check a rewrite, Replay, Ledger), eight pre-loaded pairs and a ninth read live from the recorded runs because no torture pair reaches the verifier, "Add to Obsidian" on desktop and "desktop only" on a coarse pointer, no analytics. The local-server field was **removed**, not tested: three-browser testing was not possible here, and the roadmap's own wording made that the alternative. `build.mjs --check` fails the deploy if the built page carries a single external reference; `pages.yml` runs it before uploading. **Live at <https://vladuzh.github.io/tolben/> since 2026-09-03**, once the owner switched Pages on (Settings → Pages → Source: GitHub Actions — a workflow cannot do it; `enablement: true` fails with `Resource not accessible by integration`). `pages` run #6 green on `c5f42eb`; the page and all four data files answer 200 | 3.5 | T-25 to T-22 |
 | 3.2 | **Re-measure on the pinned artefact** — **done 2026-09-03** for everything reachable from here: holdouts 1 to 3 on the shipped tree against the genuine b10760 release binary (all six platform archives sha256-verified by download first), the idle-unload first sentence with and without slot restore, and the sealed-set table with holdouts 4 to 7 excluded. **Not done, and not claimed:** Ollama was measured 2026-09-02 and not re-run; a 2-core laptop, Apple-silicon Metal and Windows CPU have no hardware here | 2 | T-16 |
 | 3.3 | **BRAT beta**: forum Developers post and Discord #plugin-dev; gate of 10 testers across three OSes with at least 8 first-try installs. *Copy drafted 2026-09-03 and delivered to the owner; posting and recruiting are a person's* | 0.5 | T-14 (2026-10-06) |
 | 3.4 | **Directory submission**; confirm `obsidian://show-plugin?id=tolben` resolves. *Packet drafted 2026-09-03 with the `community-plugins.json` entry, the PR body, and every guideline checked against the tree. Three blockers it found are now fixed (root `manifest.json` and `versions.json`, the `tolben-` prefix on four command ids, a README that described the repository rather than the plugin); the rest need the repository public* | 0.5 | T-10 (2026-10-10) |
