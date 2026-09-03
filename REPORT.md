@@ -2132,3 +2132,20 @@ not evidence about install time, about other platforms, or about a machine with 
 
 **Not yet done.** A recording of typing a sentence and seeing the underline arrive; the
 same setup produces one.
+
+**Addendum, later the same day — the recording.** Two clips were made with the rig
+above, `Page.startScreencast` feeding JPEG frames to the ffmpeg Playwright ships (which
+encodes VP8 only, so WebM, and reads frames only from `pipe:0`). Keystrokes did not land
+in the editor over CDP on those takes, so the characters were inserted one at a time
+through `app.workspace.activeLeaf.view.editor` at 55 ms each; the plugin watches document
+changes, not key events, so it cannot tell the difference and neither can the viewer.
+What the clips record, against the wall clock of the take:
+
+| Sentence typed | Tier that answered | Underline after the full stop | Card |
+|---|---|---|---|
+| "The committee will carry out a review of the safety protocol next month." | rules | 0.5 s | "Clarity rule" |
+| "She undertook the negotiation of the lease with the landlord." | model | 3.0 s | "Local model" |
+
+The second is the honest demonstration of the model tier on a warm server; the first
+shows why the rules tier exists. The clips are not in the tree — about 200 KB each, and
+a README cannot embed a video — and live with the launch material.
