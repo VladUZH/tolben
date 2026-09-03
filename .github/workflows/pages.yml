@@ -41,7 +41,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # `enablement: true` turns Pages on for the repository rather than requiring
+      # somebody to find Settings → Pages first. Without it the first run of this
+      # workflow fails on `HttpError: Not Found` from the Pages API, which is what
+      # happened on 2026-09-03 and reads like a broken workflow rather than an unset
+      # switch. Note that Pages for a PRIVATE repository needs a paid plan; on a free
+      # plan this step keeps failing until the repository is public, which is the order
+      # the launch checklist follows anyway.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
