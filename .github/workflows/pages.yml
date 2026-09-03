@@ -42,16 +42,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # `enablement: true` turns Pages on for the repository rather than requiring
-      # somebody to find Settings → Pages first. Without it the first run of this
-      # workflow fails on `HttpError: Not Found` from the Pages API, which is what
-      # happened on 2026-09-03 and reads like a broken workflow rather than an unset
-      # switch. Note that Pages for a PRIVATE repository needs a paid plan; on a free
-      # plan this step keeps failing until the repository is public, which is the order
-      # the launch checklist follows anyway.
+      # GITHUB PAGES MUST BE TURNED ON BY HAND, ONCE, BEFORE THIS WORKFLOW CAN PASS:
+      #   Settings → Pages → Build and deployment → Source: GitHub Actions
+      #
+      # Until then this step fails in about ten seconds with
+      # `Get Pages site failed. Error: Not Found`, and the whole run goes red. That is
+      # the switch being unset, not the workflow being broken.
+      #
+      # `enablement: true` was tried on 2026-09-03 and does not help: it turns the
+      # failure into `Create Pages site failed. Error: Resource not accessible by
+      # integration`, because creating a Pages SITE is not something the workflow's
+      # GITHUB_TOKEN can do here whatever `permissions:` says. It was removed rather
+      # than left in looking like a fix.
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
