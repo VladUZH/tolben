@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tolben — the gate playground</title>
+<meta name="description" content="Run Tolben's meaning-preservation gate in your own browser: the real modules from src/, the recorded benchmark runs, and every reason the gate refuses under.">
+<meta name="color-scheme" content="light dark">
+<!-- Inlined as a data URI rather than shipped as a file: a browser asks for /favicon.ico
+     unprompted, and a 404 on every visit is the sort of small wrongness that makes a
+     reader wonder what else is not being looked after. A data URI is not a request.
+     A 120-byte PNG rather than the obvious inline SVG, because an SVG document has to
+     declare the SVG namespace, that declaration is spelt as an absolute http:// URL, and
+     `build.mjs --check` refuses an absolute URL anywhere in the built markup. The rule is
+     right — a URL in an attribute is one edit away from being fetched — so the icon is
+     drawn in pixels instead of argued with: a grey T over the blue underline. -->
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAP0lEQVR42mNgGAWjYBQMVtDQPuE/NfGoA0YdQJcEOuA5ZNQBow4YdcCoA0aOA0YGkI/f/5+aeNQBo2lqFOACAMG6M3ORKGAGAAAAAElFTkSuQmCC">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the playground</a>
+
+<header class="masthead">
+  <div class="masthead-text">
+    <p class="eyebrow">Tolben</p>
+    <h1>The gate playground</h1>
+    <p class="lede">Tolben proposes clearer rewrites of finished sentences using a small
+      local model, and shows one to the writer only when a deterministic gate cannot find a
+      way it changed the meaning. The gate refusing is the claim the whole product rests
+      on, so this page hands it to you: the real modules from <code>src/</code>, bundled
+      unchanged and running in your browser.</p>
+    <p class="caveat">There is no model on this page, because a browser cannot run one.
+      Everything here is either deterministic code you are executing yourself or a
+      recording of a benchmark run that has already happened. Nothing is sent anywhere: the
+      page loads four JSON files from its own directory and makes no other request, so it
+      works with the network off.</p>
+  </div>
+
+  <aside class="install" aria-label="Getting the plugin">
+    <div class="install-desktop">
+      <p class="install-title">Add to Obsidian</p>
+      <p>Put <code>main.js</code>, <code>manifest.json</code> and <code>styles.css</code>
+        from a release of <code>VladUZH/blue-underline</code> into
+        <code>&lt;vault&gt;/.obsidian/plugins/tolben/</code>, then enable
+        <b>Tolben</b> under Settings → Community plugins with Restricted Mode off. The
+        plugin provisions its own model server and downloads nothing until you say so.</p>
+      <button type="button" class="button ghost" id="copy-path" data-path=".obsidian/plugins/tolben/">Copy the plugin folder path</button>
+      <p class="copy-state" id="copy-state" aria-live="polite"></p>
+    </div>
+    <div class="install-mobile">
+      <p class="install-title">Desktop only</p>
+      <p>The plugin's manifest sets <code>isDesktopOnly</code>. It runs a small model
+        server on loopback and talks to it over HTTP, and Obsidian mobile has nowhere to
+        run one. Read this page here; add the plugin from a desktop.</p>
+    </div>
+  </aside>
+</header>
+
+<div class="tabbar-wrap">
+  <div class="tabbar" role="tablist" aria-label="Playground sections">
+    <button type="button" role="tab" id="tab-write" aria-controls="panel-write" aria-selected="false" tabindex="-1">Write</button>
+    <button type="button" role="tab" id="tab-check" aria-controls="panel-check" aria-selected="true" tabindex="0">Check a rewrite</button>
+    <button type="button" role="tab" id="tab-replay" aria-controls="panel-replay" aria-selected="false" tabindex="-1">Replay</button>
+    <button type="button" role="tab" id="tab-ledger" aria-controls="panel-ledger" aria-selected="false" tabindex="-1">Ledger</button>
+  </div>
+</div>
+
+<main id="main" tabindex="-1">
+
+<!-- ------------------------------------------------------------------ Write -->
+<section class="panel" role="tabpanel" id="panel-write" aria-labelledby="tab-write" tabindex="0" hidden>
+  <div class="prose">
+    <h2>The deterministic tiers, live</h2>
+    <p>Type below. When a sentence ends in a full stop, a question mark or an exclamation
+      mark, that sentence — and only that sentence — is analysed. Words the tiers would
+      change get a blue underline; hover or click one for the proposed sentence and the
+      reason. Each underline carries the name of the tier that produced it.</p>
+    <p class="warn"><b>The model tier is not running here.</b> In the plugin, a local
+      Qwen3.5-2B proposes most of the rewrites a writer sees, and the two tiers below are
+      the floor beneath it: mechanical repairs, and a small table of first-party clarity
+      rules. Those two are all you are watching. A sentence that gets no underline on this
+      page is not a sentence Tolben has nothing to say about; it is a sentence the cheap
+      tiers had nothing to say about.</p>
+  </div>
+
+  <div class="editor-wrap">
+    <div class="overlay" id="write-overlay" aria-hidden="true"></div>
+    <textarea id="write-editor" spellcheck="false" autocomplete="off" autocapitalize="off"
+      aria-label="Text to analyse">In order to ship on friday, the team carried out a review of the release notes.
+the report is due on tuesday.
+We will make use of the staging cluster on a weekly basis.
+The gasket held at full pressure overnight.
+This last sentence has no terminator yet, so nothing in it is marked</textarea>
+  </div>
+
+  <!-- Pointer-only, and hidden from assistive technology on purpose: everything in it is
+       also in the list below, which is reachable with a keyboard. -->
+  <div class="card" id="write-card" hidden aria-hidden="true">
+    <p class="card-head"><span class="badge" id="write-card-tier">rule</span><span class="card-kicker">Proposed rewrite</span></p>
+    <p class="card-diff" id="write-card-diff"></p>
+    <p class="card-reason" id="write-card-reason"></p>
+  </div>
+
+  <div class="prose">
+    <h3 id="write-list-heading">Underlines on this text</h3>
+    <p class="hint">The same suggestions, in reading order, for anyone who would rather not
+      chase a hover target. Selecting one marks it in the text above.</p>
+  </div>
+  <ol class="marklist" id="write-list" aria-labelledby="write-list-heading"></ol>
+
+  <div class="prose">
+    <p class="hint">The plugin analyses each sentence once and keeps its mark while you go
+      on writing; this page re-runs every finished sentence on every edit, which is
+      wasteful but easier to trust, since nothing on screen can be stale. Both call the
+      same <code>analyzeSentence</code> from <code>src/pipeline.mjs</code>, here with no
+      engine attached.</p>
+  </div>
+</section>
+
+<!-- --------------------------------------------------------- Check a rewrite -->
+<section class="panel" role="tabpanel" id="panel-check" aria-labelledby="tab-check" tabindex="0">
+  <div class="prose">
+    <h2>Put a rewrite to the gate</h2>
+    <p>This is the part worth being sceptical about. Give the gate a sentence and a
+      proposed rewrite of it — one of the pairs below, or anything you care to type — and
+      the page runs the real acceptance policy: <code>validateRewrite</code> from
+      <code>src/safety.mjs</code>, then the deletion policy in <code>src/pipeline.mjs</code>.
+      The verdict you get is the verdict the plugin would reach, because it is the same
+      code reaching it.</p>
+  </div>
+
+  <form class="checkform" id="check-form">
+    <div class="field">
+      <label for="check-source">The writer's sentence</label>
+      <textarea id="check-source" rows="2" spellcheck="false" required></textarea>
+    </div>
+    <div class="field">
+      <label for="check-rewrite">The proposed rewrite</label>
+      <textarea id="check-rewrite" rows="2" spellcheck="false" required></textarea>
+    </div>
+    <div class="field">
+      <label for="check-protected">Protected terms <span class="optional">optional</span></label>
+      <input id="check-protected" type="text" spellcheck="false" autocomplete="off"
+        placeholder="--force, .env, Q3 — comma separated">
+      <p class="hint">A setting in the plugin: terms the writer has declared must survive a
+        rewrite verbatim. Most people never set one, and with the box empty this page runs
+        the gate exactly as a default install would. Tolben also detects some tokens by
+        shape on its own, but not all of them — <code>--force</code> is one it does not, and
+        the difference is easy to see by putting it here and running the pair twice.</p>
+    </div>
+    <div class="actions">
+      <button type="submit" class="button primary">Run the gate</button>
+      <button type="button" class="button ghost" id="check-clear">Clear</button>
+    </div>
+  </form>
+
+  <div class="prose">
+    <p class="hint">The engine is stubbed, because there is nothing here for it to do: it
+      returns your rewrite verbatim, with “shorter” as the model's stated reason, which is
+      the stub <code>bench/corpus/torture.json</code> is scored under. The two deterministic
+      tiers are switched off, so a mechanical repair or a fired clarity rule cannot answer
+      for the sentence before the gate is reached. What is left is the gate.</p>
+  </div>
+
+  <div class="result" id="check-result" data-verdict="none">
+    <p class="verdict" aria-live="polite">
+      <span class="verdict-badge" id="check-badge">Nothing checked yet</span>
+      <span class="verdict-text" id="check-text">Pick a pair below, or type your own, and run the gate.</span>
+    </p>
+    <p class="fired" id="check-fired" hidden></p>
+    <p class="check-diff" id="check-diff" hidden></p>
+    <p class="teaches" id="check-teaches" hidden></p>
+    <details class="trace" id="check-trace" hidden>
+      <summary>Every check, and what it returned</summary>
+      <div id="check-trace-body"></div>
+    </details>
+  </div>
+
+  <div class="prose">
+    <h3 id="check-examples-heading">Eight pairs, one click each</h3>
+    <p class="hint">Taken verbatim from <code>bench/corpus/torture.json</code>. No expected
+      verdict travels with them: the page runs the gate and prints what it returns, which
+      is free to disagree with the description under it.</p>
+  </div>
+  <div class="examples" id="check-examples" aria-labelledby="check-examples-heading">
+    <p class="loading">Loading the pairs from bench/corpus/torture.json…</p>
+  </div>
+
+  <div class="prose">
+    <h3 id="check-extra-heading">And one the deletion policy will not settle</h3>
+    <p class="hint">A rewrite that drops a single content word is the one case the pipeline
+      refuses to decide alone: it refers the pair to a second model call, which cannot
+      happen in a browser. The pair below is not from the corpus — it is a row from the
+      recorded runs on the Replay tab, chosen by running the gate over those rows here and
+      taking the first one that reaches the verifier.</p>
+  </div>
+  <div class="examples one" id="check-extra" aria-labelledby="check-extra-heading">
+    <p class="loading">Looking for one in the recorded runs…</p>
+  </div>
+</section>
+
+<!-- ----------------------------------------------------------------- Replay -->
+<section class="panel" role="tabpanel" id="panel-replay" aria-labelledby="tab-replay" tabindex="0" hidden>
+  <div class="prose">
+    <h2>What the model actually proposed</h2>
+    <p>Recorded runs against the benchmark corpora: the writer's sentence, what the model
+      proposed for it, what the gate did, and what the writer would have been shown. These
+      are recordings read out of <code>bench/results/</code>, not live inference. They are
+      here so that the gate's behaviour can be read in bulk rather than through the handful
+      of pairs someone chose to put on a demonstration page.</p>
+    <p class="hint" id="replay-note">Loading the recorded runs…</p>
+  </div>
+
+  <div class="filters" role="group" aria-label="Filter the recorded rows">
+    <div class="field">
+      <label for="replay-outcome">Outcome</label>
+      <select id="replay-outcome">
+        <option value="">Any</option>
+        <option value="surfaced">Shown to the writer</option>
+        <option value="refused">Refused</option>
+        <option value="quiet">Nothing proposed</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="replay-reason">Rejection reason</label>
+      <select id="replay-reason"><option value="">Any</option></select>
+    </div>
+    <div class="field">
+      <label for="replay-run">Run</label>
+      <select id="replay-run"><option value="">Any</option></select>
+    </div>
+    <div class="field grow">
+      <label for="replay-search">Search the text</label>
+      <input type="search" id="replay-search" placeholder="a word in the sentence or the rewrite" autocomplete="off">
+    </div>
+  </div>
+
+  <p class="count" id="replay-count" aria-live="polite">&nbsp;</p>
+
+  <div class="tablewrap">
+    <table class="replay" id="replay-table">
+      <caption class="visually-hidden">Recorded proposals and what the gate decided</caption>
+      <thead>
+        <tr>
+          <th scope="col">Sentence</th>
+          <th scope="col">Proposed</th>
+          <th scope="col">Gate</th>
+          <th scope="col">The writer saw</th>
+          <th scope="col"><span class="visually-hidden">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody id="replay-body"></tbody>
+    </table>
+  </div>
+  <p class="hint" id="replay-truncation"></p>
+</section>
+
+<!-- ----------------------------------------------------------------- Ledger -->
+<section class="panel" role="tabpanel" id="panel-ledger" aria-labelledby="tab-ledger" tabindex="0" hidden>
+  <div class="prose">
+    <h2>The refusal ledger</h2>
+    <p>Every name a rewrite can be refused under, with how often each fired across the
+      recorded runs and a few of the sentences that fired it.</p>
+    <p class="hint" id="ledger-note">Loading the ledger…</p>
+  </div>
+  <div class="ledger" id="ledger-fired"></div>
+  <div class="prose">
+    <h3 id="ledger-silent-heading">Listed, but never fired in these runs</h3>
+    <p class="hint">Present in the gate and reachable — the torture corpus on the checker
+      tab fires several of them — but not reached by any sentence in the recorded runs.</p>
+  </div>
+  <div class="ledger silent" id="ledger-silent" aria-labelledby="ledger-silent-heading"></div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="prose">
+    <h2>Where every number here comes from</h2>
+    <p class="hint" id="meta-line">Loading the provenance…</p>
+  </div>
+  <dl class="figures" id="meta-figures"></dl>
+  <details class="trace" id="meta-details">
+    <summary>Files, hashes and recorded runs</summary>
+    <div id="meta-body"></div>
+  </details>
+  <p class="fineprint">The code is Apache-2.0; the corpora and labels under
+    <code>bench/</code> are CC-BY-4.0. The model weights are Apache-2.0 and are fetched by
+    the plugin rather than redistributed. This page ships no font, no script and no style
+    it did not build, and <code>playground/build.mjs --check</code> fails the build if an
+    external reference ever reaches the markup, the styles or the bundle.</p>
+</footer>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>

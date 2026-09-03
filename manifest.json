@@ -1,0 +1,10 @@
+{
+  "id": "tolben",
+  "name": "Tolben",
+  "version": "1.0.0",
+  "minAppVersion": "1.5.0",
+  "description": "Clarity suggestions from a local model, inside Obsidian's editor. Nothing leaves the machine, and every suggestion has passed a meaning-preservation gate.",
+  "author": "VladUZH",
+  "isDesktopOnly": true,
+  "authorUrl": "https://github.com/VladUZH/blue-underline"
+}

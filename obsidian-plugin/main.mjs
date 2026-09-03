@@ -39,8 +39,14 @@ const DEFAULTS = {
   // feels detached from the sentence that caused it.
   debounceMs: 140,
   // Minutes of no typing before the managed server is unloaded and its 2 GB returned to
-  // the machine. 0 keeps it resident. The KV slot is saved first, so coming back costs a
-  // file read rather than a full reload.
+  // the machine. 0 keeps it resident.
+  //
+  // The KV slot is saved first, and measurement on 2026-09-03 says that buys almost
+  // nothing: restoring it costs 41.2 s to the first sentence against 41.4 s with no
+  // restore at all, because what dominates is reading the 1,587-token clarity prompt back
+  // in on a 4-core CPU. The save is kept because it is cheap and a future llama.cpp may
+  // make the prefix hit; the ten-minute default is the part to argue with, and the setting
+  // description now says what the wait actually is. See REPORT.md, 2026-09-03.
   idleUnloadMinutes: 10,
   // "Never drop words": refuse any rewrite that loses a content word, instead of putting
   // the single-word cases to the 2B verifier. OFF by default, because on the labelled
@@ -111,7 +117,7 @@ export default class TolbenPlugin extends Plugin {
     this.registerEditorExtension(clarity.extension);
 
     this.addCommand({
-      id: "tolben-recheck",
+      id: "recheck",
       name: "Recheck open notes",
       callback: () => {
         this.clarity.invalidateAll();
@@ -120,19 +126,19 @@ export default class TolbenPlugin extends Plugin {
     });
 
     this.addCommand({
-      id: "tolben-ledger",
+      id: "ledger",
       name: "Show refusal ledger for this note",
       callback: () => this.showLedger(),
     });
 
     this.addCommand({
-      id: "tolben-network",
+      id: "network",
       name: "Show what talks to the network",
       callback: () => this.showNetwork(),
     });
 
     this.addCommand({
-      id: "tolben-setup",
+      id: "setup",
       name: "Set up the model server",
       callback: () => this.openSetup(),
     });
@@ -605,7 +611,8 @@ class TolbenSettingTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName("Unload the model when idle")
       .setDesc("Minutes of no typing before a model server Tolben started is stopped and its memory returned, 0 to keep it loaded. "
-        + "Its state is saved first, so coming back costs a file read rather than a full reload. A server you started yourself is "
+        + "The first sentence after it comes back is slow — about 40 seconds on a 4-core CPU, because the prompt has to be read "
+        + "in again — so set this to 0 if you would rather keep the 2 GB and never wait. A server you started yourself is "
         + "never stopped.")
       .addText((text) => text
         .setPlaceholder(String(DEFAULTS.idleUnloadMinutes))

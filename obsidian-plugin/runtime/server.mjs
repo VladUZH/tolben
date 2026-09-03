@@ -18,8 +18,11 @@
 //   else that happens to have inherited the number.
 //
 //   Idle unload with slot save. Ten minutes of not typing should not cost 2 GB of RAM,
-//   but paying the 15-second prompt reload afterwards is worse than the RAM. llama.cpp
-//   can write its KV slot to disk and restore it, so the reload is a file read.
+//   but the reload afterwards is not free either. llama.cpp can write its KV slot to disk
+//   and restore it, and it does — 200 and a 40 MB file, measured on b10760 — but the
+//   restore does NOT make the next sentence cheap: 41.2 s with it, 41.4 s without. The
+//   prompt is read back in either way. Keep the save (it costs a file write and may start
+//   paying off), and do not describe it to the writer as a saving. REPORT.md, 2026-09-03.
 
 import { spawn } from "node:child_process";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
@@ -282,8 +285,9 @@ export async function warmUp({ apiBase, apiKey, model = "local", fetchImpl = glo
 
 // ------------------------------------------------------------------- slot save/restore
 
-// The KV cache of the single slot, written to `slotDir` so that an idle unload costs a
-// file write and the reload costs a file read instead of a full prompt reprocess.
+// The KV cache of the single slot, written to `slotDir` on an idle unload. It round-trips
+// (200 both ways, ~40 MB on disk) but does not currently shorten the next sentence — see
+// the note at the top of this file before quoting it as a saving.
 export async function saveSlot({ baseUrl, apiKey, filename = "tolben-slot.bin", fetchImpl = globalThis.fetch } = {}) {
   return slotAction({ baseUrl, apiKey, action: "save", filename, fetchImpl });
 }
@@ -292,9 +296,24 @@ export async function restoreSlot({ baseUrl, apiKey, filename = "tolben-slot.bin
   return slotAction({ baseUrl, apiKey, action: "restore", filename, fetchImpl });
 }
 
+// `/slots` is a llama-server endpoint, not an OpenAI-compatible one, and it lives at the
+// server ROOT — measured on b10760: POST /slots/0?action=save returns 200 and writes the
+// KV file, POST /v1/slots/0?action=save returns 404.
+//
+// The plugin passes `runtime.baseUrl`, which is already the root, so the shipped path is
+// the working one. The normalisation is here because this module hands callers TWO urls a
+// line apart — `baseUrl` and `apiBase`, the second being the first plus "/v1" — and the
+// engine speaks to the second, so reaching for the wrong one is a natural mistake that a
+// mocked fetch cannot catch. It answers whatever URL it is handed. The test below passes
+// the "/v1" form deliberately for that reason.
+export function slotEndpoint(baseUrl, action) {
+  const root = String(baseUrl).replace(/\/+$/u, "").replace(/\/v\d+$/u, "");
+  return `${root}/slots/0?action=${action}`;
+}
+
 async function slotAction({ baseUrl, apiKey, action, filename, fetchImpl }) {
   try {
-    const response = await fetchImpl(`${baseUrl}/slots/0?action=${action}`, {
+    const response = await fetchImpl(slotEndpoint(baseUrl, action), {
       method: "POST",
       headers: { "content-type": "application/json", ...(apiKey ? { authorization: `Bearer ${apiKey}` } : {}) },
       body: JSON.stringify({ filename }),

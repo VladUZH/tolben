@@ -20,10 +20,27 @@ was right about somebody else's software.
 
 ### Getting both, in a container with neither
 
-There is no Docker daemon, and the agent proxy refuses GitHub release downloads — so
-neither Ollama nor llama.cpp can be installed the usual way. Build from source; Go, cmake,
-gcc and `proxy.golang.org` are all present, and `git clone` of a public repository works.
-Takes about eight minutes and yields both servers:
+There is no Docker daemon. **The pinned llama.cpp release binary can be downloaded
+directly** — verified 2026-09-03, when all six platform assets of `b10760` were fetched
+through the agent proxy and every sha256 matched
+`obsidian-plugin/runtime/manifest.json`. An earlier note here said release downloads were
+refused; that was true when it was written and is not true now, so try this first:
+
+```bash
+curl -sSL -o /tmp/llama.tgz \
+  https://github.com/ggml-org/llama.cpp/releases/download/b10760/llama-b10760-bin-ubuntu-x64.tar.gz
+sha256sum /tmp/llama.tgz   # 00cfac8189ebec8d5576c2a5acfcd7bff230ec2aa4b8454a8f2fa77548b4cc15
+mkdir -p /tmp/b10760 && tar -xzf /tmp/llama.tgz -C /tmp/b10760 --strip-components=1
+LD_LIBRARY_PATH=/tmp/b10760 /tmp/b10760/llama-server -m models/Qwen3.5-2B-Q6_K.gguf \
+  --host 127.0.0.1 --port 8080 -c 4096 -np 1 --jinja --reasoning off &
+```
+
+That is the *actual shipped artefact*, so it is strictly better than a local build for any
+measurement: a server compiled here is not the binary a writer will run. Prefer it, and
+keep the source build below for Ollama, or for when the download is refused again.
+
+Go, cmake, gcc and `proxy.golang.org` are all present, and `git clone` of a public
+repository works. Takes about eight minutes and yields both servers:
 
 ```bash
 git clone --depth 1 https://github.com/ollama/ollama /home/user/ollama-src
@@ -45,6 +62,15 @@ npm test                                # 0 skipped, rather than 6
 The six tests that skip without a server are the only ones that exercise the real
 contract — schema-constrained decoding, the stop string, and a verifier that answers.
 A run that skips them has not tested the thing the product is.
+
+### Do not benchmark a machine that is fighting itself
+
+Correctness tests tolerate a loaded box; **latency figures do not**. On 2026-09-03 a
+holdout re-run was started while two subagent workflows were working the same four vCPUs,
+and the first sentence took 67 s against a recorded p50 of 1.3 s — past the 60 s per-call
+timeout, so rows would have been recorded as engine failures and scored as lost recall.
+The run was discarded rather than reported. Check `uptime` before a timed run and give the
+server the machine to itself.
 
 ## Where the rules live
 

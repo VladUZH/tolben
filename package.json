@@ -8,11 +8,13 @@
     "start": "node server.mjs",
     "model": "llama-server -m models/Qwen3.5-2B-Q6_K.gguf --host 127.0.0.1 --port 8080 -ngl 99 -c 4096 -np 1 --jinja --reasoning off",
     "test": "node --test tests/*.test.mjs",
+    "lint:prose": "node tools/forbidden-phrases.mjs",
     "bench": "node bench/run.mjs",
     "score": "node bench/score.mjs",
     "plugin:build": "node obsidian-plugin/build.mjs",
     "plugin:watch": "node obsidian-plugin/build.mjs --watch",
     "plugin:harness": "node obsidian-plugin/harness/build.mjs",
+    "playground:build": "node playground/build.mjs",
     "models:fetch": "node tools/fetch-models.mjs",
     "models:verify": "node tools/fetch-models.mjs --verify"
   },

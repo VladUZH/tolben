@@ -2,3 +2,4 @@ node_modules/
 models/*.gguf
 .playwright-mcp/
 .DS_Store
+playground/dist/

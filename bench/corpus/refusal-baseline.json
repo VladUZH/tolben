@@ -1,7 +1,7 @@
 {
  "description": "Verdict of the safety gate on every model rewrite this project has recorded as refused (bench/results/*.json `rejectedText`). Regenerate with `node bench/unlock-check.mjs --write --note \"why\"` ONLY when the new verdicts have been reviewed: this file is what stops a guard relaxation from silently reopening a meaning-inversion hole. `reviewed` records every rewrite a re-baseline has ever promoted to accepted, and who said it was safe.",
- "snapshot": "2026-09-02",
- "count": 186,
+ "snapshot": "2026-09-03",
+ "count": 209,
  "reviewed": [
   {
    "date": "2026-09-01",
@@ -58,6 +58,11 @@
    "date": "2026-09-02",
    "note": "reason merge: dropped-content folded into content-dropped (gate fix 1.4f); no decision changed",
    "accepted": []
+  },
+  {
+   "date": "2026-09-03",
+   "note": "Phase 3.2 re-measurement: same six new bench reports. Adds 23 recorded refusals to the ratchet; 0 newly accepted, 0 moved to the verifier, 0 refused under a different reason. The baseline grows, nothing reopens.",
+   "accepted": []
   }
  ],
  "verdicts": {
@@ -68,6 +73,7 @@
   "71319994": "refused:information-dropped",
   "73593756": "refused:certainty-changed",
   "83127741": "accepted:accepted",
+  "84893053": "refused:protected-token-changed",
   "88897643": "refused:information-dropped",
   "a03e0af3": "refused:word-substituted",
   "d3179133": "refused:numbers-changed",
@@ -162,6 +168,22 @@
   "07deca8a": "accepted:accepted",
   "242c8dbd": "accepted:accepted",
   "d072d87b": "accepted:accepted",
+  "706df805": "refused:word-substituted",
+  "56b45ef7": "refused:quantifier-changed",
+  "3fb3cbc9": "refused:unchanged",
+  "04c8ad49": "refused:order-changed",
+  "265eaa01": "refused:tense-changed",
+  "bd2c59cb": "refused:word-substituted",
+  "9e14769a": "refused:word-substituted",
+  "dba9a3a4": "refused:negation-changed",
+  "199e445e": "refused:word-substituted",
+  "6a331c4a": "verifier:verifier-decides",
+  "8f358c82": "refused:information-dropped",
+  "008e23ff": "refused:unchanged",
+  "0138954b": "refused:order-changed",
+  "506eda1f": "refused:word-substituted",
+  "823dba1e": "refused:word-substituted",
+  "2431e402": "refused:negation-changed",
   "d5f22454": "refused:word-substituted",
   "97e898b2": "refused:negation-changed",
   "07f0542d": "refused:content-dropped",
@@ -228,6 +250,12 @@
   "425e2bf5": "refused:word-substituted",
   "c7aae6f8": "accepted:accepted",
   "0fb802c5": "accepted:accepted",
+  "e1e8e13d": "refused:word-substituted",
+  "5f375663": "refused:certainty-changed",
+  "4edc9c2f": "refused:unchanged",
+  "b58d62fa": "refused:word-substituted",
+  "d981336f": "refused:unchanged",
+  "a8829103": "refused:unchanged",
   "9bf4e010": "refused:tense-changed",
   "10d6e18c": "refused:word-substituted",
   "eff7feb7": "refused:unchanged",

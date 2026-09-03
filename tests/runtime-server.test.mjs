@@ -252,6 +252,20 @@ test("saving and restoring the slot names the action and the file", async () => 
   assert.equal(calls[0][1].filename, "tolben-slot.bin");
 });
 
+test("the slot endpoint is the server root even when handed the OpenAI base url", async () => {
+  // startServer() returns both `baseUrl` and `apiBase` (= baseUrl + "/v1"), and /slots is
+  // not an OpenAI route: on the real b10760, /v1/slots/0 is a 404 while /slots/0 is a 200.
+  // A mocked fetch answers either, so only an explicit assertion on the URL catches it.
+  const calls = [];
+  const fetchImpl = async (url) => { calls.push(url); return { ok: true, status: 200 }; };
+  await saveSlot({ baseUrl: "http://127.0.0.1:9/v1", apiKey: "k", fetchImpl });
+  await saveSlot({ baseUrl: "http://127.0.0.1:9/", apiKey: "k", fetchImpl });
+  assert.deepEqual(calls, [
+    "http://127.0.0.1:9/slots/0?action=save",
+    "http://127.0.0.1:9/slots/0?action=save",
+  ]);
+});
+
 test("a server built without slot save costs a slower reload, not an error", async () => {
   const result = await saveSlot({ baseUrl: "x", fetchImpl: async () => { throw new Error("404"); } });
   assert.equal(result.ok, false);

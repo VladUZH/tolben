@@ -1,0 +1,73 @@
+# The gate playground, deployed to GitHub Pages.
+#
+# The playground is the launch artefact: a page a stranger opens from a link, with nothing
+# to install, and satisfies themselves that the safety gate refuses what Tolben says it
+# refuses. It runs the real modules under src/ — the same code the plugin loads — against
+# pairs read out of bench/corpus, and shows recorded runs read out of bench/results.
+#
+# `--check` runs before anything is uploaded, and it is the reason this workflow exists in
+# this shape rather than as three lines of `npm run build && upload`. "No analytics, no
+# trackers, no external fonts, no CDN, works with the network off" is a claim the page
+# makes about itself, so it is checked against the built bytes: --check builds the deployed
+# configuration into a temporary directory and fails if a single external reference reaches
+# markup, styles or script. A page that would phone home does not get deployed.
+#
+# tests.yml stays the gate on correctness. This workflow deploys; it does not re-prove the
+# suite, which has already run on the same commit.
+
+name: pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+# Exactly what deploy-pages needs and nothing more: read the checkout, mint the OIDC token
+# the Pages deployment is authenticated with, write nothing back to the repository.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time, and a superseded run is allowed to finish rather than being
+# cancelled: cancelling half-way through a deployment is how a Pages site ends up serving
+# part of one build and part of another.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+
+      # First, because a page that would make a third-party request should fail here rather
+      # than after it has been published. This builds and discards its own copy.
+      - name: The page must not phone home
+        run: node playground/build.mjs --check
+
+      # The data files are generated from bench/corpus, bench/results, src/safety.mjs and
+      # the two manifests, so the page carries no figure that was typed by hand.
+      - name: Build the page
+        run: npm run playground:build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: playground/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

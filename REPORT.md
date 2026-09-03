@@ -1904,3 +1904,197 @@ called it "not a shippable plugin". Phases 2.1, 2.3 and 1.2 had each falsified o
 those, and §1 was the last place in the repository still asserting them. Its test counts
 were two phases stale as well. The measurement row was checked and left alone: 27/36 and
 0/24 are the closing run's own figures, not the superseded 32/36 from model selection.
+
+## 2026-09-03 — phase 3.2: the sealed sets, re-measured on the artefact that ships
+
+Holdouts 1 to 3 had never been run on the bytes a writer will actually download. The
+figures in the closing section above — 49/75 useful, 81/90 clean untouched — came from a
+run on 2026-08-27 whose model file was **1,574,961,408 bytes**, against the
+**1,556,390,368** pinned in `obsidian-plugin/runtime/manifest.json`. This section closes
+that gap, and the answer is not the one the gap was expected to produce.
+
+### The artefact was verified before it was measured, for once by downloading it
+
+`tools/pin-runtime.mjs --check` re-verifies the pins against the GitHub releases *API*,
+which proves the recorded hash matches what the API reports, not that either matches the
+bytes. All six platform archives were therefore fetched and hashed:
+
+| Asset | Bytes | sha256 matches manifest |
+|---|---|---|
+| `llama-b10760-bin-macos-arm64.tar.gz` | 11,072,707 | yes |
+| `llama-b10760-bin-macos-x64.tar.gz` | 11,135,791 | yes |
+| `llama-b10760-bin-ubuntu-x64.tar.gz` | 16,715,049 | yes |
+| `llama-b10760-bin-ubuntu-arm64.tar.gz` | 13,347,844 | yes |
+| `llama-b10760-bin-win-cpu-x64.zip` | 18,373,088 | yes |
+| `llama-b10760-bin-win-cpu-arm64.zip` | 11,939,646 | yes |
+| `Qwen3.5-2B-Q6_K.gguf` (on disk) | 1,556,390,368 | yes |
+
+Six of six, and the model. The Linux x64 archive was then unpacked and used for
+everything below: `version: 0.3.0-dev (build 10760, commit 0f3a71be1)` — the shipped
+binary, not a local build. A note in `CLAUDE.md` saying the agent proxy refuses GitHub
+release downloads was true when written and is no longer; it has been corrected, because
+it was the reason earlier measurements were taken on a server compiled here instead.
+
+### What the shipped configuration scores
+
+Run with the plugin's own arguments from `obsidian-plugin/runtime/server.mjs`
+(`-c 4096 -np 1 --jinja --reasoning off --slot-save-path`), the shipped prompt and
+verifier, and the shipped tier defaults — mechanics on, clarity rules on, deletion policy
+`verify`.
+
+| | Surfaced on rewrite-expected | Clean sentences left alone |
+|---|---|---|
+| Holdout 1 (50 rows) | 22/30 | 20/20 |
+| Holdout 2 (70 rows) | 19/30 | 39/40 |
+| Holdout 3 (45 rows) | 10/15 | 30/30 |
+| **Total** | **51/75 (68.0%)** | **89/90 (98.9%)** |
+
+Against 58/75 surfaced and 81/90 clean on 2026-08-27. Recall fell by seven rows; false
+positives fell by eight. No engine failures in 165 rows.
+
+**The 49/75 "useful" figure is not what moved, and is not restated here.** "Useful" is an
+adjudicated subset of "surfaced" — a human judged which of the 58 surfaced rewrites were
+improvements, and 49 were. Nothing in this run re-adjudicates the new 51, so the honest
+comparison is surfaced-to-surfaced, 58 to 51. Until someone reads the new rows, the
+usefulness of this build on the sealed sets is unmeasured rather than 51.
+
+### Three things changed at once, so a fourth run was needed
+
+The 2026-08-27 reports carry no `options` field — it did not exist yet — so those runs
+took `analyzeSentence`'s own defaults, which means **rules off**, and their invocation
+passed no verifier. Reading the recall drop as a model regression would have been wrong if
+the tiers caused it. Holding the tree fixed and putting the *old* tier configuration on the
+*new* model file:
+
+| Configuration | Surfaced | Clean untouched |
+|---|---|---|
+| 2026-08-27: old model, rules off, no verifier | 58/75 | 81/90 |
+| new model, rules off, no verifier | 49/75 | 89/90 |
+| new model, rules on, verifier (**ships**) | 51/75 | 89/90 |
+
+Both movements survive the change of tiers, so the tiers did not cause them. The artefact
+did.
+
+What cannot be settled here is *which part* of the artefact, because the 2026-08-27 reports
+record the model file and nothing about the server that ran it. Model file and llama.cpp
+build changed together and cannot be separated after the fact. The new reports carry a
+`runtime` field naming the tag and asset so the next person is not left guessing.
+
+### How much of a two-row difference is real: not much
+
+The tier row above appears to add two surfaced rewrites (49 to 51). It does not, or at
+least this cannot say so. Holdout 3 was run twice in the shipped configuration, same
+binary, same model, temperature 0, twenty minutes apart:
+
+```
+rows 45
+identical action:      44/45
+identical replacement: 44/45
+  h3-r05
+    run 1: (none)
+    run 2: The crew reached an agreement about the rota.
+```
+
+One row in forty-five flips between runs. Temperature 0 is not determinism on a CPU
+backend: reduction order varies with how work is scheduled, and a token near a decision
+boundary lands either side of it. Scaled to the 75 rewrite-expected rows that is a noise
+floor of roughly ±2.
+
+So: the nine-row and eight-row movements attributed to the artefact are real, being four
+times the noise. **The two-row tier difference is inside the noise and is not a finding.**
+
+This does not touch `bench/oracle.mjs`, `bench/precision-check.mjs` or
+`bench/unlock-check.mjs`. Those replay recorded proposals through the gate and call no
+model, which is exactly why they are the controls and a live bench run is not.
+
+### Every sealed set, and which are excluded
+
+| Set | Corpus | Rows | Adjudicated | Recorded runs |
+|---|---|---|---|---|
+| 1 | `bench/corpus/holdout.json` | 50 (30 rewrite, 20 keep) | yes | `holdout-sealed`, `holdout-pinned`, `holdout-attr-oldtiers` |
+| 2 | `bench/corpus/holdout-2.json` | 70 (30/40) | yes | `holdout-2-sealed`, `holdout-2-pinned`, `holdout-2-attr-oldtiers` |
+| 3 | `bench/corpus/holdout-3.json` | 45 (15/30) | yes | `holdout-3-sealed`, `holdout-3-pinned`, `holdout-3-attr-oldtiers` |
+| 4 | `bench/corpus/holdout-4.json` | 70 (30/40) | **no** | `holdout-4-sealed`, `holdout-4-dev-rerun` |
+| 5 | `bench/corpus/holdout-5.json` | 70 (30/40) | **no** | `holdout-5-sealed` |
+| 6 | `bench/corpus/holdout-6.json` | 60 (20/40) | **no** | `holdout-6-sealed` |
+| 7 | `bench/corpus/holdout-7.json` | 60 (20/40) | **no** | nine runs — see below |
+
+Every corpus hash still matches the one its sealed run recorded, so none of the corpora
+drifted under the results.
+
+Holdouts 4 to 7 are excluded from every published figure, and the reason is stronger than
+"unadjudicated" in holdout 7's case. It carries **nine** recorded runs — `sealed`, `rerun`,
+`noreason`, `enum`, `earlystop`, `triage`, `postfix`, `postfix2`, `postgap` — whose names
+are the prompt-development sequence. A set consulted nine times while the prompt was being
+tuned is a development set that was once called a holdout. Holdout 4 has a `dev-rerun`
+beside its sealed run and is in the same position, less severely. Neither can be used to
+estimate performance on unseen text again, and nothing here does.
+
+### Latency, and the forty seconds nobody had measured
+
+Timed separately from the corpus runs, because a latency figure taken on a machine that is
+fighting itself is not a figure. (One was: an early attempt ran while two subagent
+workflows had the same four vCPUs, and the first sentence took 67 s. It was discarded, and
+`CLAUDE.md` now says to check `uptime` first.)
+
+| | |
+|---|---|
+| Model load to `/health` ok | 2.3–2.5 s |
+| **First sentence on a fresh server process** | **41–46 s** |
+| Warm, sentence the tiers leave alone | p50 **1.5 s** (1443–2253 ms over six) |
+| Warm, sentence that gets rewritten | p50 **2.4 s** (1712–2573 ms over six) |
+
+The warm figures agree with the closing development-corpus row already in this report
+(p50 1343 ms, p95 2532 ms), so nothing regressed. The first-sentence figure is new, and it
+is the largest number in this document: **the clarity prompt is 1,587 tokens (REPORT.md, "Update: latency"), and
+reading it in on four CPU cores costs roughly forty seconds, once per server process.**
+
+The verifier was suspected of costing more than a second call, on the theory that a second
+prompt in a single `-np 1` slot would evict the first and force a re-prefill every time.
+Tested by running the same twelve sentences with the verifier enabled and disabled:
+p50 1544 ms against 1534 ms on clean sentences, 2325 ms against 2405 ms on rewritten ones.
+No difference — and none of those twelve reached the verifier anyway, so the theory is
+not merely unsupported, it was untested by the experiment that was supposed to test it.
+It is recorded here as refuted rather than deleted.
+
+### The idle-unload saving that is not one
+
+`obsidian-plugin/main.mjs` defaults to unloading a Tolben-started server after ten idle
+minutes, and four places in the tree told the writer that the KV slot is saved first "so
+coming back costs a file read rather than a full reload". One of the four was the text of
+the setting itself.
+
+Measured, on b10760, with the same sentence either side of a restart:
+
+```
+cold first sentence:          41385 ms
+same sentence again (warm):    1682 ms
+saveSlot()   -> {"ok":true,"status":200}   tolben-slot.bin, 39,993,924 bytes
+restoreSlot()-> {"ok":true,"status":200}
+first sentence AFTER restore: 41194 ms
+and the one after that:        1697 ms
+```
+
+The save and the restore both work — 200 each way, forty megabytes on disk — and buy
+**0.5%** of the cost they were described as removing. Whatever the restored cache
+contains, the next request still pays the full prompt read. The claim has been removed
+from all four places; the setting now tells the writer that the first sentence afterwards
+takes about forty seconds and that 0 keeps the model resident. The save is kept, because it
+costs a file write and a later llama.cpp may make the prefix hit.
+
+A near-miss worth recording, since it is the failure mode `CLAUDE.md` opens with. The first
+run of this experiment reported `404` from both calls and looked like a shipped defect.
+It was not: `/slots` is a llama-server route at the server ROOT, the harness had passed the
+OpenAI base URL ending in `/v1`, and `startServer()` returns both `baseUrl` and `apiBase`
+one line apart. The plugin passes the right one. But `tests/runtime-server.test.mjs`
+asserted the URL against a fake fetch that answers whatever it is handed, and its fixture
+used a base URL with no `/v1` — so the test could not have caught the mistake if the
+product had made it. `slotEndpoint()` now normalises either form and a test passes the
+`/v1` shape deliberately.
+
+### Not measured, and not claimed
+
+The roadmap's 3.2 also lists a 2-core laptop, Apple-silicon Metal and Windows CPU. This
+container is a 4-vCPU Linux x86-64 VM; none of those three was run, and no figure for them
+appears anywhere in this repository. The Ollama path was measured separately on 2026-09-02
+and is unchanged by this section.
