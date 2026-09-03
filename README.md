@@ -21,7 +21,7 @@ The plugin is **desktop only**: it runs a model server on loopback, and Obsidian
 nowhere to run one.
 
 1. Download `main.js`, `manifest.json` and `styles.css` from a
-   [release](https://github.com/VladUZH/blue-underline/releases).
+   [release](https://github.com/VladUZH/tolben/releases).
 2. Put all three in `<your vault>/.obsidian/plugins/tolben/`.
 3. Turn off Restricted Mode, then enable **Tolben** under
    Settings → Community plugins.

@@ -229,7 +229,7 @@ Free, with no paid tier, no account and no telemetry.
 - **Model weights**: Apache-2.0, fetched rather than redistributed. **llama.cpp**: MIT.
 
 The plugin is authored by VladUZH; the repository is
-`github.com/VladUZH/blue-underline`. There is no CLA — contributions carry a Developer
+`github.com/VladUZH/tolben`. There is no CLA — contributions carry a Developer
 Certificate of Origin sign-off (`git commit -s`).
 
 ## How do I report a bad rewrite, or a refusal that was wrong?
