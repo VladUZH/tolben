@@ -2149,3 +2149,147 @@ What the clips record, against the wall clock of the take:
 The second is the honest demonstration of the model tier on a warm server; the first
 shows why the rules tier exists. The clips are not in the tree — about 200 KB each, and
 a README cannot embed a video — and live with the launch material.
+
+## 2026-09-04 — the managed server, through the plugin: three defects the tests could not see
+
+Asked whether the code was finished, the check that was meant to settle it went the other
+way. Correcting the launch copy's latency figures led to the plugin's idle-unload path; the
+path stops the server and nothing in the file restarts it; and the rule at the top of
+`CLAUDE.md` says that a thing read is not a thing run. So it was run. `tools/plugin-lifecycle.mjs`
+loads the **shipped bundle** `obsidian-plugin/main.js` with Obsidian's five UI classes
+stubbed (`tools/obsidian-stub.cjs`: a status bar that is a string, a Notice that is a log
+line) and nothing else faked — the provisioner, the **b10760** binary, the pinned model and
+the plugin's own `fetch` are the real ones — and walks it through setup, the first
+sentences, the ten-minute unload, a reload with the saved `data.json`, and recovery:
+
+```
+node tools/plugin-lifecycle.mjs --state /tmp/lifecycle --archive llama-b10760-bin-ubuntu-x64.tar.gz
+```
+
+What had never been exercised before today: every earlier managed-runtime run went through
+`tools/provision.mjs`, a Node process whose `fetchImpl` defaults to `globalThis.fetch`; the
+Obsidian run of 2026-09-03 had `setupDone: true` and a server started by hand. The plugin's
+own wiring of the provisioner — `this.fetch` handed to `provision()`, the timer into
+`unloadIdle()`, `onload()` with a saved `data.json` — had not been run once, in a test or
+by a person. Three defects, in the order the rig meets them.
+
+### 1. The setup pane cannot download
+
+Both hosts the manifest points at answer a release URL with a redirect:
+
+```
+$ curl -sI https://github.com/ggml-org/llama.cpp/releases/download/b10760/llama-b10760-bin-ubuntu-x64.tar.gz
+HTTP/1.1 302 Found
+Location: https://release-assets.githubusercontent.com/github-production-release-asset/…
+$ curl -sI https://huggingface.co/lmstudio-community/Qwen3.5-2B-GGUF/resolve/main/Qwen3.5-2B-Q6_K.gguf
+HTTP/2 302
+location: https://us.aws.cdn.hf.co/xet-bridge-us/…
+```
+
+`obsidian-plugin/node-fetch.mjs` implements, by its own header, "only the surface
+`engine.mjs` actually uses: ok, status, json(), text()". It does not follow a redirect, and
+it exposes neither headers nor a body stream — the whole response is buffered and decoded
+as UTF-8. Through it, both URLs come back `status 302, ok=false, headers=undefined,
+body=undefined`, and the provisioner's `attemptDownload` throws `HTTP 302` with kind
+`failed`, three times, which the setup pane renders as "Setup failed" over that line.
+Without the rig's `--archive` the run ends exactly there:
+
+```
+DownloadError: https://github.com/ggml-org/llama.cpp/releases/download/b10760/llama-b10760-bin-ubuntu-x64.tar.gz: HTTP 302
+    at attemptDownload (obsidian-plugin/runtime/download.mjs:115)
+    at async downloadVerified (obsidian-plugin/runtime/download.mjs:83)
+    at async provision (obsidian-plugin/runtime/provision.mjs:186)
+```
+
+Had the redirect been followed, the next line to fail would have been `response carried no
+body`, and a 1.5 GB model would first have been read into a JavaScript string. **No 1.0.0
+install has ever downloaded anything through the setup pane.** The paths that work are
+"use a server you already run" and files already on disk.
+
+Why nothing caught it: `tests/runtime-download.test.mjs` hands `downloadVerified` a fake
+fetch that returns a web `Response`, streaming body and all; `provisioner.yml` runs
+`tools/provision.mjs` on three operating systems with undici, which follows redirects and
+streams; and no test in the tree names `nodeFetch`. The 36-second install of 2026-09-02
+was real and was not the plugin.
+
+### 2. The first sentence on a fresh server fails at the 12-second timeout, twice
+
+`connect()` builds the engine with `timeoutMs: 12000`, and the 3.2 section above measured
+the first sentence of a server process at 41–46 s. Through the plugin those two numbers
+meet, and the rig makes every attempt back to back so the cost is visible:
+
+| Attempt | S1, after setup | S5, after setup again |
+|---|---|---|
+| 1 | 12.0 s, `Local model exceeded 12000 ms` | 12.0 s, the same |
+| 2 | 12.0 s, the same | 12.0 s, the same |
+| 3 | 18.1 s, `verifier unavailable: timeout` | **5.2 s, answered** |
+| 4 | **6.4 s, answered** | |
+
+An earlier take of the same run read 12.0 / 12.0 / 17.1 / 5.3 s. The likely mechanism,
+which this run does not prove, is that the server goes on reading the prompt after the
+client gives up and keeps what it has read, so each attempt resumes where the last one
+stopped and the fourth finds the prefix cached; the third fails one step later, in the
+verifier, whose own prompt then has to be read in the same way. The sentence after it —
+warm, on a server that had answered once — took **10.6 s**, not the 1.5–2.4 s of the 3.2
+table; the verifier-thrash paragraph of 2026-09-03 said none of its twelve sentences
+reached the verifier, and this is a sample of what it did not measure, one sample.
+
+What that is on screen, with the shipped controller: a transient failure gets two attempts
+and is then held for a minute. The first sentence after setup therefore shows "checking…"
+for 24 s and then counts as **1 unchecked**; the next sentence pays the remainder; from the
+third or fourth sentence answers arrive, and the held one returns after 60 s. The README's
+"the first sentence after a server starts costs about 41 seconds" describes the server. The
+plugin never waits 41 seconds for anything: it fails twice and moves on.
+
+### 3. Nothing restarts the server
+
+`unloadIdle()` — what the ten-minute timer calls — saves the slot, stops the process, sets
+`runtime` and `engine` to null and stores `idleUnloaded`, which nothing reads. The next
+sentence goes through `analyze()`, which calls `connect()`, which fetches `/models` at the
+saved port:
+
+```
+[  79.5s] unloadIdle(), which is what the ten-minute timer calls
+[  79.8s] after it: runtime=null engine=null server unreachable (ECONNREFUSED)
+[  79.8s] S3 after the idle unload: THREW after 0 ms: "connect ECONNREFUSED 127.0.0.1:35339" kind=(none)
+```
+
+An Obsidian restart is the same failure from the other side. `onunload()` stops the server
+Tolben started, as it should; `onload()` with `setupDone: true` then calls `connect()` at a
+port whose process is gone, and `data.json` records neither that the runtime was managed
+nor how to start it again:
+
+```
+[  80.3s] loaded: baseUrl=http://127.0.0.1:35339/v1 setupDone=true runtime=null server unreachable (ECONNREFUSED)
+[  80.3s] S4 first sentence of the new session: THREW after 0 ms: "connect ECONNREFUSED 127.0.0.1:35339" kind=(none)
+```
+
+So with the default settings a writer who installs, sets up and writes for ten minutes
+loses the plugin for the rest of the session — and for every later session — until they
+find "Set up the model server" in the command palette and run it again, which the rig also
+does: the files are reused (7–17 s to re-hash 1.5 GB), the server is up in 3 s, and then
+defect 2 again. `docs/ROADMAP.md` item 2.1 lists "reload on editor focus" among what was
+built; it was never written, and `statusLine()` has a `starting` state that nothing sets.
+
+### What this is and is not evidence of
+
+The rig is Node with Obsidian's UI stubbed, so it is evidence about the bundle's control
+flow and the real server, not about Obsidian's window; nothing here was seen on a screen.
+The defects are in code the stub does not touch. Linux x86-64 only, like everything else in
+this report.
+
+### What has to change before 1.0.1 — proposed here, not done
+
+1. `node-fetch.mjs` follows 301, 302, 303, 307 and 308 across a bounded number of hops,
+   exposes `headers.get()` and a streaming body, and never buffers a download; the test
+   for it stands up a redirecting server on loopback rather than a fake.
+2. The warm-up reads both prompts in — the clarity prompt and the verifier's — with
+   `max_tokens: 1` and a timeout in minutes, under the `starting the model` status that
+   already exists, so the writer's first sentence meets a cached prefix. The engine's
+   12 s stays: it is the right bound for a warm server.
+3. `data.json` records that the runtime is managed; `onload()` and the sentence after an
+   idle unload re-provision from the files on disk, under the same status, and retry the
+   sentence that found the server gone.
+4. The lifecycle rig runs clean, and the six model-server tests run unskipped, before the
+   tag. The README and FAQ sentences about the 41 seconds are rewritten to what the plugin
+   does once 2 is in.
