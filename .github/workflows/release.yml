@@ -5,13 +5,21 @@
 # and the community-plugin installer look for. LICENSE and NOTICE ride along so that what
 # a person downloads carries its own terms.
 #
-# The tag is pushed by a person, deliberately. Everything here is mechanical once it is.
+# The tag is pushed by a person, deliberately, or created here from a dispatch a person
+# made — the second path exists because the token that drives the repository from a
+# remote session may push commits but not tags, and a release should not depend on which
+# machine the person is sitting at. Everything else is mechanical once the tag exists.
 
 name: release
 
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release, e.g. 1.0.1. Must equal the manifest's; the tag v<version> is created on the dispatched ref."
+        required: true
 
 permissions:
   contents: write
@@ -19,6 +27,8 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event_name == 'workflow_dispatch' && format('v{0}', github.event.inputs.version) || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -31,12 +41,32 @@ jobs:
       - name: The suite must pass before anything is published
         run: npm test
 
+      # On a dispatch the tag does not exist yet: it is created on the commit that was
+      # checked out, once the suite has passed, and pushed with this job's token. A tag
+      # pushed that way starts no second run, so this one carries on to the release.
+      - name: Resolve the tag, creating it on a dispatch
+        id: tag
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            tag="v${{ github.event.inputs.version }}"
+            if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+              echo "$tag already exists"; exit 1
+            fi
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "$tag" -m "Tolben ${{ github.event.inputs.version }}"
+            git push origin "$tag"
+          else
+            tag="$GITHUB_REF_NAME"
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
       - name: The tag must be the version in the manifest
         run: |
-          tag="${GITHUB_REF_NAME#v}"
+          tag="${TAG#v}"
           manifest=$(node -p "require('./obsidian-plugin/manifest.json').version")
           if [ "$tag" != "$manifest" ]; then
-            echo "tag $GITHUB_REF_NAME does not match manifest version $manifest"
+            echo "tag $TAG does not match manifest version $manifest"
             exit 1
           fi
           versions=$(node -p "Object.keys(require('./obsidian-plugin/versions.json')).includes('$manifest')")
@@ -60,8 +90,27 @@ jobs:
           (cd dist && sha256sum * > SHA256SUMS)
           cat dist/SHA256SUMS
 
+      # Release notes written for the version, when there are any: the first line of
+      # .github/release-notes/<tag>.md is the title, the rest the body, and GitHub's
+      # generated list of commits is appended under it either way.
+      - name: Release notes
+        id: notes
+        run: |
+          file=".github/release-notes/$TAG.md"
+          if [ -f "$file" ]; then
+            echo "name=$(head -n 1 "$file" | sed 's/^# *//')" >> "$GITHUB_OUTPUT"
+            tail -n +2 "$file" > dist/RELEASE_BODY.md
+            echo "body_path=dist/RELEASE_BODY.md" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=$TAG" >> "$GITHUB_OUTPUT"
+            echo "body_path=" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ env.TAG }}
+          name: ${{ steps.notes.outputs.name }}
+          body_path: ${{ steps.notes.outputs.body_path }}
           files: |
             dist/main.js
             dist/manifest.json
