@@ -20,7 +20,9 @@ export async function loadShippedBundle(dir) {
   for (const scope of ["@codemirror", "@lezer"]) {
     try {
       await access(join(REPO, "node_modules", scope));
-      await symlink(join(REPO, "node_modules", scope), join(rig, "node_modules", scope));
+      // A junction on Windows: a directory symlink there needs a privilege the CI runner
+      // may not have, and a junction needs none.
+      await symlink(join(REPO, "node_modules", scope), join(rig, "node_modules", scope), process.platform === "win32" ? "junction" : "dir");
     } catch { /* not installed, or already linked: the bundle will say so if it matters */ }
   }
   await copyFile(join(REPO, "obsidian-plugin", "main.js"), join(rig, "main.js"));
