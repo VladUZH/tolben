@@ -284,6 +284,7 @@ async function isHealthy({ baseUrl, apiKey, fetchImpl = globalThis.fetch, timeou
       headers: apiKey ? { authorization: `Bearer ${apiKey}` } : {},
       signal: controller.signal
     });
+    if (typeof response.text === "function") await response.text().catch(() => "");
     return response.ok;
   } catch {
     return false;
@@ -307,6 +308,7 @@ async function warmUp({ apiBase, apiKey, model = "local", fetchImpl = globalThis
         messages: [{ role: "user", content: "ok" }]
       })
     });
+    if (typeof response.text === "function") await response.text().catch(() => "");
     return { ok: response.ok, ms: Date.now() - started };
   } catch (error) {
     return { ok: false, ms: Date.now() - started, error: error.message };
@@ -564,7 +566,57 @@ PROPOSED: ${replacement}`
       clearTimeout(timeout);
     }
   }
-  return { rewrite, decide, verify, endpoint, dialect, model, useReasonStop };
+  async function warmUp2({ signal, timeoutMs: budgetMs = 3e5 } = {}) {
+    const started = Date.now();
+    const result = { ok: true, clarityMs: null, verifierMs: null, error: null, kind: null };
+    const jobs = [
+      ["clarityMs", prompt, "ok", RESPONSE_FORMAT, useReasonStop ? { stop: [REASON_STOP] } : {}],
+      ...verifierPrompt ? [["verifierMs", verifierPrompt, "ORIGINAL: ok\nPROPOSED: ok", VERDICT_FORMAT, {}]] : []
+    ];
+    for (const [key, system, user, format, stopping] of jobs) {
+      const timer = new AbortController();
+      const left = Math.max(1e3, budgetMs - (Date.now() - started));
+      const timeout = setTimeout(() => timer.abort(new Error("timeout")), left);
+      const composed = typeof AbortSignal.any === "function" && signal ? AbortSignal.any([signal, timer.signal]) : signal ?? timer.signal;
+      const at = Date.now();
+      try {
+        const response = await fetchImpl(endpoint, {
+          method: "POST",
+          headers,
+          signal: composed,
+          body: JSON.stringify({
+            ...extra,
+            model,
+            temperature: 0,
+            top_p: 1,
+            max_tokens: 1,
+            response_format: format,
+            ...stopping,
+            messages: [
+              { role: "system", content: system },
+              { role: "user", content: user }
+            ]
+          })
+        });
+        if (typeof response.text === "function") await response.text().catch(() => "");
+        if (!response.ok) {
+          throw new EngineError(`Local model server returned HTTP ${response.status}`, {
+            kind: response.status >= 500 || response.status === 429 ? "transient" : "failed"
+          });
+        }
+        result[key] = Date.now() - at;
+      } catch (error) {
+        result.ok = false;
+        result.error = error.message || String(error);
+        result.kind = signal?.aborted ? "aborted" : timer.signal.aborted ? "timeout" : error.kind ?? "transient";
+        return result;
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+    return result;
+  }
+  return { rewrite, decide, verify, warmUp: warmUp2, endpoint, dialect, model, useReasonStop };
 }
 
 // src/diff.mjs
@@ -3931,6 +3983,9 @@ Output only one JSON object with exactly these fields: verdict ("show" or "hide"
 // obsidian-plugin/node-fetch.mjs
 var import_node_http = __toESM(require("node:http"), 1);
 var import_node_https = __toESM(require("node:https"), 1);
+var REDIRECT_STATUSES = /* @__PURE__ */ new Set([301, 302, 303, 307, 308]);
+var MAX_REDIRECTS = 10;
+var ORIGIN_BOUND_HEADERS = /* @__PURE__ */ new Set(["authorization", "cookie", "proxy-authorization"]);
 function nodeFetch(url, { method = "GET", headers = {}, body, signal } = {}) {
   return new Promise((resolve, reject2) => {
     const abortReason = () => signal?.reason instanceof Error ? signal.reason : new Error("Request superseded");
@@ -3945,48 +4000,110 @@ function nodeFetch(url, { method = "GET", headers = {}, body, signal } = {}) {
       reject2(error);
       return;
     }
-    const client = target.protocol === "https:" ? import_node_https.default : import_node_http.default;
-    const request = client.request(
-      {
-        protocol: target.protocol,
-        // WHATWG URL keeps an IPv6 literal bracketed; Node's http stack wants it bare,
-        // and the bracketed form resolves as a DNS name ("getaddrinfo ENOTFOUND [::1]").
-        hostname: target.hostname.replace(/^\[|\]$/gu, ""),
-        port: target.port,
-        path: `${target.pathname}${target.search}`,
-        method,
-        headers: body ? { ...headers, "content-length": Buffer.byteLength(body) } : headers
-      },
-      (response) => {
-        const chunks = [];
-        response.on("data", (chunk) => chunks.push(chunk));
-        response.on("error", reject2);
-        response.on("end", () => {
-          const text = Buffer.concat(chunks).toString("utf8");
-          resolve({
-            ok: response.statusCode >= 200 && response.statusCode < 300,
-            status: response.statusCode,
-            text: async () => text,
-            // Left to throw its own SyntaxError: engine.mjs distinguishes an unparseable
-            // body from a broken connection, and flattening it here would lose that.
-            json: async () => JSON.parse(text)
-          });
-        });
-      }
-    );
+    let current = null;
+    let settled = false;
     const abort = () => {
       const reason = abortReason();
-      request.destroy(reason);
-      reject2(reason);
+      current?.destroy(reason);
+      if (!settled) {
+        settled = true;
+        reject2(reason);
+      }
     };
     signal?.addEventListener("abort", abort, { once: true });
-    request.on("error", (error) => {
-      signal?.removeEventListener("abort", abort);
-      reject2(error);
-    });
-    request.on("close", () => signal?.removeEventListener("abort", abort));
-    if (body) request.write(body);
-    request.end();
+    const detach = () => signal?.removeEventListener("abort", abort);
+    const fail = (error) => {
+      detach();
+      if (!settled) {
+        settled = true;
+        reject2(error);
+      }
+    };
+    const hop = (currentUrl, currentMethod, currentHeaders, currentBody, hops, redirected) => {
+      const client = currentUrl.protocol === "https:" ? import_node_https.default : import_node_http.default;
+      const request = client.request(
+        {
+          protocol: currentUrl.protocol,
+          // WHATWG URL keeps an IPv6 literal bracketed; Node's http stack wants it bare,
+          // and the bracketed form resolves as a DNS name ("getaddrinfo ENOTFOUND [::1]").
+          hostname: currentUrl.hostname.replace(/^\[|\]$/gu, ""),
+          port: currentUrl.port,
+          path: `${currentUrl.pathname}${currentUrl.search}`,
+          method: currentMethod,
+          headers: currentBody ? { ...currentHeaders, "content-length": Buffer.byteLength(currentBody) } : currentHeaders
+        },
+        (response) => {
+          const status = response.statusCode;
+          const location = response.headers.location;
+          if (REDIRECT_STATUSES.has(status) && location && !signal?.aborted) {
+            response.resume();
+            if (hops >= MAX_REDIRECTS) {
+              fail(new Error(`${url}: more than ${MAX_REDIRECTS} redirects`));
+              return;
+            }
+            let next;
+            try {
+              next = new URL(location, currentUrl);
+            } catch (error) {
+              fail(new Error(`${currentUrl}: redirect to an unusable location "${location}"`));
+              return;
+            }
+            const toGet = status === 303 || (status === 301 || status === 302) && currentMethod === "POST";
+            const nextMethod = toGet ? "GET" : currentMethod;
+            const nextBody = toGet ? void 0 : currentBody;
+            const nextHeaders = { ...currentHeaders };
+            if (toGet) delete nextHeaders["content-type"];
+            if (next.origin !== currentUrl.origin) {
+              for (const name of Object.keys(nextHeaders)) {
+                if (ORIGIN_BOUND_HEADERS.has(name.toLowerCase())) delete nextHeaders[name];
+              }
+            }
+            hop(next, nextMethod, nextHeaders, nextBody, hops + 1, true);
+            return;
+          }
+          current = response;
+          response.once("close", detach);
+          let buffered = null;
+          const text = () => {
+            if (!buffered) {
+              buffered = new Promise((res, rej) => {
+                const chunks = [];
+                response.on("data", (chunk) => chunks.push(chunk));
+                response.once("error", rej);
+                response.once("end", () => res(Buffer.concat(chunks).toString("utf8")));
+              });
+            }
+            return buffered;
+          };
+          settled = true;
+          resolve({
+            ok: status >= 200 && status < 300,
+            status,
+            url: currentUrl.href,
+            redirected,
+            headers: {
+              get: (name) => {
+                const value = response.headers[String(name).toLowerCase()];
+                if (value == null) return null;
+                return Array.isArray(value) ? value.join(", ") : String(value);
+              }
+            },
+            // The stream itself, for a consumer that must not hold 1.5 GB in memory.
+            // Reading it and calling text() are alternatives, not a sequence.
+            body: response,
+            text,
+            // Left to throw its own SyntaxError: engine.mjs distinguishes an unparseable
+            // body from a broken connection, and flattening it here would lose that.
+            json: async () => JSON.parse(await text())
+          });
+        }
+      );
+      current = request;
+      request.on("error", fail);
+      if (currentBody) request.write(currentBody);
+      request.end();
+    };
+    hop(target, method, { ...headers }, body, 0, false);
   });
 }
 
@@ -6043,22 +6160,28 @@ async function provision({
       }
     });
   }
-  if (!confirmed) {
-    throw new ProvisionError(
-      `Provisioning would download ${decided.items.length} file(s), ${formatBytes(decided.totalBytes)}. Nothing was fetched: call provision({ confirmed: true }) once a person has seen the plan.`,
-      { kind: "unconfirmed" }
-    );
-  }
   const runtimeDir = (0, import_node_path4.join)(stateDir, RUNTIME_DIR);
   const modelDir = (0, import_node_path4.join)(stateDir, MODEL_DIR);
   await (0, import_promises5.mkdir)(runtimeDir, { recursive: true });
   await (0, import_promises5.mkdir)(modelDir, { recursive: true });
-  let binary = null;
-  let modelPath = null;
+  const placed = [];
   for (const item of decided.items) {
     const destination = item.kind === "runtime" ? (0, import_node_path4.join)(runtimeDir, item.name) : (0, import_node_path4.join)(modelDir, item.name);
+    placed.push({ item, destination, pinned: await isPinnedOnDisk(destination, item.sha256) });
+  }
+  const missing = placed.filter(({ pinned }) => !pinned);
+  if (!confirmed && missing.length) {
+    const bytes = missing.reduce((sum, { item }) => sum + (item.bytes ?? 0), 0);
+    throw new ProvisionError(
+      `Provisioning would download ${missing.length} file(s), ${formatBytes(bytes)}. Nothing was fetched: call provision({ confirmed: true }) once a person has seen the plan.`,
+      { kind: "unconfirmed" }
+    );
+  }
+  let binary = null;
+  let modelPath = null;
+  for (const { item, destination, pinned } of placed) {
     onEvent({ phase: "download", item, destination });
-    const result = await downloadVerified({
+    const result = pinned ? { path: destination, bytes: item.bytes, reused: true } : await downloadVerified({
       url: item.url,
       destination,
       sha256: item.sha256,
@@ -6128,6 +6251,14 @@ async function provision({
     stop: (options) => handle.stop(options),
     handle
   };
+}
+async function isPinnedOnDisk(path, sha256) {
+  try {
+    if ((await (0, import_promises5.stat)(path)).size <= 0) return false;
+  } catch {
+    return false;
+  }
+  return await hashOf(path) === sha256;
 }
 function runtimeForItem(item) {
   return manifest_default.runtimes.find((runtime) => runtime.id === item.id);
@@ -6579,13 +6710,21 @@ var DEFAULTS = {
   // Minutes of no typing before the managed server is unloaded and its 2 GB returned to
   // the machine. 0 keeps it resident.
   //
+  // Coming back is automatic since 1.0.1 and costs about a minute on a 4-core CPU: the
+  // files on disk are re-verified, the server restarted and both prompts read in again.
   // The KV slot is saved first, and measurement on 2026-09-03 says that buys almost
-  // nothing: restoring it costs 41.2 s to the first sentence against 41.4 s with no
-  // restore at all, because what dominates is reading the 1,587-token clarity prompt back
-  // in on a 4-core CPU. The save is kept because it is cheap and a future llama.cpp may
-  // make the prefix hit; the ten-minute default is the part to argue with, and the setting
-  // description now says what the wait actually is. See REPORT.md, 2026-09-03.
-  idleUnloadMinutes: 10,
+  // nothing (41.2 s to the first sentence with the restore against 41.4 s without),
+  // because what dominates is reading the 1,587-token clarity prompt back in. The save is
+  // kept because it is cheap and a future llama.cpp may make the prefix hit. Ten minutes
+  // was the 1.0.0 default and made every coffee break cost that minute; sixty is the
+  // measured trade (ROADMAP 5.2), and the setting says what the wait is.
+  idleUnloadMinutes: 60,
+  // Whether the server at baseUrl is one Tolben started. A managed server does not
+  // outlive Obsidian, and the idle unload stops it on purpose, so on the way back the
+  // plugin re-provisions it from the files on disk. A server the writer runs is theirs,
+  // and is only ever connected to. Until 1.0.1 this was not recorded, and a managed server
+  // was never started again: REPORT.md, 2026-09-04.
+  managed: false,
   // "Never drop words": refuse any rewrite that loses a content word, instead of putting
   // the single-word cases to the 2B verifier. OFF by default, because on the labelled
   // corpora it stops 0 further meaning changes and costs 15 Grammarly rows plus 48
@@ -6610,6 +6749,9 @@ var TolbenPlugin = class extends import_obsidian.Plugin {
     this.modelName = null;
     this.runtime = null;
     this.idleTimer = null;
+    this.starting = null;
+    this.provisioning = null;
+    this.provisionImpl ?? (this.provisionImpl = provision);
     this.ledger = createLedger();
     this.network = createNetworkLog();
     this.fetch = this.network.wrap(nodeFetch);
@@ -6689,6 +6831,7 @@ var TolbenPlugin = class extends import_obsidian.Plugin {
         },
         onUseExisting: async () => {
           this.settings.baseUrl = proposed.running.llamaServer?.apiBase ?? proposed.running.ollama?.apiBase;
+          this.settings.managed = false;
           this.settings.setupDone = true;
           await this.save();
           modal.close();
@@ -6709,6 +6852,7 @@ var TolbenPlugin = class extends import_obsidian.Plugin {
           onProgress: ({ status, received, total }) => renderProgress(root, { label: status, received, total, note: proposed.ollamaTag })
         });
         this.settings.baseUrl = proposed.running.ollama.apiBase;
+        this.settings.managed = false;
       } else {
         const result = await provision({
           stateDir: this.stateDir(),
@@ -6723,18 +6867,20 @@ var TolbenPlugin = class extends import_obsidian.Plugin {
             } else if (event.phase === "spawn") {
               renderProgress(root, { label: "Starting the model server", received: 0, total: 0 });
             } else if (event.phase === "warmup") {
-              renderProgress(root, { label: "Loading the weights", received: 0, total: 0, note: "about 15 seconds the first time" });
+              renderProgress(root, { label: "Loading the weights", received: 0, total: 0, note: "a few seconds; longer the first time" });
             }
           }
         });
         this.runtime = result;
         this.settings.baseUrl = result.apiBase;
         this.apiKey = result.apiKey;
+        this.settings.managed = Boolean(result.managed);
       }
       this.settings.setupDone = true;
       await this.save();
-      modal.close();
+      renderProgress(root, { label: "Reading the prompts in", received: 0, total: 0, note: "about 40 seconds on a 4-core CPU, once per server start" });
       await this.connect();
+      modal.close();
       new import_obsidian.Notice("Tolben: ready");
     } catch (error) {
       root.replaceChildren();
@@ -6840,7 +6986,77 @@ ${error.advice.fallback}` : ""}`;
   deletionPolicy() {
     return this.settings.neverDropWords ? "refuse" : "verify";
   }
-  async connect() {
+  // One connection at a time, and every sentence waits for it. While the prompts are
+  // being read in, a sentence sent alongside would queue behind them on the single slot
+  // and meet the 12 s timeout — which is exactly what the writer's first sentence did in
+  // 1.0.0 (REPORT.md, 2026-09-04).
+  connect() {
+    if (!this.starting) {
+      this.starting = this.connectNow().finally(() => {
+        this.starting = null;
+      });
+      this.starting.catch(() => {
+      });
+    }
+    return this.starting;
+  }
+  // The connection a sentence needs, unless the writer moves past the sentence first.
+  async awaitConnection({ signal } = {}) {
+    const connecting = this.connect();
+    if (!signal) return connecting;
+    let onAbort;
+    const aborted = new Promise((_, reject2) => {
+      onAbort = () => reject2(Object.assign(new Error("Request superseded"), { kind: "aborted" }));
+      if (signal.aborted) onAbort();
+      else signal.addEventListener("abort", onAbort, { once: true });
+    });
+    try {
+      return await Promise.race([connecting, aborted]);
+    } finally {
+      signal.removeEventListener("abort", onAbort);
+    }
+  }
+  // A server Tolben started does not outlive Obsidian, and the idle unload stops it on
+  // purpose; both times the way back is the provisioning the setup pane did, from the
+  // files it left on disk. Never a download: provision() refuses one it has not been
+  // confirmed for, and the refusal becomes the one instruction that helps.
+  ensureRuntime() {
+    if (this.runtime || !this.settings.managed) return Promise.resolve();
+    if (!this.provisioning) {
+      this.provisioning = (async () => {
+        let result;
+        try {
+          result = await this.provisionImpl({
+            stateDir: this.stateDir(),
+            modelId: this.settings.modelId,
+            confirmed: false,
+            fetchImpl: this.fetch,
+            readFile: (path, encoding) => this.readNodeFile(path, encoding),
+            run: (command, args) => this.runCommand(command, args)
+          });
+        } catch (error) {
+          if (error.kind === "unconfirmed") {
+            throw Object.assign(
+              new Error('the model files are not on disk \u2014 run "Tolben: Set up the model server"'),
+              { kind: "failed", cause: error }
+            );
+          }
+          throw error;
+        }
+        this.runtime = result;
+        this.settings.baseUrl = result.apiBase;
+        this.apiKey = result.apiKey;
+        this.settings.managed = Boolean(result.managed);
+        await this.save();
+      })().finally(() => {
+        this.provisioning = null;
+      });
+    }
+    return this.provisioning;
+  }
+  async connectNow() {
+    this.setStatus(statusLine({ state: "starting", managed: Boolean(this.settings.managed) }));
+    await this.ensureRuntime();
     if (!this.settings.baseUrl) throw new Error("no model server configured \u2014 run setup");
     const base = this.settings.baseUrl.replace(/\/$/u, "");
     const headers = this.apiKey ? { authorization: `Bearer ${this.apiKey}` } : {};
@@ -6872,11 +7088,17 @@ ${error.advice.fallback}` : ""}`;
       apiKey: this.apiKey ?? null,
       timeoutMs: 12e3
     });
+    const warm = await this.engine.warmUp();
+    if (!warm.ok) {
+      this.engine = null;
+      throw Object.assign(new Error(`the model did not answer while starting: ${warm.error}`), { kind: warm.kind ?? "transient" });
+    }
+    this.warmUp = warm;
     this.setStatus(statusLine({ state: "ready", managed: Boolean(this.runtime?.managed) }));
     return this.modelName;
   }
   async analyze(sentence, { signal, context }) {
-    if (!this.engine) await this.connect();
+    if (!this.engine || this.starting) await this.awaitConnection({ signal });
     const cache = this.outcomeCache();
     const key = outcomeKey(sentence, context?.protectedTerms ?? []);
     const hit = cache.get(key);
@@ -6935,11 +7157,13 @@ ${error.advice.fallback}` : ""}`;
   }
   // ------------------------------------------------------------------- idle unload
   /**
-   * Give the machine its 2 GB back after a while, and make coming back cheap.
+   * Give the machine its 2 GB back after a while.
    *
-   * The KV slot is written before the server stops, so the next sentence pays a file
-   * read rather than a fifteen-second reload. Only a server Tolben started is ever
-   * stopped: one the writer runs themselves is theirs.
+   * The next sentence brings the server back through ensureRuntime(): about a minute on
+   * a 4-core CPU, under "starting the model". The KV slot is written before the server
+   * stops; measured, that does not shorten the way back (REPORT.md, 2026-09-03), and it
+   * is kept because it is cheap. Only a server Tolben started is ever stopped: one the
+   * writer runs themselves is theirs.
    */
   armIdleUnload() {
     clearTimeout(this.idleTimer);
@@ -6954,7 +7178,6 @@ ${error.advice.fallback}` : ""}`;
     await saveSlot2({ baseUrl: this.runtime.baseUrl, apiKey: this.runtime.apiKey, fetchImpl: this.fetch });
     await this.runtime.stop();
     this.engine = null;
-    this.idleUnloaded = { ...this.runtime };
     this.runtime = null;
     this.setStatus(statusLine({ state: "idle", managed: true }));
   }
@@ -6964,7 +7187,7 @@ ${error.advice.fallback}` : ""}`;
   renderStatus({ count, inFlight, held = 0, error }) {
     const path = this.app.workspace.getActiveFile?.()?.path;
     this.setStatus(statusLine({
-      state: error ? "error" : inFlight > 0 ? "checking" : this.settings.setupDone ? "ready" : "setup",
+      state: this.starting ? "starting" : error ? "error" : inFlight > 0 ? "checking" : this.settings.setupDone ? "ready" : "setup",
       count,
       refused: path ? this.ledger.countForNote(path) : 0,
       held,
@@ -7017,7 +7240,7 @@ var TolbenSettingTab = class extends import_obsidian.PluginSettingTab {
       this.plugin.settings.debounceMs = Math.min(2e3, Math.max(40, parsed));
       await this.plugin.save();
     }));
-    new import_obsidian.Setting(containerEl).setName("Unload the model when idle").setDesc("Minutes of no typing before a model server Tolben started is stopped and its memory returned, 0 to keep it loaded. The first sentence after it comes back is slow \u2014 about 40 seconds on a 4-core CPU, because the prompt has to be read in again \u2014 so set this to 0 if you would rather keep the 2 GB and never wait. A server you started yourself is never stopped.").addText((text) => text.setPlaceholder(String(DEFAULTS.idleUnloadMinutes)).setValue(String(this.plugin.settings.idleUnloadMinutes)).onChange(async (value) => {
+    new import_obsidian.Setting(containerEl).setName("Unload the model when idle").setDesc('Minutes of no typing before a model server Tolben started is stopped and its 2 GB returned, 0 to keep it loaded. It comes back by itself when you finish a sentence, but slowly \u2014 about a minute on a 4-core CPU, while the status bar says "starting the model": the files are re-verified, the server restarted and the prompts read in again. Set this to 0 if you would rather keep the 2 GB and never wait. A server you started yourself is never stopped.').addText((text) => text.setPlaceholder(String(DEFAULTS.idleUnloadMinutes)).setValue(String(this.plugin.settings.idleUnloadMinutes)).onChange(async (value) => {
       const parsed = Number.parseInt(value, 10);
       if (!Number.isFinite(parsed) || parsed < 0) return;
       this.plugin.settings.idleUnloadMinutes = parsed;

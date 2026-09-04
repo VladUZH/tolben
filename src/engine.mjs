@@ -242,5 +242,65 @@ export function createEngine({
     }
   }
 
-  return { rewrite, decide, verify, endpoint, dialect, model, useReasonStop };
+  // Read the prompts in before the writer's first sentence has to. On a 4-core CPU the
+  // 1,587-token clarity prompt costs about forty seconds to prefill, once per server
+  // process, and the verifier's prompt its own share; a sentence that paid that met the
+  // 12 s timeout twice and was held (REPORT.md, 2026-09-04). Each call is the real request
+  // shape with max_tokens 1, so what the server caches is exactly the prefix the real
+  // requests share. Reported, not thrown, like the rest of this file's outages: the caller
+  // decides what a server that cannot answer while starting means.
+  async function warmUp({ signal, timeoutMs: budgetMs = 300000 } = {}) {
+    const started = Date.now();
+    const result = { ok: true, clarityMs: null, verifierMs: null, error: null, kind: null };
+    const jobs = [
+      ["clarityMs", prompt, "ok", RESPONSE_FORMAT, useReasonStop ? { stop: [REASON_STOP] } : {}],
+      ...(verifierPrompt ? [["verifierMs", verifierPrompt, "ORIGINAL: ok\nPROPOSED: ok", VERDICT_FORMAT, {}]] : []),
+    ];
+    for (const [key, system, user, format, stopping] of jobs) {
+      const timer = new AbortController();
+      const left = Math.max(1000, budgetMs - (Date.now() - started));
+      const timeout = setTimeout(() => timer.abort(new Error("timeout")), left);
+      const composed = typeof AbortSignal.any === "function" && signal
+        ? AbortSignal.any([signal, timer.signal])
+        : (signal ?? timer.signal);
+      const at = Date.now();
+      try {
+        const response = await fetchImpl(endpoint, {
+          method: "POST",
+          headers,
+          signal: composed,
+          body: JSON.stringify({
+            ...extra,
+            model,
+            temperature: 0,
+            top_p: 1,
+            max_tokens: 1,
+            response_format: format,
+            ...stopping,
+            messages: [
+              { role: "system", content: system },
+              { role: "user", content: user },
+            ],
+          }),
+        });
+        if (typeof response.text === "function") await response.text().catch(() => "");
+        if (!response.ok) {
+          throw new EngineError(`Local model server returned HTTP ${response.status}`, {
+            kind: response.status >= 500 || response.status === 429 ? "transient" : "failed",
+          });
+        }
+        result[key] = Date.now() - at;
+      } catch (error) {
+        result.ok = false;
+        result.error = error.message || String(error);
+        result.kind = signal?.aborted ? "aborted" : timer.signal.aborted ? "timeout" : (error.kind ?? "transient");
+        return result;
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+    return result;
+  }
+
+  return { rewrite, decide, verify, warmUp, endpoint, dialect, model, useReasonStop };
 }

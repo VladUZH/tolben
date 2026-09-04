@@ -2293,3 +2293,149 @@ this report.
 4. The lifecycle rig runs clean, and the six model-server tests run unskipped, before the
    tag. The README and FAQ sentences about the 41 seconds are rewritten to what the plugin
    does once 2 is in.
+
+## 2026-09-04 — 1.0.1: the three defects fixed, and measured through the plugin
+
+Same day, same rig. Four source files changed — `obsidian-plugin/node-fetch.mjs`,
+`src/engine.mjs`, `obsidian-plugin/runtime/provision.mjs`, `obsidian-plugin/main.mjs` — and
+two test files were written for what had none. Then `tools/plugin-lifecycle.mjs` was run
+twice against the real b10760 server and the pinned model, once with `--fresh` so that
+both artefacts came down through the plugin's own fetch, and the suite was run on that
+server with nothing skipped. Every number below is from those runs; the command lines are
+at the end.
+
+### The fetch
+
+`node-fetch.mjs` follows 301, 302, 303, 307 and 308 across at most ten hops; 303, and a
+301 or 302 after a POST, become a GET without the body, as browsers do; the
+`authorization` and `cookie` headers are dropped when a hop changes origin, so the managed
+server's bearer key can never be steered to a CDN. The response carries `headers.get()`,
+`url`, `redirected`, and `body` — the Node response stream itself — with `text()` and
+`json()` buffering lazily, so the engine's half is unchanged and the provisioner's half
+exists. `tests/plugin-node-fetch.test.mjs` runs nine cases against a real HTTP server on
+loopback rather than a fake: a relative redirect and then an absolute one to a second
+origin, `downloadVerified` end to end through this fetch with a pinned sha256 and a Range
+resume answered with 206, the loop limit, an abort mid-body that rejects with the
+signal's own reason.
+
+Against the real hosts, through the plugin's fetch, in the `--fresh` run:
+
+| Artefact | Bytes | Redirect | Time | Rate | Pin |
+|---|---|---|---|---|---|
+| `llama-b10760-bin-ubuntu-x64.tar.gz` | 16,715,049 | github.com → release-assets.githubusercontent.com | 0.4 s | 42 MB/s | matched |
+| `Qwen3.5-2B-Q6_K.gguf` | 1,556,390,368 | huggingface.co → us.aws.cdn.hf.co | 29.3 s | 53 MB/s | matched |
+
+The 1.5 GB went through the stream to the `.part` file and the hash at once, on a Node
+process whose heap never held it. This is a datacentre line, and the rate says nothing
+about a domestic one; what it says is that the path works.
+
+### The warm-up
+
+`createEngine()` gained `warmUp()`: the clarity prompt and then the verifier prompt, each
+as the real request shape with `max_tokens: 1`, under a five-minute budget, reported
+rather than thrown. `connect()` in the plugin calls it after building the engine, under
+`Tolben: starting the model`, and returns only when both are in; `analyze()` awaits that
+connection for every sentence, unless the sentence's own signal aborts first, so nothing
+is sent alongside the prefill on the single slot. The setup pane shows "Reading the
+prompts in" for the same forty seconds. The engine's 12 s stays: it is the right bound
+for a warm server.
+
+| | run 1 (`--fresh`) | run 2 | back after unload | after restart |
+|---|---|---|---|---|
+| Server up, weights loaded, one token | 3.3 s | 3.0 s | | |
+| Clarity prompt read in | 27.7 s | 27.2 s | 26.9 / 28.1 s | 27.8 / 28.4 s |
+| Verifier prompt read in | 13.5 s | 13.5 s | 13.3 / 14.1 s | 13.0 / 13.7 s |
+| **Both, `connect()` end to end** | **41.2 s** | **40.7 s** | | |
+| First sentence after | 5.6 s | 5.7 s (reached the verifier) | 1.5 s | 1.7 / 1.8 s |
+| The next eight sentences | 1.2–1.9 s | 1.0–1.8 s | | |
+
+Against 12.0 / 12.0 / 18.1 / 6.4 s for the same first sentence in the morning's run, and
+against "41–46 s" for a first sentence with no warm-up at all in the 3.2 section: the
+forty seconds are the same forty seconds, paid once, before the writer types, with the
+status bar saying what is happening. The first sentence after them is 5–6 s rather than
+1–2 — the warm-up ends with the verifier's prompt in the slot and the first clarity
+request has to get its prefix back — and that is left as it is, measured.
+
+Two of the nine sentences in run 2 were written to reach the verifier with a single
+lost word; neither did — the model kept both — so the only verifier call in either run
+is inside that 5.7 s first sentence, and the verifier-alternation cost the morning's
+10.6 s hinted at is still not separately measured. Everything after the first sentence
+sat between 1.0 and 1.9 s.
+
+### The lifecycle
+
+`data.json` records `managed`. `ensureRuntime()` re-provisions a managed server that is
+not running — at launch, and on the first sentence after the idle unload — sharing one
+in-flight provision among every sentence that arrives meanwhile, then `connect()` reads
+the prompts in as above. It provisions with `confirmed: false`: `provision()` now checks
+each artefact on disk against its pin *before* refusing, and refuses only if something
+would have to be fetched, so the way back never downloads and a missing file becomes the
+one instruction that helps ("run Tolben: Set up the model server", kind `failed`, one
+attempt). `unloadIdle()` still saves the slot and stops the process; nothing else about it
+changed except that the plugin can now come back.
+
+```
+[  68.7s] after unloadIdle: runtime=null engine=null server unreachable (ECONNREFUSED)
+[ 122.7s] S7 after the idle unload: 54029 ms -> null  [none]
+[ 122.7s] back in 54029 ms: managed=true pid=5634 — prompts 28081 + 14059 ms of that
+[ 124.2s] onload returned in 1 ms; starting=true (the server starts without waiting for a sentence)
+[ 176.2s] ready 51913 ms after load: pid=5650 prompts 28378 + 13663 ms
+[ 178.0s] S8 first sentence of the new session: 1806 ms -> null  [none]
+```
+
+The way back is about 52 s here (52.6 and 54.0 s): 7 s to hash 1.5 GB again, 3 s to
+spawn and load, 41 s of prompts, then the sentence. A launch of Obsidian is the same
+minus the sentence (50.9 and 51.9 s to ready), started from `onload()` rather than from
+the first sentence, so a writer who opens a vault and reads for a minute finds it ready.
+
+On that measurement the idle-unload default moved from ten minutes to sixty. Ten made
+every short break cost the minute; sixty makes a lunch break cost it, once, under a
+status that says so. ROADMAP 5.2's criterion — under 5 s after an unload, *or* the
+default changed on the measured trade — is met by its second clause, and its first is
+still open: getting under 5 s means a prefix cache that outlives the process, or a
+process that is not stopped. The 7 s re-hash on every return is deliberate: the files are
+verified before a binary is run, every time, and a sidecar that remembered a hash would
+be a weaker rule.
+
+`tests/plugin-lifecycle.test.mjs` drives the shipped bundle against a fake model server
+on loopback and an injected provisioner, six cases: started at launch and warmed with both
+prompts — the two `max_tokens: 1` requests carry the clarity and verifier prompts
+verbatim — before any sentence; back after the unload with two concurrent sentences
+sharing one provision; a restart with the saved `data.json`; files gone, so the setup
+command is named and nothing is fetched; a server the writer runs is never provisioned;
+a sentence the writer moves past does not wait. The first version of that file hung the
+whole suite when one case failed, because a fake server left listening keeps the process
+alive; every case now registers its cleanup with `t.after`, and the fake servers are
+`unref()`ed, so a failure can only ever fail.
+
+### The suite, the controls, the rig
+
+| | |
+|---|---|
+| `npm test`, no server | 943 tests, 934 pass, 0 fail, 6 skipped, 3 todo |
+| `npm test`, on the pinned b10760 binary with the pinned model | **943 tests, 940 pass, 0 fail, 0 skipped**, 3 todo |
+| `node bench/oracle.mjs` | 73 / 15 / 30, ceiling 88/118 — unchanged |
+| `node bench/precision-check.mjs` | 281 accepted, 0 meaning-changing — unchanged |
+| `node bench/unlock-check.mjs` | 209 refusals, 0 unlocked — unchanged |
+| `node tools/plugin-lifecycle.mjs --state … --fresh` | no findings, 199 s |
+| `node tools/plugin-lifecycle.mjs --state … --archive …` | no findings, 181 s |
+
+Nothing in the gate, the pipeline or the prompts changed, which is what the three
+unchanged controls say.
+
+### Not measured, and not claimed
+
+The rig is Node with Obsidian's five UI classes stubbed; the modal was not clicked, the
+`provision()` call was made with the arguments `runSetup()` passes. A real Obsidian
+window with the managed runtime — the setup pane pressed, the status bar watched for
+its fifty seconds — has still not been seen, and neither has any of this on macOS or
+Windows. The 1.0.1 release itself is the owner's to publish from the Releases page; when
+it exists, the rig should be run once more against the assets it attaches, which is a
+`main.js` that must be byte-identical to the one these runs loaded.
+
+```
+node tools/plugin-lifecycle.mjs --state /tmp/lifecycle --fresh
+node tools/plugin-lifecycle.mjs --state /tmp/lifecycle-2 --archive llama-b10760-bin-ubuntu-x64.tar.gz
+LD_LIBRARY_PATH=<b10760> <b10760>/llama-server -m models/Qwen3.5-2B-Q6_K.gguf --host 127.0.0.1 --port 8080 -c 4096 -np 1 --jinja --reasoning off &
+npm test
+```

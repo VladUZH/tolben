@@ -1,6 +1,6 @@
 {
   "name": "tolben",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A local writing checker that refuses any rewrite it cannot prove keeps the meaning",
   "license": "Apache-2.0",
   "type": "module",

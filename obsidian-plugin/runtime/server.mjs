@@ -249,6 +249,7 @@ export async function isHealthy({ baseUrl, apiKey, fetchImpl = globalThis.fetch,
       headers: apiKey ? { authorization: `Bearer ${apiKey}` } : {},
       signal: controller.signal,
     });
+    if (typeof response.text === "function") await response.text().catch(() => "");
     return response.ok;
   } catch {
     return false;
@@ -258,8 +259,11 @@ export async function isHealthy({ baseUrl, apiKey, fetchImpl = globalThis.fetch,
 }
 
 /**
- * One throwaway completion, so the writer's first real sentence is not the one that pays
- * for loading 1.5 GB of weights. Measured at about 15 seconds cold on a 4-core CPU.
+ * One throwaway completion, so the server has loaded 1.5 GB of weights and generated a
+ * token before it is handed over: 2-3 s on the 2026-09-03 machine, 0.4 s of it here.
+ * This is NOT the prompt read: the 1,587-token clarity prompt is read in by the engine's
+ * own warmUp() once the plugin has built it, about forty seconds on a 4-core CPU, and
+ * until 2026-09-04 nothing did that at all.
  */
 export async function warmUp({ apiBase, apiKey, model = "local", fetchImpl = globalThis.fetch, timeoutMs = 120000 } = {}) {
   const controller = new AbortController();
@@ -275,6 +279,7 @@ export async function warmUp({ apiBase, apiKey, model = "local", fetchImpl = glo
         messages: [{ role: "user", content: "ok" }],
       }),
     });
+    if (typeof response.text === "function") await response.text().catch(() => "");
     return { ok: response.ok, ms: Date.now() - started };
   } catch (error) {
     return { ok: false, ms: Date.now() - started, error: error.message };

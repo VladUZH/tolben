@@ -5,12 +5,12 @@
 // of Plugin methods onload() calls; the status bar is a string, a Notice is a log line, a
 // Modal is an empty object. Nothing about the model, the server, the provisioner or the
 // plugin's own control flow is faked — that is the point of the exercise.
-const rig = () => globalThis.__tolbenRig;
+const rig = () => globalThis.__tolbenRig ?? { log: () => {}, data: null };
 
 class Plugin {
   constructor(app, manifest) { this.app = app; this.manifest = manifest; }
   addStatusBarItem() {
-    const el = { text: "", setText: (text) => { el.text = text; rig().log(`   status bar -> ${JSON.stringify(text)}`); } };
+    const el = { text: "", setText: (text) => { el.text = text; rig().log(`   status bar -> ${JSON.stringify(text)}`); rig().onStatus?.(text); } };
     return el;
   }
   addCommand() {}

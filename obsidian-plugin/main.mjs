@@ -41,13 +41,21 @@ const DEFAULTS = {
   // Minutes of no typing before the managed server is unloaded and its 2 GB returned to
   // the machine. 0 keeps it resident.
   //
+  // Coming back is automatic since 1.0.1 and costs about a minute on a 4-core CPU: the
+  // files on disk are re-verified, the server restarted and both prompts read in again.
   // The KV slot is saved first, and measurement on 2026-09-03 says that buys almost
-  // nothing: restoring it costs 41.2 s to the first sentence against 41.4 s with no
-  // restore at all, because what dominates is reading the 1,587-token clarity prompt back
-  // in on a 4-core CPU. The save is kept because it is cheap and a future llama.cpp may
-  // make the prefix hit; the ten-minute default is the part to argue with, and the setting
-  // description now says what the wait actually is. See REPORT.md, 2026-09-03.
-  idleUnloadMinutes: 10,
+  // nothing (41.2 s to the first sentence with the restore against 41.4 s without),
+  // because what dominates is reading the 1,587-token clarity prompt back in. The save is
+  // kept because it is cheap and a future llama.cpp may make the prefix hit. Ten minutes
+  // was the 1.0.0 default and made every coffee break cost that minute; sixty is the
+  // measured trade (ROADMAP 5.2), and the setting says what the wait is.
+  idleUnloadMinutes: 60,
+  // Whether the server at baseUrl is one Tolben started. A managed server does not
+  // outlive Obsidian, and the idle unload stops it on purpose, so on the way back the
+  // plugin re-provisions it from the files on disk. A server the writer runs is theirs,
+  // and is only ever connected to. Until 1.0.1 this was not recorded, and a managed server
+  // was never started again: REPORT.md, 2026-09-04.
+  managed: false,
   // "Never drop words": refuse any rewrite that loses a content word, instead of putting
   // the single-word cases to the 2B verifier. OFF by default, because on the labelled
   // corpora it stops 0 further meaning changes and costs 15 Grammarly rows plus 48
@@ -88,6 +96,9 @@ export default class TolbenPlugin extends Plugin {
     this.modelName = null;
     this.runtime = null;          // the managed server, when Tolben started one
     this.idleTimer = null;
+    this.starting = null;         // the one connect() in flight, which every sentence awaits
+    this.provisioning = null;     // the one re-provision in flight
+    this.provisionImpl ??= provision;   // replaceable, so the lifecycle can be tested
     this.ledger = createLedger();
     this.network = createNetworkLog();
     // Every request the plugin makes goes through this one wrapper, which is what lets
@@ -179,6 +190,7 @@ export default class TolbenPlugin extends Plugin {
         onCancel: async () => { this.settings.setupDone = true; await this.save(); modal.close(); },
         onUseExisting: async () => {
           this.settings.baseUrl = proposed.running.llamaServer?.apiBase ?? proposed.running.ollama?.apiBase;
+          this.settings.managed = false;
           this.settings.setupDone = true;
           await this.save();
           modal.close();
@@ -201,6 +213,7 @@ export default class TolbenPlugin extends Plugin {
             renderProgress(root, { label: status, received, total, note: proposed.ollamaTag }),
         });
         this.settings.baseUrl = proposed.running.ollama.apiBase;
+        this.settings.managed = false;
       } else {
         const result = await provision({
           stateDir: this.stateDir(),
@@ -215,18 +228,23 @@ export default class TolbenPlugin extends Plugin {
             } else if (event.phase === "spawn") {
               renderProgress(root, { label: "Starting the model server", received: 0, total: 0 });
             } else if (event.phase === "warmup") {
-              renderProgress(root, { label: "Loading the weights", received: 0, total: 0, note: "about 15 seconds the first time" });
+              renderProgress(root, { label: "Loading the weights", received: 0, total: 0, note: "a few seconds; longer the first time" });
             }
           },
         });
         this.runtime = result;
         this.settings.baseUrl = result.apiBase;
         this.apiKey = result.apiKey;
+        this.settings.managed = Boolean(result.managed);
       }
       this.settings.setupDone = true;
       await this.save();
-      modal.close();
+      // The prompts are read in here, where the pane can say so, rather than by the
+      // writer's first sentence: about forty seconds on a 4-core CPU, once per server
+      // process. In 1.0.0 that sentence met the 12 s timeout twice instead.
+      renderProgress(root, { label: "Reading the prompts in", received: 0, total: 0, note: "about 40 seconds on a 4-core CPU, once per server start" });
       await this.connect();
+      modal.close();
       new Notice("Tolben: ready");
     } catch (error) {
       root.replaceChildren();
@@ -345,7 +363,77 @@ export default class TolbenPlugin extends Plugin {
     return this.settings.neverDropWords ? "refuse" : "verify";
   }
 
-  async connect() {
+  // One connection at a time, and every sentence waits for it. While the prompts are
+  // being read in, a sentence sent alongside would queue behind them on the single slot
+  // and meet the 12 s timeout — which is exactly what the writer's first sentence did in
+  // 1.0.0 (REPORT.md, 2026-09-04).
+  connect() {
+    if (!this.starting) {
+      this.starting = this.connectNow().finally(() => { this.starting = null; });
+      // Whoever awaits gets the rejection; this branch only keeps a connect nobody is
+      // waiting on (the one at load) from surfacing as an unhandled rejection.
+      this.starting.catch(() => {});
+    }
+    return this.starting;
+  }
+
+  // The connection a sentence needs, unless the writer moves past the sentence first.
+  async awaitConnection({ signal } = {}) {
+    const connecting = this.connect();
+    if (!signal) return connecting;
+    let onAbort;
+    const aborted = new Promise((_, reject) => {
+      onAbort = () => reject(Object.assign(new Error("Request superseded"), { kind: "aborted" }));
+      if (signal.aborted) onAbort();
+      else signal.addEventListener("abort", onAbort, { once: true });
+    });
+    try {
+      return await Promise.race([connecting, aborted]);
+    } finally {
+      signal.removeEventListener("abort", onAbort);
+    }
+  }
+
+  // A server Tolben started does not outlive Obsidian, and the idle unload stops it on
+  // purpose; both times the way back is the provisioning the setup pane did, from the
+  // files it left on disk. Never a download: provision() refuses one it has not been
+  // confirmed for, and the refusal becomes the one instruction that helps.
+  ensureRuntime() {
+    if (this.runtime || !this.settings.managed) return Promise.resolve();
+    if (!this.provisioning) {
+      this.provisioning = (async () => {
+        let result;
+        try {
+          result = await this.provisionImpl({
+            stateDir: this.stateDir(),
+            modelId: this.settings.modelId,
+            confirmed: false,
+            fetchImpl: this.fetch,
+            readFile: (path, encoding) => this.readNodeFile(path, encoding),
+            run: (command, args) => this.runCommand(command, args),
+          });
+        } catch (error) {
+          if (error.kind === "unconfirmed") {
+            throw Object.assign(
+              new Error("the model files are not on disk — run \"Tolben: Set up the model server\""),
+              { kind: "failed", cause: error },
+            );
+          }
+          throw error;
+        }
+        this.runtime = result;
+        this.settings.baseUrl = result.apiBase;
+        this.apiKey = result.apiKey;
+        this.settings.managed = Boolean(result.managed);
+        await this.save();
+      })().finally(() => { this.provisioning = null; });
+    }
+    return this.provisioning;
+  }
+
+  async connectNow() {
+    this.setStatus(statusLine({ state: "starting", managed: Boolean(this.settings.managed) }));
+    await this.ensureRuntime();
     if (!this.settings.baseUrl) throw new Error("no model server configured — run setup");
     const base = this.settings.baseUrl.replace(/\/$/u, "");
     const headers = this.apiKey ? { authorization: `Bearer ${this.apiKey}` } : {};
@@ -380,6 +468,14 @@ export default class TolbenPlugin extends Plugin {
       apiKey: this.apiKey ?? null,
       timeoutMs: 12000,
     });
+    // Read both prompts in now, under "starting the model", so the first sentence finds
+    // its prefix cached. A server that cannot manage that is not connected.
+    const warm = await this.engine.warmUp();
+    if (!warm.ok) {
+      this.engine = null;
+      throw Object.assign(new Error(`the model did not answer while starting: ${warm.error}`), { kind: warm.kind ?? "transient" });
+    }
+    this.warmUp = warm;
     this.setStatus(statusLine({ state: "ready", managed: Boolean(this.runtime?.managed) }));
     return this.modelName;
   }
@@ -393,7 +489,7 @@ export default class TolbenPlugin extends Plugin {
     // this same deterministic pipeline with no engine), including while llama-server is
     // down; what changed is that the model is now always asked as well, and supersedes
     // it.
-    if (!this.engine) await this.connect();
+    if (!this.engine || this.starting) await this.awaitConnection({ signal });
     // Paid-for answers are never paid for again. The cache holds only outcomes the MODEL
     // produced — mechanics, rules and the gate recompute in microseconds and would only
     // bloat the file.
@@ -461,11 +557,13 @@ export default class TolbenPlugin extends Plugin {
   // ------------------------------------------------------------------- idle unload
 
   /**
-   * Give the machine its 2 GB back after a while, and make coming back cheap.
+   * Give the machine its 2 GB back after a while.
    *
-   * The KV slot is written before the server stops, so the next sentence pays a file
-   * read rather than a fifteen-second reload. Only a server Tolben started is ever
-   * stopped: one the writer runs themselves is theirs.
+   * The next sentence brings the server back through ensureRuntime(): about a minute on
+   * a 4-core CPU, under "starting the model". The KV slot is written before the server
+   * stops; measured, that does not shorten the way back (REPORT.md, 2026-09-03), and it
+   * is kept because it is cheap. Only a server Tolben started is ever stopped: one the
+   * writer runs themselves is theirs.
    */
   armIdleUnload() {
     clearTimeout(this.idleTimer);
@@ -480,7 +578,6 @@ export default class TolbenPlugin extends Plugin {
     await saveSlot({ baseUrl: this.runtime.baseUrl, apiKey: this.runtime.apiKey, fetchImpl: this.fetch });
     await this.runtime.stop();
     this.engine = null;
-    this.idleUnloaded = { ...this.runtime };
     this.runtime = null;
     this.setStatus(statusLine({ state: "idle", managed: true }));
   }
@@ -494,7 +591,7 @@ export default class TolbenPlugin extends Plugin {
     // Held sentences spent their retry budget against a failing model. Reporting "clear"
     // here told the writer their prose was checked when it never was.
     this.setStatus(statusLine({
-      state: error ? "error" : inFlight > 0 ? "checking" : this.settings.setupDone ? "ready" : "setup",
+      state: this.starting ? "starting" : error ? "error" : inFlight > 0 ? "checking" : this.settings.setupDone ? "ready" : "setup",
       count,
       refused: path ? this.ledger.countForNote(path) : 0,
       held,
@@ -610,10 +707,10 @@ class TolbenSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Unload the model when idle")
-      .setDesc("Minutes of no typing before a model server Tolben started is stopped and its memory returned, 0 to keep it loaded. "
-        + "The first sentence after it comes back is slow — about 40 seconds on a 4-core CPU, because the prompt has to be read "
-        + "in again — so set this to 0 if you would rather keep the 2 GB and never wait. A server you started yourself is "
-        + "never stopped.")
+      .setDesc("Minutes of no typing before a model server Tolben started is stopped and its 2 GB returned, 0 to keep it loaded. "
+        + "It comes back by itself when you finish a sentence, but slowly — about a minute on a 4-core CPU, while the status bar "
+        + "says \"starting the model\": the files are re-verified, the server restarted and the prompts read in again. "
+        + "Set this to 0 if you would rather keep the 2 GB and never wait. A server you started yourself is never stopped.")
       .addText((text) => text
         .setPlaceholder(String(DEFAULTS.idleUnloadMinutes))
         .setValue(String(this.plugin.settings.idleUnloadMinutes))

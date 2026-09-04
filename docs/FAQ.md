@@ -55,19 +55,26 @@ files live under `tolben/` in your OS data directory, deliberately outside the v
 inside a synced vault is a bad afternoon for whoever pays for the sync.
 
 **RAM.** `llama-server` measured at **RSS ≈ 1.96 GB** at the 4096 context the plugin uses
-(weights plus KV cache). "Unload the model when idle" is on by default at 10 minutes: a
-server Tolben started is stopped after that long without typing and the memory returned. A
-server you started yourself is never stopped.
+(weights plus KV cache). "Unload the model when idle" is on by default at 60 minutes: a
+server Tolben started is stopped after that long without typing and the memory returned,
+and the next sentence you finish brings it back. A server you started yourself is never
+stopped.
 
 That setting is a real trade rather than a free saving, and it is worth knowing which side
-you want. **The first sentence after a server starts takes about 41 seconds** on the
-4-core CPU every figure here comes from; every sentence after it takes about 1.5 s. What
-costs the 41 seconds is reading the 1,587-token instruction prompt in, once per server
-process. So leaving the unload on means paying that once per idle period, and setting it
-to **0** means keeping 2 GB resident and never waiting. Tolben does save and restore the
-model's KV cache across the unload, but measured on 2026-09-03 it does not shorten that
-first sentence — 41.2 s with the restore against 41.4 s without — so it is not offered
-here as a reason to leave the setting on.
+you want. **Starting the model takes about 40 seconds** on the 4-core CPU every figure
+here comes from: the 1,587-token instruction prompt and the verifier's prompt are read in
+once per server process, under `Tolben: starting the model`, before any sentence is sent.
+That happens at setup, at every launch of Obsidian, and on the way back from the idle
+unload, where the files are also re-verified first — about 50 s in all, measured on
+2026-09-04. Sentences you finish meanwhile wait for it; the first one after answers in
+about 5 s and every one after in 1–2 s. So leaving the unload on means paying that once
+per idle period, and setting it to **0** means keeping 2 GB resident and never waiting.
+Tolben does save and restore the model's KV cache across the unload, but measured on
+2026-09-03 it does not shorten the way back — 41.2 s to the first sentence with the
+restore against 41.4 s without — so it is not offered here as a reason to leave the
+setting on. (In 1.0.0 none of this worked: the server was never started again after the
+unload or after a restart, and the first sentence paid the forty seconds itself and failed
+at the 12 s timeout. `REPORT.md`, 2026-09-04, has both the finding and the fix.)
 
 **No GPU is required.** The closing measurements were taken on 4 × Intel Xeon @ 2.10 GHz,
 15 GB RAM, CPU only: per-sentence latency **p50 1343 ms, p95 2532 ms, max 14594 ms** across
@@ -250,12 +257,15 @@ what is in scope and gives the response windows.
 
 ## Is it finished? What is next?
 
-The Obsidian plugin is complete and tested — 928 tests, 925 passing, 0 failing and 0 skipped
+The Obsidian plugin is complete and tested — 943 tests, 940 passing, 0 failing and 0 skipped
 against a live model server. CI runs the suite on macOS, Windows and Ubuntu on every push,
 and a separate job runs the provisioner's full download-and-spawn on four runners. Version
 1.0.0 was released on 2026-09-03: `release.yml` built it from the `v1.0.0` tag, and the
-`SHA256SUMS` it attached match the committed tree byte for byte. `CHANGELOG.md` has the
-entry. It is not yet in the community-plugin directory; until it is, install from the
+`SHA256SUMS` it attached match the committed tree byte for byte. 1.0.1 followed on
+2026-09-04 with three fixes to the managed-server path that 1.0.0 had shipped broken — the
+setup download, the first sentence on a fresh server, and coming back after the idle unload
+or a restart; `CHANGELOG.md` has both entries and `REPORT.md` the measurements. It is not
+yet in the community-plugin directory; until it is, install from the
 release as the README describes, or through BRAT.
 
 Deliberate limits today: desktop only, Reading view does nothing, and the markdown

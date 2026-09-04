@@ -5,7 +5,7 @@ your own machine, and refuses any rewrite it cannot prove keeps your meaning.**
 
 ![Tolben in Obsidian: a sentence with two blue underlines, and a hover card proposing "evaluated" in place of "carried out an evaluation of", with Replace and Dismiss. The status bar reads "Tolben: ready · local · 2 suggestions · 2 refused".](docs/tolben-in-obsidian.png)
 
-*Tolben 1.0.0 in Obsidian 1.13.7, with the pinned llama.cpp build and Qwen3.5-2B behind
+*Tolben in Obsidian 1.13.7, with the pinned llama.cpp build and Qwen3.5-2B behind
 it. Of the four sentences in that note, two got a suggestion and two rewrites were
 refused by the gate — the status bar counts both.*
 
@@ -36,7 +36,9 @@ nowhere to run one.
 3. Turn off Restricted Mode, then enable **Tolben** under
    Settings → Community plugins.
 4. Run the command **Tolben: Set up the model server** and read the plan it shows you
-   before pressing anything.
+   before pressing anything. After the download it starts the server and reads the prompts
+   in, about a minute on a 4-core CPU, and says so; from then on a sentence answers in a
+   second or two.
 
 ### What setup downloads, and where it puts it
 
@@ -81,14 +83,19 @@ number.
 
 - `llama-server` RSS ≈ **1.96 GB** at the 4096 context the plugin uses.
 - About **1.5 GB of disk** for the model, plus the server archive.
-- The **first sentence after a server starts costs about 41 seconds** on this machine, and
-  every one after it about 1.5 s. That is the 1,587-token clarity prompt being read in,
-  once per server process.
-- "Unload the model when idle" is therefore a real trade, and it is on by default at ten
-  minutes: you get 2 GB back and pay that 41 seconds on your next sentence. Set it to 0 to
-  keep the model resident. The KV slot is saved and restored across the unload, but
-  measurement says it does not shorten that first sentence — 41.2 s with the restore
-  against 41.4 s without.
+- **Starting the model costs about 40 seconds** on this machine, once per server
+  process: the 1,587-token clarity prompt and the verifier's prompt being read in. That
+  happens under `Tolben: starting the model` before any sentence is sent — at setup, at
+  every launch of Obsidian, and after the idle unload — and sentences you finish meanwhile
+  wait for it. The first sentence after it answers in about 5 s, every one after in
+  1–2 s. (In 1.0.0 the first sentence paid the forty seconds itself and met the 12 s
+  timeout twice instead; `REPORT.md`, 2026-09-04.)
+- "Unload the model when idle" is therefore a real trade, and the default is sixty
+  minutes: you get 2 GB back, and the sentence that brings the model back waits about
+  50 s on this machine — the files re-verified, the server restarted, the prompts read in.
+  Set it to 0 to keep the model resident. The KV slot is saved and restored across the
+  unload, but measurement says it does not shorten the way back — 41.2 s to the first
+  sentence with the restore against 41.4 s without.
 
 ## How it works
 
@@ -131,12 +138,13 @@ npm run model          # needs llama.cpp's llama-server on PATH; -m models/Qwen3
 npm start              # http://127.0.0.1:4173
 
 # 4. tests, controls and benchmarks
-npm test               # 928 tests, 925 pass, 0 skipped with a model server; without one, 6 skip
+npm test               # 943 tests, 940 pass, 0 skipped with a model server; without one, 6 skip
 npm run lint:prose     # the claims this repository is not allowed to make
 npm run playground:build   # and `node playground/build.mjs --check`, which fails if the page would phone home
 node bench/oracle.mjs           # Grammarly-replay ceiling of the safety gate     (no model needed)
 node bench/precision-check.mjs  # meaning-changing rewrites that reach the writer (no model needed)
 node bench/unlock-check.mjs     # refusals that a change quietly unlocked         (no model needed)
+node tools/plugin-lifecycle.mjs --state /tmp/tolben-rig --fresh   # the shipped bundle through setup, unload and restart, against a real server
 node bench/run.mjs --corpus bench/corpus/development.json --prompt src/clarity-prompt.txt \
   --verifier src/verifier-prompt.txt --model-path models/Qwen3.5-2B-Q6_K.gguf --output /tmp/run.json
 node bench/score.mjs /tmp/run.json

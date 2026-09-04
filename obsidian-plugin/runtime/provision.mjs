@@ -17,8 +17,8 @@
 // headless CLI and the tests all watch the same thing.
 
 import { join } from "node:path";
-import { mkdir, rm } from "node:fs/promises";
-import { downloadVerified } from "./download.mjs";
+import { mkdir, rm, stat } from "node:fs/promises";
+import { downloadVerified, hashOf } from "./download.mjs";
 import { extract } from "./unpack.mjs";
 import { cpuFeatures } from "./cpu.mjs";
 import { detectRunning, hasPinnedModel } from "./detect.mjs";
@@ -163,35 +163,46 @@ export async function provision({
     });
   }
 
-  if (!confirmed) {
-    throw new ProvisionError(
-      `Provisioning would download ${decided.items.length} file(s), ${formatBytes(decided.totalBytes)}. `
-      + "Nothing was fetched: call provision({ confirmed: true }) once a person has seen the plan.",
-      { kind: "unconfirmed" },
-    );
-  }
-
   const runtimeDir = join(stateDir, RUNTIME_DIR);
   const modelDir = join(stateDir, MODEL_DIR);
   await mkdir(runtimeDir, { recursive: true });
   await mkdir(modelDir, { recursive: true });
 
+  // What is already on disk and matches its pin needs neither confirmation nor a fetch.
+  // The plugin comes back this way after an idle unload and at every launch, and it must
+  // never download on its own: the setup pane, where a person has seen every URL, byte
+  // count and hash, is the only place a download is agreed to. So the check runs before
+  // the refusal, and a file that is present and right is simply used.
+  const placed = [];
+  for (const item of decided.items) {
+    const destination = item.kind === "runtime" ? join(runtimeDir, item.name) : join(modelDir, item.name);
+    placed.push({ item, destination, pinned: await isPinnedOnDisk(destination, item.sha256) });
+  }
+  const missing = placed.filter(({ pinned }) => !pinned);
+  if (!confirmed && missing.length) {
+    const bytes = missing.reduce((sum, { item }) => sum + (item.bytes ?? 0), 0);
+    throw new ProvisionError(
+      `Provisioning would download ${missing.length} file(s), ${formatBytes(bytes)}. `
+      + "Nothing was fetched: call provision({ confirmed: true }) once a person has seen the plan.",
+      { kind: "unconfirmed" },
+    );
+  }
+
   let binary = null;
   let modelPath = null;
-  for (const item of decided.items) {
-    const destination = item.kind === "runtime"
-      ? join(runtimeDir, item.name)
-      : join(modelDir, item.name);
+  for (const { item, destination, pinned } of placed) {
     onEvent({ phase: "download", item, destination });
-    const result = await downloadVerified({
-      url: item.url,
-      destination,
-      sha256: item.sha256,
-      bytes: item.bytes,
-      fetchImpl,
-      signal,
-      onProgress: (progress) => onEvent({ phase: "progress", item, ...progress }),
-    });
+    const result = pinned
+      ? { path: destination, bytes: item.bytes, reused: true }
+      : await downloadVerified({
+        url: item.url,
+        destination,
+        sha256: item.sha256,
+        bytes: item.bytes,
+        fetchImpl,
+        signal,
+        onProgress: (progress) => onEvent({ phase: "progress", item, ...progress }),
+      });
     onEvent({ phase: "downloaded", item, reused: result.reused });
     if (item.kind === "model") { modelPath = destination; continue; }
 
@@ -249,6 +260,17 @@ export async function provision({
     stop: (options) => handle.stop(options),
     handle,
   };
+}
+
+// Present, non-empty, and hashing to the pin. Anything else is "not there", including a
+// file of the right name with the wrong bytes.
+async function isPinnedOnDisk(path, sha256) {
+  try {
+    if ((await stat(path)).size <= 0) return false;
+  } catch {
+    return false;
+  }
+  return (await hashOf(path)) === sha256;
 }
 
 function runtimeForItem(item) {
