@@ -2439,3 +2439,39 @@ node tools/plugin-lifecycle.mjs --state /tmp/lifecycle-2 --archive llama-b10760-
 LD_LIBRARY_PATH=<b10760> <b10760>/llama-server -m models/Qwen3.5-2B-Q6_K.gguf --host 127.0.0.1 --port 8080 -c 4096 -np 1 --jinja --reasoning off &
 npm test
 ```
+
+### Addendum, later the same day — the release exists, and its tag is one character wrong
+
+`v1.0.1` was published at 19:51:54 UTC by `release.yml`, dispatched by the owner. This
+session's token was refused a tag push (HTTP 403, as on 2026-09-03) and then a workflow
+dispatch ("Resource not accessible by integration"), so the workflow gained a dispatch
+path that creates the tag itself — on the checked-out commit, after the suite has passed,
+with the job's own token — and the owner pressed the button. The tag is `c9db03f`. Six
+assets, each hashing to the line `SHA256SUMS` carries for it and to the same file in the
+tagged tree and in this working tree:
+
+```
+434156346975aff5f9bc4e6d297e7812732ccf9a0fc43fc8f1c624c0b5cbe27a  main.js
+45a9cbd57757fef373e84902941603eb35b532ad2d0012d1425bd2308ea0ee83  manifest.json
+60d830cfd1819a2df97c3268b7f5213c73b132d8fdf08c6170c1982d31936065  styles.css
+96e642853580200a919ee6d9332a1314154f3fe244194c17c4c2075a3fd8acfc  LICENSE
+64ca6a3ec34c9600b42ead5f64171760806e851be89e1468291d93000beb2b9f  NOTICE
+```
+
+`main.js` is the bundle every run in the section above loaded, byte for byte, so the rig
+was run once more on it for the record rather than for a surprise: prompts read in
+40.7 s, first sentence 5.7 s, the next eight 1.0–1.8 s, back 53.4 s after the unload,
+ready 51.8 s after a relaunch, no findings.
+
+**The tag.** docs.obsidian.md, "Release your plugin with GitHub Actions": *"Create a tag
+that matches the version in the `manifest.json` file."* `v1.0.1` does not match `1.0.1`,
+and neither did `v1.0.0`; Obsidian's directory installer will not find either. BRAT
+coerces the tag before comparing, so the beta is unaffected, and a person following the
+README downloads the files by name. The directory-submission packet said exactly this on
+2026-09-03, about `v1.0.0`, under the heading "this is the blocker", and it was not acted
+on: the roadmap's 3.4 row recorded three blockers fixed, and this was not among them. As
+of this commit `release.yml` creates a bare tag on a dispatch and accepts either form on a
+push; the two releases already made keep their names, and before the directory PR the
+1.0.1 release has to carry the tag `1.0.1` — an edit on the release page, or a second
+dispatch with the `v1.0.1` release deleted afterwards. Either is a minute for the owner
+and neither is possible for this token.

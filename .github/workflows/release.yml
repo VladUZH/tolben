@@ -9,16 +9,23 @@
 # made — the second path exists because the token that drives the repository from a
 # remote session may push commits but not tags, and a release should not depend on which
 # machine the person is sitting at. Everything else is mechanical once the tag exists.
+#
+# The tag carries no "v": Obsidian's directory installer looks for a release tagged
+# identically to the version in manifest.json (docs.obsidian.md, "Create a tag that
+# matches the version in the manifest.json file"), so `1.0.1` is found and `v1.0.1` is
+# not. A dispatch creates the bare tag; a prefixed tag pushed by hand is still accepted,
+# because BRAT and a person can install from it, but the directory cannot. v1.0.0 and
+# v1.0.1 were made before this was acted on (REPORT.md, 2026-09-04, the addendum).
 
 name: release
 
 on:
   push:
-    tags: ["v*"]
+    tags: ["v*", "[0-9]*"]
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to release, e.g. 1.0.1. Must equal the manifest's; the tag v<version> is created on the dispatched ref."
+        description: "Version to release, e.g. 1.0.2. Must equal the manifest's; the tag <version> (no v) is created on the dispatched ref."
         required: true
 
 permissions:
@@ -28,7 +35,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     env:
-      TAG: ${{ github.event_name == 'workflow_dispatch' && format('v{0}', github.event.inputs.version) || github.ref_name }}
+      TAG: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.version || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -48,8 +55,8 @@ jobs:
         id: tag
         run: |
           if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
-            tag="v${{ github.event.inputs.version }}"
-            if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            tag="${{ github.event.inputs.version }}"
+            if [ -n "$(git ls-remote --tags origin "refs/tags/$tag")" ]; then
               echo "$tag already exists"; exit 1
             fi
             git config user.name "github-actions[bot]"
@@ -96,7 +103,7 @@ jobs:
       - name: Release notes
         id: notes
         run: |
-          file=".github/release-notes/$TAG.md"
+          file=".github/release-notes/v${TAG#v}.md"
           if [ -f "$file" ]; then
             echo "name=$(head -n 1 "$file" | sed 's/^# *//')" >> "$GITHUB_OUTPUT"
             tail -n +2 "$file" > dist/RELEASE_BODY.md

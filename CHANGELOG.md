@@ -18,6 +18,12 @@ running the shipped bundle against a real `llama-server` for the first time, non
 visible to the 928 tests 1.0.0 shipped with. `REPORT.md` under that date has the run that
 found them and the run that shows them fixed.
 
+Published the same day by `release.yml`, dispatched by the owner after this session's token
+was refused both a tag push and a dispatch; the six assets hash to the `SHA256SUMS` attached
+and to the tree at `c9db03f`, and the lifecycle rig ran clean on those bytes. Tagged
+`v1.0.1`, a prefix Obsidian's directory installer does not accept and the workflow no longer
+adds; the release has to carry the tag `1.0.1` before the directory submission.
+
 ### Fixed
 - **The setup pane could not download.** The plugin's own fetch followed no redirect and
   exposed no body, and GitHub and Hugging Face both answer a release URL with a 302, so
