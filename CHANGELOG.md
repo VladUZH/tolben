@@ -21,8 +21,9 @@ found them and the run that shows them fixed.
 Published the same day by `release.yml`, dispatched by the owner after this session's token
 was refused both a tag push and a dispatch; the six assets hash to the `SHA256SUMS` attached
 and to the tree at `c9db03f`, and the lifecycle rig ran clean on those bytes. Tagged
-`v1.0.1`, a prefix Obsidian's directory installer does not accept and the workflow no longer
-adds; the release has to carry the tag `1.0.1` before the directory submission.
+`v1.0.1` at first, a prefix Obsidian's directory installer does not accept and the workflow
+no longer adds; on 2026-09-06 the release was repointed at the bare tag `1.0.1`, and
+`v1.0.1` is kept as a tag on the same commit.
 
 ### Fixed
 - **The setup pane could not download.** The plugin's own fetch followed no redirect and

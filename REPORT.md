@@ -2475,3 +2475,50 @@ push; the two releases already made keep their names, and before the directory P
 1.0.1 release has to carry the tag `1.0.1` — an edit on the release page, or a second
 dispatch with the `v1.0.1` release deleted afterwards. Either is a minute for the owner
 and neither is possible for this token.
+
+
+## 2026-09-06 — the release tag, set, and a machine that was measuring the wrong bytes
+
+The item the section above left for the owner is done, from the owner's own machine. The
+1.0.1 release carries the tag `1.0.1`.
+
+`git tag -a 1.0.1 c9db03f` — the commit whose tree the six assets hash to — pushed to
+`origin`, then the release object repointed at it with
+`gh api -X PATCH repos/VladUZH/tolben/releases/382980890 -f tag_name=1.0.1`. The release
+keeps its id, its title, its publication time of 2026-09-04 19:51:54 UTC, its six assets
+and its Latest badge; the tag it hangs from is all that moved. What the installer reads
+now resolves:
+
+```
+releases/download/1.0.1/manifest.json   HTTP 200   (id tolben, version 1.0.1)
+releases/download/1.0.1/main.js         HTTP 200
+releases/download/v1.0.1/manifest.json  HTTP 404
+```
+
+That 404 is the cost, and it is stated rather than buried: `v1.0.1` survives as a tag on
+`c9db03f`, so a clone or a checkout of that name still works, but assets belong to the
+release and the release moved, so the prefixed download URLs are gone. Nothing in the tree
+or the README pointed at them and BRAT reads the latest release rather than a tag name.
+1.0.0 keeps its `v1.0.0` tag and release: the directory resolves the version in
+`manifest.json`, which is 1.0.1.
+
+**Two things about this machine, recorded because either would have made a number here
+wrong.** `models/Qwen3.5-2B-Q6_K.gguf` was a symlink, made 2026-08-27, into an old
+prototype worktree, and it resolved to the 1,574,961,408-byte August artefact rather than
+the 1,556,390,368-byte one `models/MANIFEST.json` pins. `npm run models:verify` failed on
+it, and the `llama-server` that had been up nine days was started from that worktree and
+had that file open — so the six live-model tests had been answering from unpinned bytes,
+and the suite's 943/940/0-skipped agreeing with the 1.0.1 row was luck. The symlink is
+replaced by the pinned artefact (`npm run models:fetch`, verified), and the suite re-run
+against a server holding it, confirmed with `lsof`: **943 tests, 940 pass, 0 fail, 0
+skipped, 3 todo**. The three instruments are unmoved — oracle 88/118 (73 hard-accept, 15
+verifier, 30 refused), precision 0 of 281 accepted rows, unlock 0 of 209 refusals. No
+latency figure was taken: two servers were sharing the GPU and the load average was above
+2, which is the condition this project discards a timed run for.
+
+The other was hygiene. The GECToR artefacts deleted from the tree in phase 1.1 were still
+on disk under `models/gector/` — 130 MB of non-commercially licensed weights inside a
+public Apache-2.0 checkout, untracked and not ignored, so one `git add -A` would have
+staged them — with the pre-rename `obsidian-probe/` beside them holding three generated
+files. Both are gone, and `git status` is clean.
+
