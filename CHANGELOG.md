@@ -23,7 +23,10 @@ was refused both a tag push and a dispatch; the six assets hash to the `SHA256SU
 and to the tree at `c9db03f`, and the lifecycle rig ran clean on those bytes. Tagged
 `v1.0.1` at first, a prefix Obsidian's directory installer does not accept and the workflow
 no longer adds; on 2026-09-06 the release was repointed at the bare tag `1.0.1`, and
-`v1.0.1` is kept as a tag on the same commit.
+`v1.0.1` is kept as a tag on the same commit, with a second release published on it that
+carries the same six assets so links made under the old name keep resolving. The releases
+page therefore lists 1.0.1 twice: `1.0.1` is the canonical one and the one marked Latest,
+and `v1.0.1` is the same build under its former tag.
 
 ### Fixed
 - **The setup pane could not download.** The plugin's own fetch followed no redirect and

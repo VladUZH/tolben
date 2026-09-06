@@ -2502,6 +2502,24 @@ or the README pointed at them and BRAT reads the latest release rather than a ta
 1.0.0 keeps its `v1.0.0` tag and release: the directory resolves the version in
 `manifest.json`, which is 1.0.1.
 
+**Later the same day, the 404 was closed rather than accepted.** A second release was
+published on the `v1.0.1` tag carrying the same six assets, so both URL forms resolve:
+
+```
+releases/download/1.0.1/{main.js,manifest.json,styles.css,SHA256SUMS,LICENSE,NOTICE}   200
+releases/download/v1.0.1/{main.js,manifest.json,styles.css,SHA256SUMS,LICENSE,NOTICE}  200
+```
+
+The bytes were checked, not assumed. Each asset was downloaded from both tags and compared:
+identical across all six, each verifying against the attached `SHA256SUMS`, and each equal
+to the tree at `c9db03f` — `main.js` to `obsidian-plugin/main.js`, `manifest.json` to the
+root one, `styles.css` to `obsidian-plugin/styles.css`, `LICENSE` and `NOTICE` to
+themselves. The alias release is created with `--latest=false` and the API confirms
+`releases/latest` still answers `1.0.1`, which is what the directory installer and BRAT
+read; its notes say in the first line that it is the same build and that 1.0.1 is the
+canonical one, so a reader who lands on it from an old link is not left choosing between
+two releases of the same version.
+
 **Two things about this machine, recorded because either would have made a number here
 wrong.** `models/Qwen3.5-2B-Q6_K.gguf` was a symlink, made 2026-08-27, into an old
 prototype worktree, and it resolved to the 1,574,961,408-byte August artefact rather than
